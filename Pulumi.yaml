@@ -1,0 +1,3 @@
+name: AWSGoTest
+runtime: go
+description: Testing provisionning infrastructure using AWS Go Pulumi
