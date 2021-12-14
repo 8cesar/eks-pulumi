@@ -1,0 +1,18 @@
+apiVersion: 1
+
+datasources:
+  - name: 'DevOps'
+    type: 'grafana-azure-monitor-datasource'
+    access: 'proxy'
+    jsonData:
+      azureAuthType: clientsecret
+      cloudName: azuremonitor
+      tenantId: 3145cea7-e759-4aeb-b8fc-506e0a02fd91
+      clientId: b26952df-d613-426f-a817-74c49f82b9a7
+      # GFX PROD (csp)
+      subscriptionId: 58d729f3-33af-4981-84ca-93e537fbdfbc
+    secureJsonData:
+      clientSecret: 7~Da42m5~ixurcfpyK6P-3Se46n~_.hbmb
+    isDefault: true
+    version: 1
+    editable: true
