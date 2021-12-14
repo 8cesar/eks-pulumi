@@ -1,0 +1,45 @@
+trigger: none
+schedules:
+  - cron: 0 6 * * 0
+    displayName: Weekly Sunday 06:00 security scan
+    branches:
+      include:
+        - main
+name: $(date:yyyyMMdd)$(rev:.r)
+jobs:
+  - job: Job_1
+    displayName: Windows 2019 agent job
+    pool:
+      vmImage: windows-2019
+    steps:
+      - checkout: self
+        clean: False
+      - task: AntiMalware@3
+        displayName: AntiMalware Scan
+        continueOnError: True
+        inputs:
+          EnableServices: true
+          SignatureFreshness: OneDay
+      - task: CredScan@2
+        displayName: Run Credential Scanner
+        continueOnError: True
+        inputs:
+          toolMajorVersion: V2
+          outputFormat: sarif
+          toolVersionV2: LatestPreRelease
+          verboseOutput: true
+      - task: TSLint@1
+        displayName: Run TSLint
+        continueOnError: True
+      - task: SdtReport@1
+        displayName: Create Security Analysis Report
+        continueOnError: True
+        inputs:
+          AllTools: true
+      - task: PublishSecurityAnalysisLogs@2
+        displayName: Publish Security Analysis Logs
+      - task: PostAnalysis@1
+        displayName: Post Analysis
+        continueOnError: True
+        inputs:
+          AllTools: true
