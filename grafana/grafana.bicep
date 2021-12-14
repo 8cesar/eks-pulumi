@@ -9,13 +9,13 @@ param grafanaImageName string
 param grafanaPassword string
 @secure()
 param grafanaDatabaseUrl string
-param grafanaCpuRequests int
-param grafanaMemoryRequests int
+param grafanaCpuRequest int
+param grafanaMemoryRequest int
 param mysqlUser string
 @secure()
 param mysqlPassword string
-param mysqlCpuRequests int
-param mysqlMemoryRequests int
+param mysqlCpuRequest int
+param mysqlMemoryRequest int
 param containerRegistryLoginServer string
 param containerRegistryUsername string
 @secure()
@@ -118,8 +118,8 @@ resource grafanaContainers 'Microsoft.ContainerInstance/containerGroups@2021-07-
           ]
           resources: {
             requests: {
-              cpu: mysqlCpuRequests
-              memoryInGB: mysqlMemoryRequests
+              cpu: mysqlCpuRequest
+              memoryInGB: mysqlMemoryRequest
             }
           }
           ports: [
@@ -156,8 +156,8 @@ resource grafanaContainers 'Microsoft.ContainerInstance/containerGroups@2021-07-
           ]
           resources: {
             requests: {
-              cpu: grafanaCpuRequests
-              memoryInGB: grafanaMemoryRequests
+              cpu: grafanaCpuRequest
+              memoryInGB: grafanaMemoryRequest
             }
           }
           ports: [
