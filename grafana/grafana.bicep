@@ -199,5 +199,10 @@ resource grafanaContainers 'Microsoft.ContainerInstance/containerGroups@2021-07-
       ip: '10.3.15.6'
       type: 'Private'
     }
+    subnetIds: [
+      {
+        id: subnetId
+      }
+    ]
   }
 }
