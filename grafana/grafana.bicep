@@ -52,8 +52,6 @@ resource storageAccount 'Microsoft.Storage/storageAccounts@2021-06-01' = {
       }
     }
     minimumTlsVersion: 'TLS1_2'
-    allowBlobPublicAccess: false
-    publicNetworkAccess: 'Disabled'
   }
 }
 
