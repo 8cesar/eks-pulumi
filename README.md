@@ -13,7 +13,7 @@ The reason we use watchers and heartbeats is because the heartbeats only check o
 
 ## Azure Alerts
 
-The alerts are deployed via the [Alerts - Azure](https://dev.azure.com/greenflux/Shared/_release?view=mine&_a=releases&definitionId=9) release pipeline.
+The alerts are deployed via the [Azure Alerts](https://dev.azure.com/greenflux/Shared/_release?view=mine&_a=releases&definitionId=9) release pipeline.
 
 ### Severity levels and actions
 
