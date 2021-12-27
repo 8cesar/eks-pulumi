@@ -47,23 +47,26 @@ The API connections are used to connect the Logic Apps to MS Teams.
 We use 3 logic apps: 2 for metrics and 1 for service health alerts in a resource's activity log.
 
 The reason we use 2 logic apps for metric alerts and not 1 is a legacy one that will be soon restructured: we hit the [nesting depth](https://docs.microsoft.com/en-us/azure/logic-apps/logic-apps-limits-and-config?tabs=azure-portal#workflow-definition-limits) with the first logic app, so our team created a second one to extend our monitoring capabilities. The second Logic App currently deals with the Charge Assist and Charge Station alerts.
+-->
 
 ## Elastic Watchers
 
-We have 2 types of watchers:
+WORK IN PROGRESS
+<!-- We have 2 types of watchers:
 
 1. URL endpoints - index starting with 0 (e.g. _[001PROD-gsop-gfx-ocpicdrservice.json]()_)
 2. Query watchers - index starting with 1 (e.g _[101GfxProdOcpiPublisherPost-CdrsSuccessfullyPublishedLessThan1.json]()_)
 
 They are both deployed by the [Alerts - Elastic Watchers](https://dev.azure.com/greenflux/Shared/_release?view=mine&_a=releases&definitionId=11) release pipeline.
 
-You can find the Watchers in [Elastic](https://aa72c8caf80943bab3ce3eb7a4bc0530.westeurope.azure.elastic-cloud.com:9243/app/management/insightsAndAlerting/watcher/watches).
+You can find the Watchers in [Elastic](https://aa72c8caf80943bab3ce3eb7a4bc0530.westeurope.azure.elastic-cloud.com:9243/app/management/insightsAndAlerting/watcher/watches). -->
 
 ## Elastic Heartbeats
 
-Defined in []().
+WORK IN PROGRESS
 
 ## Grafana dashboards
--->
 
-TBD
+**NOTE**: Currently in the testing phase.
+
+The dashboards are deployed via the [Grafana](https://dev.azure.com/greenflux/Shared/_release?_a=releases&view=mine&definitionId=49) release pipeline.
