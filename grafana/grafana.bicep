@@ -9,13 +9,9 @@ param grafanaImageName string
 param grafanaPassword string
 @secure()
 param grafanaDatabaseUrl string
-param grafanaCpuRequest int
-param grafanaMemoryRequest int
 param mysqlUser string
 @secure()
 param mysqlPassword string
-param mysqlCpuRequest int
-param mysqlMemoryRequest int
 param containerRegistryLoginServer string
 param containerRegistryUsername string
 @secure()
@@ -63,8 +59,8 @@ resource fileShare 'Microsoft.Storage/storageAccounts/fileServices/shares@2021-0
 }
 
 resource networkProfile 'Microsoft.Network/networkProfiles@2021-03-01' = {
-  location: location
   name: networkProfileName
+  location: location
   properties: {
     containerNetworkInterfaceConfigurations: [
       {
@@ -87,8 +83,8 @@ resource networkProfile 'Microsoft.Network/networkProfiles@2021-03-01' = {
 }
 
 resource grafanaContainers 'Microsoft.ContainerInstance/containerGroups@2021-07-01' = {
-  location: location
   name: grafanaContainerName
+  location: location
   tags: tags
   properties: {
     containers: [
@@ -116,8 +112,8 @@ resource grafanaContainers 'Microsoft.ContainerInstance/containerGroups@2021-07-
           ]
           resources: {
             requests: {
-              cpu: mysqlCpuRequest
-              memoryInGB: mysqlMemoryRequest
+              cpu: 1
+              memoryInGB: 1
             }
           }
           ports: [
@@ -154,8 +150,8 @@ resource grafanaContainers 'Microsoft.ContainerInstance/containerGroups@2021-07-
           ]
           resources: {
             requests: {
-              cpu: grafanaCpuRequest
-              memoryInGB: grafanaMemoryRequest
+              cpu: 1
+              memoryInGB: 2
             }
           }
           ports: [
