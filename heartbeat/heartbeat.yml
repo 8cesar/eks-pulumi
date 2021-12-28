@@ -1,0 +1,776 @@
+heartbeat.monitors:
+  - type: icmp
+    id: gfx-tele2-gateway
+    name: Tele2 tunnel
+    tags: ["GFX", "PROD", "DevOps-Team", "24/7"]
+    schedule: "@every 300s"
+    hosts: ["10.32.0.1"]
+    timeouts: 10s
+  - type: icmp
+    id: gfx-dns-1
+    name: DNS container 1
+    tags: ["GFX", "PROD", "DevOps-Team", "24/7"]
+    schedule: "@every 300s"
+    hosts: ["10.3.10.4"]
+    timeouts: 10s
+  - type: icmp
+    id: gfx-dns-2
+    name: DNS container 2
+    tags: ["GFX", "PROD", "DevOps-Team", "24/7"]
+    schedule: "@every 300s"
+    hosts: ["10.3.10.5"]
+    timeouts: 10s
+  - type: icmp
+    id: gfx-devopsagent
+    name: Azure DevOps agent container
+    tags: ["GFX", "PROD", "DevOps-Team", "24/7"]
+    schedule: "@every 300s"
+    hosts: ["10.3.14.5"]
+    timeouts: 10s
+  - type: icmp
+    id: gfx-ntp
+    name: NTP container
+    tags: ["GFX", "PROD", "DevOps-Team", "24/7"]
+    schedule: "@every 300s"
+    hosts: ["10.3.20.5"]
+    timeouts: 10s
+  - type: icmp
+    id: gfx-grafana
+    name: Grafana container
+    tags: ["GFX", "PROD", "DevOps-Team"]
+    schedule: "@every 300s"
+    hosts: ["10.3.15.5"]
+    timeouts: 10s
+  - type: http
+    id: gsop-gfx-ocpicdrservice
+    name: OCPI CdrService
+    tags: ["GFX", "PROD", "Integration-Team", "24/7"]
+    schedule: "@every 60s"
+    urls: ["https://gsop-gfx-ocpicdrservice.azurewebsites.net/api/health"]
+    ports: [443]
+    timeouts: 10s
+    check.response.status: [200]
+  - type: http
+    id: gsop-gfx-ocpichargingtokenmanager
+    name: OCPI ChargingTokenManager
+    tags: ["GFX", "PROD", "Integration-Team"]
+    schedule: "@every 60s"
+    urls: ["https://gsop-gfx-ocpichargingtokenmanager.azurewebsites.net/api/health"]
+    ports: [443]
+    timeouts: 10s
+    check.response.status: [200]
+  - type: http
+    id: gsop-gfx-ocpicommands
+    name: OCPI Commands
+    tags: ["GFX", "PROD", "Integration-Team", "24/7"]
+    schedule: "@every 60s"
+    urls: ["https://gsop-gfx-ocpicommands.azurewebsites.net/api/health"]
+    ports: [443]
+    timeouts: 10s
+    check.response.status: [200]
+  - type: http
+    id: gsop-gfx-ocpicredentialsservice2
+    name: OCPI CredentialsService
+    tags: ["GFX", "PROD", "Integration-Team", "24/7"]
+    schedule: "@every 60s"
+    urls: ["https://gsop-gfx-ocpicredentialsservice2.azurewebsites.net/api/health"]
+    ports: [443]
+    timeouts: 10s
+    check.response.status: [200]
+  - type: http
+    id: gsop-gfx-ocpilocationservice
+    name: OCPI LocationService
+    tags: ["GFX", "PROD", "Integration-Team", "24/7"]
+    schedule: "@every 60s"
+    urls: ["https://gsop-gfx-ocpilocationservice.azurewebsites.net/api/health"]
+    ports: [443]
+    timeouts: 10s
+    check.response.status: [200]
+  - type: http
+    id: gsop-gfx-ocpipublisher
+    name: OCPI Publisher
+    tags: ["GFX", "PROD", "Integration-Team", "24/7"]
+    schedule: "@every 60s"
+    urls: ["https://gsop-gfx-ocpipublisher.azurewebsites.net/api/health"]
+    ports: [443]
+    timeouts: 10s
+    check.response.status: [200]
+  - type: http
+    id: gsop-gfx-ocpiservice
+    name: OCPI Service
+    tags: ["GFX", "PROD", "Integration-Team", "24/7"]
+    schedule: "@every 60s"
+    urls: ["https://gsop-gfx-ocpiservice.azurewebsites.net/api/health"]
+    ports: [443]
+    timeouts: 10s
+    check.response.status: [200]
+  - type: http
+    id: gsop-gfx-ocpisessionservice
+    name: OCPI SessionService
+    tags: ["GFX", "PROD", "Integration-Team", "24/7"]
+    schedule: "@every 60s"
+    urls: ["https://gsop-gfx-ocpisessionservice.azurewebsites.net/api/health"]
+    ports: [443]
+    timeouts: 10s
+    check.response.status: [200]
+  - type: http
+    id: gsop-gfx-ocpitariffservice
+    name: OCPI TariffService
+    tags: ["GFX", "PROD", "Integration-Team"]
+    schedule: "@every 60s"
+    urls: ["https://gsop-gfx-ocpitariffservice.azurewebsites.net/api/health"]
+    ports: [443]
+    timeouts: 10s
+    check.response.status: [200]
+  - type: http
+    id: gsop-gfx-oicpbridge
+    name: Hubject Bridge
+    tags: ["GFX", "PROD", "Integration-Team"]
+    schedule: "@every 60s"
+    urls: ["https://gsop-gfx-oicpbridge.azurewebsites.net/api/health"]
+    ports: [443]
+    timeouts: 10s
+    check.response.status: [200]
+  - type: http
+    id: gsop-gfx-oicpcdrservice
+    name: Hubject CdrService
+    tags: ["GFX", "PROD", "Integration-Team"]
+    schedule: "@every 60s"
+    urls: ["https://gsop-gfx-oicpcdrservice.azurewebsites.net/api/health"]
+    ports: [443]
+    timeouts: 10s
+    check.response.status: [200]
+  - type: http
+    id: gsop-gfx-oicpevseservices
+    name: Hubject EvseService
+    tags: ["GFX", "PROD", "Integration-Team"]
+    schedule: "@every 60s"
+    urls: ["https://gsop-gfx-oicpevseservices.azurewebsites.net/api/health"]
+    ports: [443]
+    timeouts: 10s
+    check.response.status: [200]
+  - type: http
+    id: gsop-gfx-oicpnormalizers
+    name: Hubject Normalizers
+    tags: ["GFX", "PROD", "Integration-Team"]
+    schedule: "@every 60s"
+    urls: ["https://gsop-gfx-oicpnormalizers.azurewebsites.net/api/health"]
+    ports: [443]
+    timeouts: 10s
+    check.response.status: [200]
+  - type: http
+    id: gsop-gfx-oicppublishers
+    name: Hubject Publishers
+    tags: ["GFX", "PROD", "Integration-Team"]
+    schedule: "@every 60s"
+    urls: ["https://gsop-gfx-oicppublishers.azurewebsites.net/api/health"]
+    ports: [443]
+    timeouts: 10s
+    check.response.status: [200]
+  - type: http
+    id: gsop-gfx-oicpservice
+    name: Hubject Service
+    tags: ["GFX", "PROD", "Integration-Team"]
+    schedule: "@every 60s"
+    urls: ["https://gsop-gfx-oicpservice.azurewebsites.net/api/health"]
+    ports: [443]
+    timeouts: 10s
+    check.response.status: [200]
+  - type: http
+    id: gsop-ene-ocpicdrservice
+    name: OCPI CdrService
+    tags: ["ENE", "PROD", "Integration-Team"]
+    schedule: "@every 60s"
+    urls: ["https://gsop-ene-ocpicdrservice.azurewebsites.net/api/health"]
+    ports: [443]
+    timeouts: 10s
+    check.response.status: [200]
+  - type: http
+    id: gsop-ene-ocpichargingtokenmanager
+    name: OCPI ChargingTokenManager
+    tags: ["ENE", "PROD", "Integration-Team"]
+    schedule: "@every 60s"
+    urls: ["https://gsop-ene-ocpichargingtokenmanager.azurewebsites.net/api/health"]
+    ports: [443]
+    timeouts: 10s
+    check.response.status: [200]
+  - type: http
+    id: gsop-ene-ocpicommands
+    name: OCPI Commands
+    tags: ["ENE", "PROD", "Integration-Team"]
+    schedule: "@every 60s"
+    urls: ["https://gsop-ene-ocpicommands.azurewebsites.net/api/health"]
+    ports: [443]
+    timeouts: 10s
+    check.response.status: [200]
+  - type: http
+    id: gsop-ene-ocpicredentialsservice2
+    name: OCPI CredentialsService
+    tags: ["ENE", "PROD", "Integration-Team"]
+    schedule: "@every 60s"
+    urls: ["https://gsop-ene-ocpicredentialsservice2.azurewebsites.net/api/health"]
+    ports: [443]
+    timeouts: 10s
+    check.response.status: [200]
+  - type: http
+    id: gsop-ene-ocpilocationservice
+    name: OCPI LocationService
+    tags: ["ENE", "PROD", "Integration-Team"]
+    schedule: "@every 60s"
+    urls: ["https://gsop-ene-ocpilocationservice.azurewebsites.net/api/health"]
+    ports: [443]
+    timeouts: 10s
+    check.response.status: [200]
+  - type: http
+    id: gsop-ene-ocpipublisher
+    name: OCPI Publisher
+    tags: ["ENE", "PROD", "Integration-Team"]
+    schedule: "@every 60s"
+    urls: ["https://gsop-ene-ocpipublisher.azurewebsites.net/api/health"]
+    ports: [443]
+    timeouts: 10s
+    check.response.status: [200]
+  - type: http
+    id: gsop-ene-ocpiservice
+    name: OCPI Service
+    tags: ["ENE", "PROD", "Integration-Team"]
+    schedule: "@every 60s"
+    urls: ["https://gsop-ene-ocpiservice.azurewebsites.net/api/health"]
+    ports: [443]
+    timeouts: 10s
+    check.response.status: [200]
+  - type: http
+    id: gsop-ene-ocpisessionservice
+    name: OCPI SessionService
+    tags: ["ENE", "PROD", "Integration-Team"]
+    schedule: "@every 60s"
+    urls: ["https://gsop-ene-ocpisessionservice.azurewebsites.net/api/health"]
+    ports: [443]
+    timeouts: 10s
+    check.response.status: [200]
+  - type: http
+    id: gsop-ene-ocpitariffservice
+    name: OCPI TariffService
+    tags: ["ENE", "PROD", "Integration-Team"]
+    schedule: "@every 60s"
+    urls: ["https://gsop-ene-ocpitariffservice.azurewebsites.net/api/health"]
+    ports: [443]
+    timeouts: 10s
+    check.response.status: [200]
+  - type: http
+    id: gfx-scinsights-api-p
+    name: SmartCharging Insights API
+    tags: ["GFX", "PROD", "SmartCharging-Team"]
+    schedule: "@every 60s"
+    urls: ["https://gfx-scinsights-api-p.azurewebsites.net/health"]
+    ports: [443]
+    timeouts: 10s
+    check.response.status: [200]
+  - type: http
+    id: gfx-scinsights-fn-insights-p
+    name: SmartCharging Insights Function
+    tags: ["GFX", "PROD", "SmartCharging-Team"]
+    schedule: "@every 60s"
+    urls: ["https://gfx-scinsights-fn-insights-p.azurewebsites.net/api/gfx/healthCheck"]
+    ports: [443]
+    timeouts: 10s
+    check.response.status: [200]
+  - type: http
+    id: ene-scinsights-api-p
+    name: SmartCharging Insights API
+    tags: ["ENE", "PROD", "SmartCharging-Team"]
+    schedule: "@every 60s"
+    urls: ["https://ene-scinsights-api-p.azurewebsites.net/health"]
+    ports: [443]
+    timeouts: 10s
+    check.response.status: [200]
+  - type: http
+    id: ene-scinsights-fn-insights-p
+    name: SmartCharging Insights Function
+    tags: ["ENE", "PROD", "SmartCharging-Team"]
+    schedule: "@every 60s"
+    urls: ["https://ene-scinsights-fn-insights-p.azurewebsites.net/api/gfx/healthCheck"]
+    ports: [443]
+    timeouts: 10s
+    check.response.status: [200]
+  - type: http
+    id: gfx-smartcharging-api-p
+    name: SmartCharging API
+    tags: ["GFX", "PROD", "SmartCharging-Team"]
+    schedule: "@every 60s"
+    urls: ["https://gfx-smartcharging-api-p.azurewebsites.net/health"]
+    ports: [443]
+    timeouts: 10s
+    check.response.status: [200]
+  - type: http
+    id: gfx-smartcharging-fnevseeventlistener-p
+    name: SmartCharging EventListener
+    tags: ["GFX", "PROD", "SmartCharging-Team"]
+    schedule: "@every 60s"
+    urls: ["https://gfx-smartcharging-fnevseeventlistener-p.azurewebsites.net/api/gfx/healthCheck"]
+    ports: [443]
+    timeouts: 10s
+    check.response.status: [200]
+  - type: http
+    id: gfx-smartcharging-fn-externalmeter-p
+    name: SmartCharging ExternalMeter
+    tags: ["GFX", "PROD", "SmartCharging-Team"]
+    schedule: "@every 60s"
+    urls: ["https://gfx-smartcharging-fn-externalmeter-p.azurewebsites.net/api/gfx/healthCheck"]
+    ports: [443]
+    timeouts: 10s
+    check.response.status: [200]
+  - type: http
+    id: ene-smartcharging-api-p
+    name: SmartCharging API
+    tags: ["ENE", "PROD", "SmartCharging-Team"]
+    schedule: "@every 60s"
+    urls: ["https://ene-smartcharging-api-p.azurewebsites.net/health"]
+    ports: [443]
+    timeouts: 10s
+    check.response.status: [200]
+  - type: http
+    id: ene-smartcharging-fnevseeventlistener-p
+    name: SmartCharging EventListener
+    tags: ["ENE", "PROD", "SmartCharging-Team"]
+    schedule: "@every 60s"
+    urls: ["https://ene-smartcharging-fnevseeventlistener-p.azurewebsites.net/api/gfx/healthCheck"]
+    ports: [443]
+    timeouts: 10s
+    check.response.status: [200]
+  - type: http
+    id: ene-smartcharging-fn-externalmeter-p
+    name: SmartCharging ExternalMeter
+    tags: ["ENE", "PROD", "SmartCharging-Team"]
+    schedule: "@every 60s"
+    urls: ["https://ene-smartcharging-fn-externalmeter-p.azurewebsites.net/api/gfx/healthCheck"]
+    ports: [443]
+    timeouts: 10s
+    check.response.status: [200]
+  - type: http
+    id: gsop-ene-transactionevents
+    name: ChargeStation TransactionEvents
+    tags: ["ENE", "PROD", "ChargeStation-Team"]
+    schedule: "@every 60s"
+    urls: ["https://gsop-ene-transactionevents.azurewebsites.net/api/health"]
+    ports: [443]
+    timeouts: 10s
+    check.response.status: [200]
+  - type: http
+    id: gsop-gfx-transactionevents
+    name: ChargeStation TransactionEvents
+    tags: ["GFX", "PROD", "ChargeStation-Team", "24/7"]
+    schedule: "@every 60s"
+    urls: ["https://gsop-gfx-transactionevents.azurewebsites.net/api/health"]
+    ports: [443]
+    timeouts: 10s
+    check.response.status: [200]
+  - type: http
+    id: gsop-ene-statusservice
+    name: ChargeStation StatusService
+    tags: ["ENE", "PROD", "ChargeStation-Team"]
+    schedule: "@every 60s"
+    urls: ["https://gsop-ene-statusservice.azurewebsites.net/api/health"]
+    ports: [443]
+    timeouts: 10s
+    check.response.status: [200]
+  - type: http
+    id: gsop-gfx-statusservice
+    name: ChargeStation StatusService
+    tags: ["GFX", "PROD", "ChargeStation-Team", "24/7"]
+    schedule: "@every 60s"
+    urls: ["https://gsop-gfx-statusservice.azurewebsites.net/api/health"]
+    ports: [443]
+    timeouts: 10s
+    check.response.status: [200]
+  - type: http
+    id: gsop-ene-cpicpcommander
+    name: ChargeStation CommandService
+    tags: ["ENE", "PROD", "ChargeStation-Team"]
+    schedule: "@every 60s"
+    urls: ["https://gsop-ene-cpicpcommander.azurewebsites.net/api/health"]
+    ports: [443]
+    timeouts: 10s
+    check.response.status: [200]
+  - type: http
+    id: gsop-gfx-cpicpcommander
+    name: ChargeStation CommandService
+    tags: ["GFX", "PROD", "ChargeStation-Team", "24/7"]
+    schedule: "@every 60s"
+    urls: ["https://gsop-gfx-cpicpcommander.azurewebsites.net/api/health"]
+    ports: [443]
+    timeouts: 10s
+    check.response.status: [200]
+  - type: http
+    id: gsop-ene-cpochargelocationservice-all
+    name: ChargeStation ChargeLocationService
+    tags: ["ENE", "PROD", "ChargeStation-Team"]
+    schedule: "@every 60s"
+    urls: ["https://gsop-ene-cpochargelocationservice-all.azurewebsites.net/api/health"]
+    ports: [443]
+    timeouts: 10s
+    check.response.status: [200]
+  - type: http
+    id: gsop-gfx-cpochargelocationservice-all
+    name: ChargeStation ChargeLocationService
+    tags: ["GFX", "PROD", "ChargeStation-Team", "24/7"]
+    schedule: "@every 60s"
+    urls: ["https://gsop-gfx-cpochargelocationservice-all.azurewebsites.net/api/health"]
+    ports: [443]
+    timeouts: 10s
+    check.response.status: [200]
+  - type: http
+    id: gsop-ene-legacynormalizer
+    name: ChargeStation LegacyNormalizer
+    tags: ["ENE", "PROD", "ChargeStation-Team"]
+    schedule: "@every 60s"
+    urls: ["https://gsop-ene-legacynormalizer.azurewebsites.net"]
+    ports: [443]
+    timeouts: 10s
+    check.response.status: [200]
+  - type: http
+    id: gsop-gfx-legacynormalizer
+    name: ChargeStation LegacyNormalizer
+    tags: ["GFX", "PROD", "ChargeStation-Team"]
+    schedule: "@every 60s"
+    urls: ["https://gsop-gfx-legacynormalizer.azurewebsites.net"]
+    ports: [443]
+    timeouts: 10s
+    check.response.status: [200]
+  - type: http
+    id: gsop-gfx-chargestation-worker
+    name: ChargeStation Worker
+    tags: ["GFX", "PROD", "ChargeStation-Team"]
+    schedule: "@every 60s"
+    urls: ["https://gsop-gfx-chargestation-worker.azurewebsites.net/api/health"]
+    ports: [443]
+    timeouts: 10s
+    check.response.status: [200]
+  - type: http
+    id: gsop-ene-chargestation-worker
+    name: ChargeStation Worker
+    tags: ["ENE", "PROD", "ChargeStation-Team"]
+    schedule: "@every 60s"
+    urls: ["https://gsop-ene-chargestation-worker.azurewebsites.net/api/health"]
+    ports: [443]
+    timeouts: 10s
+    check.response.status: [200]
+  - type: http
+    id: gsop-ene-cpiowntokensnormalizer
+    name: Billing OwnTokensNormalizer
+    tags: ["ENE", "PROD", "Billing-Team"]
+    schedule: "@every 60s"
+    urls: ["https://gsop-ene-cpiowntokensnormalizer.azurewebsites.net/api/health"]
+    ports: [443]
+    timeouts: 10s
+    check.response.status: [200]
+  - type: http
+    id: gsop-gfx-cpiowntokensnormalizer
+    name: Billing OwnTokensNormalizer
+    tags: ["GFX", "PROD", "Billing-Team"]
+    schedule: "@every 60s"
+    urls: ["https://gsop-gfx-cpiowntokensnormalizer.azurewebsites.net/api/health"]
+    ports: [443]
+    timeouts: 10s
+    check.response.status: [200]
+  - type: http
+    id: gsop-ene-importservice
+    name: Billing ImportService
+    tags: ["ENE", "PROD", "Billing-Team"]
+    schedule: "@every 60s"
+    urls: ["https://gsop-ene-importservice.azurewebsites.net/api/health"]
+    ports: [443]
+    timeouts: 10s
+    check.response.status: [200]
+  - type: http
+    id: gsop-gfx-importservice
+    name: Billing ImportService
+    tags: ["GFX", "PROD", "Billing-Team"]
+    schedule: "@every 60s"
+    urls: ["https://gsop-gfx-importservice.azurewebsites.net/api/health"]
+    ports: [443]
+    timeouts: 10s
+    check.response.status: [200]
+  - type: http
+    id: gsop-ene-evcoregatewayfunction
+    name: Billing EvCoreGateway
+    tags: ["ENE", "PROD", "Billing-Team"]
+    schedule: "@every 60s"
+    urls: ["https://gsop-ene-evcoregatewayfunction.azurewebsites.net/api/health"]
+    ports: [443]
+    timeouts: 10s
+    check.response.status: [200]
+  - type: http
+    id: gsop-gfx-evcoregatewayfunction
+    name: Billing EvCoreGateway
+    tags: ["GFX", "PROD", "Billing-Team"]
+    schedule: "@every 60s"
+    urls: ["https://gsop-gfx-evcoregatewayfunction.azurewebsites.net/api/health"]
+    ports: [443]
+    timeouts: 10s
+    check.response.status: [200]
+  - type: http
+    id: gsop-ene-emspsyncservice
+    name: Billing EmspSync
+    tags: ["ENE", "PROD", "Billing-Team"]
+    schedule: "@every 60s"
+    urls: ["https://gsop-ene-emspsyncservice.azurewebsites.net/api/health"]
+    ports: [443]
+    timeouts: 10s
+    check.response.status: [200]
+  - type: http
+    id: gsop-gfx-emspsyncservice
+    name: Billing EmspSync
+    tags: ["GFX", "PROD", "Billing-Team"]
+    schedule: "@every 60s"
+    urls: ["https://gsop-gfx-emspsyncservice.azurewebsites.net/api/health"]
+    ports: [443]
+    timeouts: 10s
+    check.response.status: [200]
+  - type: http
+    id: gfx-portal-web-p
+    name: Portal Web
+    tags: ["GFX", "PROD", "Portal-Team"]
+    schedule: "@every 60s"
+    urls: ["https://gfx-portal-web-p.azurewebsites.net/health"]
+    ports: [443]
+    timeouts: 10s
+    check.response.status: [200]
+  - type: http
+    id: gfx-portal-api-portal-p
+    name: Portal API for Portal
+    tags: ["GFX", "PROD", "Portal-Team"]
+    schedule: "@every 60s"
+    urls: ["https://gfx-portal-api-portal-p.azurewebsites.net/health"]
+    ports: [443]
+    timeouts: 10s
+    check.response.status: [200]
+  - type: http
+    id: gfx-portal-api-sync-p
+    name: Portal API for Sync
+    tags: ["GFX", "PROD", "Portal-Team"]
+    schedule: "@every 60s"
+    urls: ["https://gfx-portal-api-sync-p.azurewebsites.net/health"]
+    ports: [443]
+    timeouts: 10s
+    check.response.status: [200]
+  - type: http
+    id: gfx-portal-api-tenant-p
+    name: Portal API for Tenant
+    tags: ["GFX", "PROD", "Portal-Team"]
+    schedule: "@every 60s"
+    urls: ["https://gfx-portal-api-tenant-p.azurewebsites.net/health"]
+    ports: [443]
+    timeouts: 10s
+    check.response.status: [200]
+  - type: http
+    id: evportal
+    name: EvPortal
+    tags: ["GFX", "PROD", "Portal-Team"]
+    schedule: "@every 60s"
+    urls: ["https://evportal.greenflux.com/health"]
+    ports: [443]
+    timeouts: 10s
+    check.response.status: [200]
+  - type: http
+    id: ene-portal-web-p
+    name: Portal Web
+    tags: ["ENE", "PROD", "Portal-Team"]
+    schedule: "@every 60s"
+    urls: ["https://ene-portal-web-p.azurewebsites.net/health"]
+    ports: [443]
+    timeouts: 10s
+    check.response.status: [200]
+  - type: http
+    id: ene-portal-api-portal-p
+    name: Portal API for Portal
+    tags: ["ENE", "PROD", "Portal-Team"]
+    schedule: "@every 60s"
+    urls: ["https://ene-portal-api-portal-p.azurewebsites.net/health"]
+    ports: [443]
+    timeouts: 10s
+    check.response.status: [200]
+  - type: http
+    id: ene-portal-api-sync-p
+    name: Portal API for Sync
+    tags: ["ENE", "PROD", "Portal-Team"]
+    schedule: "@every 60s"
+    urls: ["https://ene-portal-api-sync-p.azurewebsites.net/health"]
+    ports: [443]
+    timeouts: 10s
+    check.response.status: [200]
+  - type: http
+    id: ene-portal-api-tenant-p
+    name: Portal API for Tenant
+    tags: ["ENE", "PROD", "Portal-Team"]
+    schedule: "@every 60s"
+    urls: ["https://ene-portal-api-tenant-p.azurewebsites.net/health"]
+    ports: [443]
+    timeouts: 10s
+    check.response.status: [200]
+  - type: http
+    id: gfx-scgw-api-p
+    name: SmartCharging API GW
+    tags: ["GFX", "PROD", "SmartCharging-Team"]
+    schedule: "@every 60s"
+    urls: ["https://gfx-scgw-api-p.azurewebsites.net/health"]
+    ports: [443]
+    timeouts: 10s
+    check.response.status: [200]
+  - type: http
+    id: ene-scgw-api-p
+    name: SmartCharging API GW
+    tags: ["ENE", "PROD", "SmartCharging-Team"]
+    schedule: "@every 60s"
+    urls: ["https://ene-scgw-api-p.azurewebsites.net/health"]
+    ports: [443]
+    timeouts: 10s
+    check.response.status: [200]
+  - type: http
+    id: gsop-gfx-cpisocketserverprivate
+    name: ChargeStation SocketServer (private)
+    tags: ["GFX", "PROD", "ChargeStation-Team"]
+    schedule: "@every 60s"
+    urls: ["https://ocpp.greenflux.com/healthcheck"]
+    ports: [443]
+    timeouts: 10s
+    check.response.status: [200]
+  - type: http
+    id: gsop-ene-cpisocketserverprivate
+    name: ChargeStation SocketServer (private)
+    tags: ["ENE", "PROD", "ChargeStation-Team"]
+    schedule: "@every 60s"
+    urls: ["https://ocpp-ENE.greenflux.com/healthcheck"]
+    ports: [443]
+    timeouts: 10s
+  - type: http
+    id: gsop-gfx-cpisocketserverpublic
+    name: ChargeStation SocketServer (public)
+    tags: ["GFX", "PROD", "ChargeStation-Team"]
+    schedule: "@every 60s"
+    urls: ["https://ocpp-public.greenflux.com/healthcheck"]
+    ports: [443]
+    timeouts: 10s
+    check.response.status: [200]
+  - type: http
+    id: gsop-ene-cpisocketserverpublic
+    name: ChargeStation SocketServer (public)
+    tags: ["ENE", "PROD", "ChargeStation-Team"]
+    schedule: "@every 60s"
+    urls: ["https://ocpp-ene-public.greenflux.com/healthcheck"]
+    ports: [443]
+    timeouts: 10s
+    check.response.status: [200]
+  - type: http
+    id: gfx-scconfig-api-p
+    name: Smart Configuration Service API
+    tags: ["GFX", "PROD", "SmartCharging-Team"]
+    schedule: "@every 60s"
+    urls: ["https://gfx-scconfig-api-p.azurewebsites.net/health"]
+    ports: [443]
+    timeouts: 10s
+    check.response.status: [200]
+  - type: http
+    id: ene-scconfig-api-p
+    name: Smart Configuration Service API
+    tags: ["ENE", "PROD", "SmartCharging-Team"]
+    schedule: "@every 60s"
+    urls: ["https://ene-scconfig-api-p.azurewebsites.net/health"]
+    ports: [443]
+    timeouts: 10s
+    check.response.status: [200]
+  - type: http
+    id: gfx-portal-chargeassistweb-web-p
+    name: Charge Assist Web Portal
+    tags: ["GFX", "PROD", "ChargeAssist-Team"]
+    schedule: "@every 60s"
+    urls: ["https://gfx-portal-chargeassistweb-web-p.azurewebsites.net/health"]
+    ports: [443]
+    timeouts: 10s
+    check.response.status: [200]
+  - type: http
+    id: gfx-portal-chargeassistweb-api-p
+    name: Charge Assist Web API
+    tags: ["GFX", "PROD", "ChargeAssist-Team"]
+    schedule: "@every 60s"
+    urls: ["https://gfx-portal-chargeassistweb-api-p.azurewebsites.net/health"]
+    ports: [443]
+    timeouts: 10s
+    check.response.status: [200]
+  - type: http
+    id: gfx-app-api-p
+    name: App API
+    tags: ["GFX", "PROD", "ChargeAssist-Team"]
+    schedule: "@every 60s"
+    urls: ["https://api.greenflux.app/api/health"]
+    ports: [443]
+    timeouts: 10s
+    check.response.status: [200]
+  - type: http
+    id: gfx-app-api-ocpi-emsp-p
+    name: App API OCPI EMSP
+    tags: ["GFX", "PROD", "ChargeAssist-Team"]
+    schedule: "@every 60s"
+    urls: ["https://ocpi-emsp-api.greenflux.app/api/health"]
+    ports: [443]
+    timeouts: 10s
+    check.response.status: [200]
+  - type: http
+    id: gfx-app-web-portal-p
+    name: Admin GreenFlux API
+    tags: ["GFX", "PROD", "ChargeAssist-Team"]
+    schedule: "@every 60s"
+    urls: ["https://admin.greenflux.app/api/health"]
+    ports: [443]
+    timeouts: 10s
+    check.response.status: [200]
+  - type: http
+    id: gfx-app-fn-ca-p
+    name: App Function
+    tags: ["GFX", "PROD", "ChargeAssist-Team"]
+    schedule: "@every 60s"
+    urls: ["https://gfx-app-fn-ca-p.azurewebsites.net/api/health"]
+    ports: [443]
+    timeouts: 10s
+    check.response.status: [200]
+  - type: http
+    id: gfx-app-fn-ocpi-p
+    name: OCPI Function
+    tags: ["GFX", "PROD", "ChargeAssist-Team"]
+    schedule: "@every 60s"
+    urls: ["https://gfx-app-fn-ocpi-p.azurewebsites.net/api/health"]
+    ports: [443]
+    timeouts: 10s
+    check.response.status: [200]
+  - type: http
+    id: gfx-poi-api-locationsservice
+    name: POI LocationsService API
+    tags: ["GFX", "PROD", "ChargeAssist-Team"]
+    schedule: "@every 60s"
+    urls: ["https://gfx-poi-api-locationsservice.azurewebsites.net/api/health"]
+    ports: [443]
+    timeouts: 10s
+    check.response.status: [200]
+  - type: http
+    id: gfx-poi-fn-locationsservice
+    name: POI LocationsService Function
+    tags: ["GFX", "PROD", "ChargeAssist-Team"]
+    schedule: "@every 60s"
+    urls: ["https://gfx-poi-fn-locationsservice.azurewebsites.net/api/health"]
+    ports: [443]
+    timeouts: 10s
+    check.response.status: [200]
+  - type: http
+    id: gfx-app-api-management-p
+    name: App API management
+    tags: ["GFX", "PROD", "ChargeAssist-Team"]
+    schedule: "@every 60s"
+    urls: ["https://api.greenflux.app/api-management/health"]
+    ports: [443]
+    timeouts: 10s
+    check.response.status: [200]
+setup.ilm.rollover_alias: "heartbeat-prod"
+processors:
+  - add_cloud_metadata: ~
+cloud.id: $(heartbeatCloudId)
+cloud.auth: $(heartbeatCloudAuth)
