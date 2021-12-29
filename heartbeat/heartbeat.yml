@@ -772,5 +772,5 @@ heartbeat.monitors:
 setup.ilm.rollover_alias: "heartbeat-prod"
 processors:
   - add_cloud_metadata: ~
-cloud.id: $(heartbeatCloudId)
-cloud.auth: $(heartbeatCloudAuth)
+cloud.id: $(gfx-heartbeat-cloud-id)
+cloud.auth: $(gfx-heartbeat-cloud-auth)
