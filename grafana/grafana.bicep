@@ -145,6 +145,7 @@ resource grafanaContainers 'Microsoft.ContainerInstance/containerGroups@2021-07-
             }
             {
               name: 'GF_DATABASE_URL'
+              // if you change this, you also need to change $mysqlUser and $mysqlPassword
               secureValue: grafanaDatabaseUrl
             }
           ]
