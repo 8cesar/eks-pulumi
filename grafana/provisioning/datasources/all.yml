@@ -14,9 +14,9 @@ datasources:
       # GFX PROD (csp)
       subscriptionId: 58d729f3-33af-4981-84ca-93e537fbdfbc
     secureJsonData:
-      # it's a secret from the grafana AAD app registration
+      # it's the 'grafana-test' secret from the grafana AAD app registration
       # see https://portal.azure.com/#blade/Microsoft_AAD_RegisteredApps/ApplicationMenuBlade/Credentials/appId/b26952df-d613-426f-a817-74c49f82b9a7/isMSAApp/
-      clientSecret: $(grafanaAppRegistrationSecret)
+      clientSecret: $(gfx-grafana-app-registration-client-secret)
     isDefault: true
     version: 1
     editable: true
