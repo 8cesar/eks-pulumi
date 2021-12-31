@@ -1,0 +1,79 @@
+{
+  "trigger": {
+    "schedule": {
+      "interval": "5m"
+    }
+  },
+  "input": {
+    "search": {
+      "request": {
+        "indices": [
+          "heartbeat-prod-*"
+        ],
+        "body": {
+          "size": 0,
+          "query": {
+            "bool": {
+              "must": [
+                {
+                  "match": {
+                    "url.domain": "gfx-poi-fn-locationsservice.azurewebsites.net"
+                  }
+                },
+                {
+                  "match": {
+                    "summary.down": "1"
+                  }
+                }
+              ],
+              "filter": [
+                {
+                  "range": {
+                    "@timestamp": {
+                      "lte": "now",
+                      "gte": "now-29m"
+                    }
+                  }
+                }
+              ]
+            }
+          },
+          "aggs": {
+            "server_down": {
+              "terms": {
+                "field": "url.domain"
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "condition": {
+    "compare": {
+      "ctx.payload.hits.total": {
+        "gt": 2
+      }
+    }
+  },
+  "actions": {
+    "Webhook_Acc01": {
+      "throttle_period": "15m",
+      "webhook": {
+        "scheme": "https",
+        "method": "POST",
+        "host": "greenfluxbv.webhook.office.com",
+        "port": 443,
+        "path": "/webhookb2/7d81e64e-b159-4b4e-8619-a91a5b1f4fca@3145cea7-e759-4aeb-b8fc-506e0a02fd91/IncomingWebhook/b645a4e1a2654a779936e668a418fa46/3d2e77f2-2412-496f-94d8-4fe0f1fbff11",
+        "headers": {
+          "Content-type": "application/json"
+        },
+        "body": {
+          "source": {
+            "text": "Gfx Prod (0145): Endpoint https://gfx-poi-fn-locationsservice.azurewebsites.net/api/health is down"
+          }
+        }
+      }
+    }
+  }
+}

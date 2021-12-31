@@ -1,0 +1,67 @@
+{
+	"trigger": {
+		"schedule": {
+			"interval": "15m"
+		}
+	},
+	"input": {
+		"search": {
+			"request": {
+				"indices": [
+					"gfx-prod-logs*"
+				],
+				"body": {
+					"size": 0,
+					"query": {
+						"bool": {
+							"must": [
+								{
+									"query_string": {
+										"query": "level:Error AND (indexname:TransactionEvents OR indexname:TransactionImporter OR indexname:ChargeLocationService OR indexname:CommandService OR indexname:GeoCoding OR indexname:Legacy.Normalizer OR indexname:Gsop.MailService OR indexname:StatusService OR indexname:ChargeStationServiceWorker OR indexname:ChargeStationServiceApi)"
+									}
+								}
+							],
+							"filter": [
+								{
+									"range": {
+										"@timestamp": {
+											"lte": "now",
+											"gte": "now-15m"
+										}
+									}
+								}
+							]
+						}
+					}
+				}
+			}
+		}
+	},
+	"condition": {
+		"compare": {
+			"ctx.payload.hits.total": {
+				"gt": 10
+			}
+		}
+	},
+	"actions": {
+		"Webhook_Acc01": {
+			"throttle_period": "2h",
+			"webhook": {
+				"scheme": "https",
+				"method": "POST",
+				"host": "greenfluxbv.webhook.office.com",
+				"port": 443,
+				"path": "/webhookb2/7d81e64e-b159-4b4e-8619-a91a5b1f4fca@3145cea7-e759-4aeb-b8fc-506e0a02fd91/IncomingWebhook/e87347e0bb9e42558c607ce49ad682c3/3d2e77f2-2412-496f-94d8-4fe0f1fbff11",
+				"headers": {
+					"Content-type": "application/json"
+				},
+				"body": {
+					"source": {
+						"text": "Gfx Prod (118): Errors in ChargeStation Domain > 10 in last 15 min"
+					}
+				}
+			}
+		}
+	}
+}

@@ -1,0 +1,79 @@
+{
+  "trigger": {
+    "schedule": {
+      "interval": "2h"
+    }
+  },
+  "input": {
+    "search": {
+      "request": {
+        "search_type": "query_then_fetch",
+        "indices": [
+          "gfx-prod-logs*"
+        ],
+        "rest_total_hits_as_int": true,
+        "body": {
+          "size": 1000,
+          "query": {
+            "bool": {
+              "must": [
+                {
+                  "query_string": {
+                    "query": "indexname: \"OwnTokensNormalizer\" AND message: \"Missing emsp-c: Add emsp-c with coutryCode\" AND level:Warning"
+                  }
+                }
+              ],
+              "filter": [
+                {
+                  "range": {
+                    "@timestamp": {
+                      "lte": "now",
+                      "gte": "now-2h"
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        }
+      }
+    }
+  },
+  "condition": {
+    "compare": {
+      "ctx.payload.hits.total": {
+        "gt": 0
+      }
+    }
+  },
+  "actions": {
+    "Webhook_Acc01": {
+      "transform": {
+        "script": {
+          "source": "def dict=[:];for(int i=0;i<ctx.payload.hits.hits.length;i++){String key=ctx.payload.hits.hits[i]._source.message;def cur=dict.get(key);if(cur==null){dict.put(key,1);}else{dict.put(key,cur+1);}} String result='';for(String k:dict.keySet()){result=result+k+ ': ' + dict[k] + '\\\\r\\\\n\\\\r\\\\n';} return result;",
+          "lang": "painless"
+        }
+      },
+      "webhook": {
+        "scheme": "https",
+        "host": "greenfluxbv.webhook.office.com",
+        "port": 443,
+        "method": "post",
+        "path": "/webhookb2/7d81e64e-b159-4b4e-8619-a91a5b1f4fca@3145cea7-e759-4aeb-b8fc-506e0a02fd91/IncomingWebhook/d60370be2bcc4f89b4755378fc6361a3/feab43b6-11f3-47b6-b929-856c1e06ca40",
+        "params": {},
+        "headers": {
+          "Content-type": "application/json"
+        },
+        "body": {
+          "source": {
+            "text": "Missing emsp-c: Kibana query: \"Missing emsp-c: Add emsp-c with coutryCode\"\r\n\r\n{{ctx.payload._value}}"
+          },
+          "lang": "mustache",
+          "options": {
+            "content_type": "application/json; charset=UTF-8"
+          }
+        }
+      }
+    }
+  }
+}

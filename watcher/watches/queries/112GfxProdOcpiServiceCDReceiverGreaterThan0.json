@@ -1,0 +1,66 @@
+{
+	"trigger": {
+		"schedule": {
+			"interval": "59m"
+		}
+	},
+	"input": {
+		"search": {
+			"request": {
+				"indices": [
+					"gfx-prod-logs*"
+				],
+				"body": {
+					"size": 0,
+					"query": {
+						"bool": {
+							"must": [
+								{
+									"query_string": {
+										"query": "indexname:OcpiService AND function:EmspCdrs.PostCdr AND (\"total_cost:0\" OR \"total_cost:0.0\") AND \"7WdPKGAb4UWBIiSWUgAdg\" "
+									}
+								}
+							],
+							"filter": [
+								{
+									"range": {
+										"@timestamp": {
+											"lte": "now",
+											"gte": "now-1h"
+										}
+									}
+								}
+							]
+						}
+					}
+				}
+			}
+		}
+	},
+	"condition": {
+		"compare": {
+			"ctx.payload.hits.total": {
+				"gt": 0
+			}
+		}
+	},
+	"actions": {
+		"Webhook_Acc01": {
+			"webhook": {
+				"scheme": "https",
+				"method": "POST",
+				"host": "greenfluxbv.webhook.office.com",
+				"port": 443,
+				"path": "/webhookb2/7d81e64e-b159-4b4e-8619-a91a5b1f4fca@3145cea7-e759-4aeb-b8fc-506e0a02fd91/IncomingWebhook/c30cae6d07884124ad0027f2166cfa18/3d2e77f2-2412-496f-94d8-4fe0f1fbff11",
+				"headers": {
+					"Content-type": "application/json"
+				},
+				"body": {
+					"source": {
+						"text": "Gfx Prod (112): Zero cost CDR received from Gireve > 0 in last hour"
+					}
+				}
+			}
+		}
+	}
+}

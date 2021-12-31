@@ -1,0 +1,79 @@
+{
+  "trigger": {
+    "schedule": {
+      "interval": "5m"
+    }
+  },
+  "input": {
+    "search": {
+      "request": {
+        "indices": [
+          "heartbeat-prod-*"
+        ],
+        "body": {
+          "size": 0,
+          "query": {
+            "bool": {
+              "must": [
+                {
+                  "match": {
+                    "url.domain": "gsop-ene-cpiowntokensnormalizer.azurewebsites.net"
+                  }
+                },
+                {
+                  "match": {
+                    "summary.down": "1"
+                  }
+                }
+              ],
+              "filter": [
+                {
+                  "range": {
+                    "@timestamp": {
+                      "lte": "now",
+                      "gte": "now-29m"
+                    }
+                  }
+                }
+              ]
+            }
+          },
+          "aggs": {
+            "server_down": {
+              "terms": {
+                "field": "url.domain"
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "condition": {
+    "compare": {
+      "ctx.payload.hits.total": {
+        "gt": 3
+      }
+    }
+  },
+  "actions": {
+    "Webhook_Acc01": {
+      "throttle_period": "15m",
+      "webhook": {
+        "scheme": "https",
+        "method": "POST",
+        "host": "greenfluxbv.webhook.office.com",
+        "port": 443,
+        "path": "/webhookb2/7d81e64e-b159-4b4e-8619-a91a5b1f4fca@3145cea7-e759-4aeb-b8fc-506e0a02fd91/IncomingWebhook/661a1beae8df42afad3fe4b6ae3fe69f/3d2e77f2-2412-496f-94d8-4fe0f1fbff11",
+        "headers": {
+          "Content-type": "application/json"
+        },
+        "body": {
+          "source": {
+            "text": "Ene Prod (078): Endpoint https://gsop-ene-cpiowntokensnormalizer.azurewebsites.net/api/health is down"
+          }
+        }
+      }
+    }
+  }
+}
