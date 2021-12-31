@@ -29,18 +29,23 @@ See the [Close alerts wiki page](https://dev.azure.com/greenflux/Shared/_wiki/wi
 
 ### Infrastructure
 
-Composed of 4 resources:
+Composed of 5 resources:
 
-1. Logic Apps
-2. Action groups
-3. API connections
-4. Microsoft.Insights activityLogAlerts (for the service health alerts in a resource's activity log)
+1. Alert rules
+2. Logic Apps
+3. Action groups
+4. API connections
+5. Microsoft.Insights activityLogAlerts (for the service health alerts in a resource's activity log)
 
 The Logic Apps do the heavy lifting of parsing the alert to determine the MS Teams channel it should be sent to - either a team channel or the Severity 0/1 team-independent channels.
 
 Action groups define a list of actions to execute when an alert is triggered. In our case, there is only one defined action: send alerts to MS Teams and the devops@greenflux.com shared mailbox (as a backup in case Teams goes down).
 
 The API connections are used to connect the Logic Apps to MS Teams.
+
+### Flow
+
+The [Azure Monitor](https://docs.microsoft.com/en-us/azure/azure-monitor/overview) retrieves metrics from Azure resources. Our alert rules poll Azure Monitor (at intervals we specify) for metrics. If the metric for a particular resource meets our selected threshold, the azure alert uses an action group to send the Azure Monitor data to our aforementioned logic apps. The logic apps determine where to send the alert to based on severity, team tag, and alert status. Then, using the API connection to Teams, the logic apps send the alert to the proper Teams channel.
 
 <!-- #### Logic Apps in-depth
 
