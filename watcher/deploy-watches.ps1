@@ -27,6 +27,11 @@ foreach ($RegisteredWatch in $RegisteredWatches) {
     # only works if the watch ID is the same as the filename
     if ((($RegisteredWatch._id) + '.json') -notin $FileList) {
         Write-Host hello $RegisteredWatch._id
+        # Invoke-RestMethod `
+        #     -Method DELETE `
+        #     -Uri ($ElasticUrl + '/_watcher/watch/' + $RegisteredWatch._id) `
+        #     -Headers @{Authorization = "Basic $ElasticApiBase64AuthInfo" } `
+        #     -ContentType 'application/json'
     }
 }
 
