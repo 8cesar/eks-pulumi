@@ -10,7 +10,7 @@ param
 $WatchesPath = (Split-Path -Parent $MyInvocation.MyCommand.Path) + '\watches\'
 [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
 $ElasticApiBase64AuthInfo = [Convert]::ToBase64String([Text.Encoding]::ASCII.GetBytes(("{0}:{1}" -f $User, $Pass)))
-$FileList = (Get-ChildItem -Path $WatchesPath -Recurse -Exclude ('endpoints', 'queries')).Name
+$FileList = (Get-ChildItem -Path $WatchesPath).Name
 
 # 'size' = The number of hits to return. Needs to be non-negative.
 # Unfortunately, size = 0 does not return all Watches, hence we need a big number.
