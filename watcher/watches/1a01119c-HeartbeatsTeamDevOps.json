@@ -18,7 +18,7 @@
               "must": [
                 {
                   "query_string": {
-                    "query": "monitor.status:up AND monitor.type:http"
+                    "query": "monitor.status:up AND tags:\"DevOps-Team\""
                   }
                 }
               ],
@@ -38,6 +38,13 @@
             "url": {
               "terms": {
                 "field": "url.full"
+              },
+              "aggs": {
+                "id": {
+                  "terms": {
+                    "field": "monitor.id"
+                  }
+                }
               }
             }
           }
@@ -45,10 +52,16 @@
       }
     }
   },
+  "condition": {
+    "compare": {
+      "ctx.payload.hits.total": {
+        "gt": 0
+      }
+    }
+  },
   "actions": {
     "MS_Teams": {
       "throttle_period": "1m",
-      "foreach": "ctx.payload.aggregations.url.buckets",
       "webhook": {
         "scheme": "https",
         "method": "POST",
@@ -60,7 +73,7 @@
         },
         "body": {
           "source": {
-            "text": "(Watch 00428bee) Endpoint {{#ctx.payload.aggregations.url.buckets}}{{key}} {{/ctx.payload.aggregations.url.buckets}} is up"
+            "text": "{{ctx.payload}} (Watch 1a01119c) The following endpoints are up:<br> {{#ctx.payload.aggregations.url.buckets}}{{key}} - {{id.buckets.0.key}} <br>{{/ctx.payload.aggregations.url.buckets}}"
           }
         }
       }
