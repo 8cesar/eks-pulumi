@@ -1,0 +1,69 @@
+{
+  "trigger": {
+    "schedule": {
+      "interval": "1m"
+    }
+  },
+  "input": {
+    "search": {
+      "request": {
+        "search_type": "query_then_fetch",
+        "indices": [
+          "heartbeat-prod-*"
+        ],
+        "body": {
+          "size": 0,
+          "query": {
+            "bool": {
+              "must": [
+                {
+                  "query_string": {
+                    "query": "monitor.status:up AND monitor.type:http"
+                  }
+                }
+              ],
+              "filter": [
+                {
+                  "range": {
+                    "@timestamp": {
+                      "lte": "now",
+                      "gte": "now-2m"
+                    }
+                  }
+                }
+              ]
+            }
+          },
+          "aggs": {
+            "url": {
+              "terms": {
+                "field": "url.full"
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "actions": {
+    "MS_Teams": {
+      "throttle_period": "1m",
+      "foreach": "ctx.payload.aggregations.url.buckets",
+      "webhook": {
+        "scheme": "https",
+        "method": "POST",
+        "host": "greenfluxbv.webhook.office.com",
+        "port": 443,
+        "path": "/webhookb2/7d81e64e-b159-4b4e-8619-a91a5b1f4fca@3145cea7-e759-4aeb-b8fc-506e0a02fd91/IncomingWebhook/5f6b94ada0164edf91b4103b1e8f9f45/3d2e77f2-2412-496f-94d8-4fe0f1fbff11",
+        "headers": {
+          "Content-Type": "application/json; charset=UTF-8"
+        },
+        "body": {
+          "source": {
+            "text": "(Watch 00428bee) Endpoint {{#ctx.payload.aggregations.url.buckets}}{{key}} {{/ctx.payload.aggregations.url.buckets}} is up"
+          }
+        }
+      }
+    }
+  }
+}
