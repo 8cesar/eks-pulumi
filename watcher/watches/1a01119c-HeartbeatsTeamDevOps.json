@@ -18,7 +18,7 @@
               "must": [
                 {
                   "query_string": {
-                    "query": "monitor.status:up AND tags:\"DevOps-Team\""
+                    "query": "monitor.status:down AND tags:\"DevOps-Team\""
                   }
                 }
               ],
@@ -52,13 +52,6 @@
       }
     }
   },
-  "condition": {
-    "compare": {
-      "ctx.payload.hits.total": {
-        "gt": 0
-      }
-    }
-  },
   "actions": {
     "MS_Teams": {
       "throttle_period": "1m",
@@ -73,7 +66,7 @@
         },
         "body": {
           "source": {
-            "text": "{{ctx.payload}} (Watch 1a01119c) The following endpoints are up:<br> {{#ctx.payload.aggregations.url.buckets}}{{key}} - {{id.buckets.0.key}} <br>{{/ctx.payload.aggregations.url.buckets}}"
+            "text": "(Watch 1a01119c) The following endpoints are down:<br> {{#ctx.payload.aggregations.url.buckets}}{{key}} - {{id.buckets.0.key}} <br>{{/ctx.payload.aggregations.url.buckets}}"
           }
         }
       }
