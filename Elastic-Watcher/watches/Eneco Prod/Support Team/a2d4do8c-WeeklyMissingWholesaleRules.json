@@ -22,16 +22,24 @@
                 {
                   "match_phrase": {
                     "indexname": "CdrServiceV2"
-                  },
+                  }
+                },
+                {
                   "match_phrase": {
                     "function": "servicebus--billing-cdr-calculated-v2/Subscriptions/cdr-service-v2-cost-calculated"
-                  },
+                  }
+                },
+                {
                   "match_phrase": {
                     "message": "cannot apply: missing wholesale cost"
-                  },
+                  }
+                },
+                {
                   "match_phrase": {
                     "level": "Warning"
-                  },
+                  }
+                },
+                {
                   "match_phrase": {
                     "output": "MissingRule | "
                   }
