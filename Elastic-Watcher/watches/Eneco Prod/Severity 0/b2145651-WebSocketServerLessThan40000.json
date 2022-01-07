@@ -17,8 +17,8 @@
             "bool": {
               "must": [
                 {
-                  "match": {
-                    "indexname": "WebSocketServer"
+                  "query_string": {
+                    "query": "indexname:WebSocketServer and level:Info"
                   }
                 }
               ],
