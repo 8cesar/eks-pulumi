@@ -1,0 +1,68 @@
+{
+  "trigger": {
+    "schedule": {
+      "interval": "12h"
+    }
+  },
+  "input": {
+    "search": {
+      "request": {
+        "search_type": "query_then_fetch",
+        "indices": [
+          "gfx-prod-logs*"
+        ],
+        "body": {
+          "size": 0,
+          "query": {
+            "bool": {
+              "must": [
+                {
+                  "query_string": {
+                    "query": "\"Connected account not activated for location\""
+                  }
+                }
+              ],
+              "filter": [
+                {
+                  "range": {
+                    "@timestamp": {
+                      "lte": "now",
+                      "gte": "now-24h"
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        }
+      }
+    }
+  },
+  "condition": {
+    "compare": {
+      "ctx.payload.hits.total": {
+        "gt": 3
+      }
+    }
+  },
+  "actions": {
+    "MS_Teams": {
+      "throttle_period": "24h",
+      "webhook": {
+        "scheme": "https",
+        "method": "POST",
+        "host": "greenfluxbv.webhook.office.com",
+        "port": 443,
+        "path": "$(watcherWebhookTeamChargeAssist)",
+        "headers": {
+          "Content-Type": "application/json; charset=UTF-8"
+        },
+        "body": {
+          "source": {
+            "text": "<h1>Watch 8ac0a34d (Gfx Prod)</h1><br>Connected account not activated for location in the last 24 hours"
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,68 @@
+{
+  "trigger": {
+    "schedule": {
+      "interval": "30m"
+    }
+  },
+  "input": {
+    "search": {
+      "request": {
+        "search_type": "query_then_fetch",
+        "indices": [
+          "gfx-prod-logs*"
+        ],
+        "body": {
+          "size": 0,
+          "query": {
+            "bool": {
+              "must": [
+                {
+                  "match": {
+                    "indexname": "WebSocketServer"
+                  }
+                }
+              ],
+              "filter": [
+                {
+                  "range": {
+                    "@timestamp": {
+                      "lte": "now",
+                      "gte": "now-1h"
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        }
+      }
+    }
+  },
+  "condition": {
+    "compare": {
+      "ctx.payload.hits.total": {
+        "lt": 40000
+      }
+    }
+  },
+  "actions": {
+    "MS_Teams": {
+      "throttle_period": "1h",
+      "webhook": {
+        "scheme": "https",
+        "method": "POST",
+        "host": "greenfluxbv.webhook.office.com",
+        "port": 443,
+        "path": "$(watcherWebhookSeverity0)",
+        "headers": {
+          "Content-Type": "application/json; charset=UTF-8"
+        },
+        "body": {
+          "source": {
+            "text": "<h1>Watch b2144451 (Gfx Prod)</h1><br>The 'WebSocketServer' index has less than 40000 hits in the last hour"
+          }
+        }
+      }
+    }
+  }
+}

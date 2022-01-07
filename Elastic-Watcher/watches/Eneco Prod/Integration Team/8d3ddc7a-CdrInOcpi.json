@@ -1,0 +1,68 @@
+{
+  "trigger": {
+    "schedule": {
+      "interval": "2h"
+    }
+  },
+  "input": {
+    "search": {
+      "request": {
+        "search_type": "query_then_fetch",
+        "indices": [
+          "ene-prod-logs*"
+        ],
+        "body": {
+          "size": 0,
+          "query": {
+            "bool": {
+              "must": [
+                {
+                  "query_string": {
+                    "query": "indexname:OcpiCdrService AND function:CdrCalculated AND message:\"No location found for EvseId\" AND NOT \"Weena732A\""
+                  }
+                }
+              ],
+              "filter": [
+                {
+                  "range": {
+                    "@timestamp": {
+                      "lte": "now",
+                      "gte": "now-2h"
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        }
+      }
+    }
+  },
+  "condition": {
+    "compare": {
+      "ctx.payload.hits.total": {
+        "gt": 0
+      }
+    }
+  },
+  "actions": {
+    "MS_Teams": {
+      "throttle_period": "24h",
+      "webhook": {
+        "scheme": "https",
+        "method": "POST",
+        "host": "greenfluxbv.webhook.office.com",
+        "port": 443,
+        "path": "$(watcherWebhookTeamIntegration)",
+        "headers": {
+          "Content-Type": "application/json; charset=UTF-8"
+        },
+        "body": {
+          "source": {
+            "text": "<h1>Watch 8d3ddc7a (Ene Prod)</h1><br>CDR on evse which is not known in OCPI and not in stock"
+          }
+        }
+      }
+    }
+  }
+}

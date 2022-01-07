@@ -1,0 +1,82 @@
+{
+  "trigger": {
+    "schedule": {
+      "interval": "1m"
+    }
+  },
+  "input": {
+    "search": {
+      "request": {
+        "search_type": "query_then_fetch",
+        "indices": [
+          "heartbeat-prod-*"
+        ],
+        "body": {
+          "size": 0,
+          "query": {
+            "bool": {
+              "must": [
+                {
+                  "query_string": {
+                    "query": "monitor.status:down AND tags:\"DevOps-Team\""
+                  }
+                }
+              ],
+              "filter": [
+                {
+                  "range": {
+                    "@timestamp": {
+                      "lte": "now",
+                      "gte": "now-90s"
+                    }
+                  }
+                }
+              ]
+            }
+          },
+          "aggs": {
+            "url": {
+              "terms": {
+                "field": "url.full"
+              },
+              "aggs": {
+                "id": {
+                  "terms": {
+                    "field": "monitor.id"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "condition": {
+    "compare": {
+      "ctx.payload.hits.total": {
+        "gt": 0
+      }
+    }
+  },
+  "actions": {
+    "MS_Teams": {
+      "throttle_period": "1h",
+      "webhook": {
+        "scheme": "https",
+        "method": "POST",
+        "host": "greenfluxbv.webhook.office.com",
+        "port": 443,
+        "path": "$(watcherWebhookTeamDevOps)",
+        "headers": {
+          "Content-Type": "application/json; charset=UTF-8"
+        },
+        "body": {
+          "source": {
+            "text": "<h1>Watch 1a01119c</h1><br>Elastic Heartbeat ping failed for:<br><br><table><tr><td>RESOURCE</td><td>URL</td></tr>{{#ctx.payload.aggregations.url.buckets}}<tr><td>{{id.buckets.0.key}}</td><td>{{key}}</td></tr>{{/ctx.payload.aggregations.url.buckets}}</table>"
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,68 @@
+{
+  "trigger": {
+    "schedule": {
+      "interval": "15m"
+    }
+  },
+  "input": {
+    "search": {
+      "request": {
+        "search_type": "query_then_fetch",
+        "indices": [
+          "ene-prod-logs*"
+        ],
+        "body": {
+          "size": 0,
+          "query": {
+            "bool": {
+              "must": [
+                {
+                  "query_string": {
+                    "query": "level:Error AND (indexname:TransactionEvents OR indexname:TransactionImporter OR indexname:ChargeLocationService OR indexname:CommandService OR indexname:GeoCoding OR indexname:Legacy.Normalizer OR indexname:Gsop.MailService OR indexname:StatusService OR indexname:ChargeStationServiceWorker OR indexname:ChargeStationServiceApi)"
+                  }
+                }
+              ],
+              "filter": [
+                {
+                  "range": {
+                    "@timestamp": {
+                      "lte": "now",
+                      "gte": "now-15m"
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        }
+      }
+    }
+  },
+  "condition": {
+    "compare": {
+      "ctx.payload.hits.total": {
+        "gt": 10
+      }
+    }
+  },
+  "actions": {
+    "MS_Teams": {
+      "throttle_period": "2h",
+      "webhook": {
+        "scheme": "https",
+        "method": "POST",
+        "host": "greenfluxbv.webhook.office.com",
+        "port": 443,
+        "path": "$(watcherWebhookTeamChargeStation)",
+        "headers": {
+          "Content-Type": "application/json; charset=UTF-8"
+        },
+        "body": {
+          "source": {
+            "text": "<h1>Watch a21sc8de3 (Ene Prod)</h1><br>Errors in ChargeStation domain > 10 in last 15 min"
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,72 @@
+{
+  "trigger": {
+    "schedule": {
+      "interval": "2h"
+    }
+  },
+  "input": {
+    "search": {
+      "request": {
+        "search_type": "query_then_fetch",
+        "indices": [
+          "ene-prod-logs*"
+        ],
+        "body": {
+          "size": 1000,
+          "query": {
+            "bool": {
+              "must": [
+                {
+                  "query_string": {
+                    "query": "indexname: CdrServiceV2 AND \"cannot apply: missing retail cost\" AND level:Warning"
+                  }
+                }
+              ],
+              "filter": [
+                {
+                  "range": {
+                    "@timestamp": {
+                      "lte": "now",
+                      "gte": "now-2h"
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        }
+      }
+    }
+  },
+  "condition": {
+    "compare": {
+      "ctx.payload.hits.total": {
+        "gt": 0
+      }
+    }
+  },
+  "actions": {
+    "MS_Teams": {
+      "transform": {
+        "script": {
+          "inline": "def l = new ArrayList(); def dict = [:]; for (int i = 0; i < ctx.payload.hits.hits.length;i++){     String nojunk = /[\"\\r\\n]/.matcher(ctx.payload.hits.hits[i]._source.input).replaceAll('`');     def m = /cpo-n: '(.*?)', cpo-c: '(.*?)', cpso: '(.*?)', emsp-n: '(.*?)', emsp-c: '(.*?)', emsp: '(.*?)', tc: '(.*?)', rtc: '(.*?)', rp: '(.*?)'/.matcher(nojunk);     if (m.find()) {         String key = 'cpo-n: ' + m.group(1)                       + ', cpo-c: ' + m.group(2)                      + ', cpso: ' + m.group(3)                      + ', emsp-n: ' + m.group(4)                       + ', emsp-c: ' + m.group(5)                       + ', emsp: ' + m.group(6)                       + ', tariff: ' + m.group(7)                       + ', package: ' + m.group(9);                               def cur = dict.get(key);         if (cur == null) {             dict.put(key, 1);         } else {             dict.put(key, cur + 1);         }     } }  for (String k: dict.keySet()) {     l.add(k); }  for (int i = l.length; i < 10; i++) {     l.add('{}'); }  return l;"
+        }
+      },
+      "webhook": {
+        "scheme": "https",
+        "method": "POST",
+        "host": "greenfluxbv.webhook.office.com",
+        "port": 443,
+        "path": "$(watcherWebhookMissingRetailRules)",
+        "headers": {
+          "Content-Type": "application/json; charset=UTF-8"
+        },
+        "body": {
+          "source": {
+            "text": "<h1>Watch 9f6427d9 (Ene Prod)</h1><br>Missing retail rules\n\n1\n\n{{#toJson}}ctx.payload._value.0{{/toJson}}\n\n2\n\n{{#toJson}}ctx.payload._value.1{{/toJson}}\n\n3\n\n\n{{#toJson}}ctx.payload._value.2{{/toJson}}\n\n4\n\n{{#toJson}}ctx.payload._value.3{{/toJson}}\n\n5\n\n{{#toJson}}ctx.payload._value.4{{/toJson}}\n\n6\n\n{{#toJson}}ctx.payload._value.5{{/toJson}}\n\n7\n\n{{#toJson}}ctx.payload._value.6{{/toJson}}\n\n8\n\n{{#toJson}}ctx.payload._value.7{{/toJson}}\n\n9\n\n{{#toJson}}ctx.payload._value.8{{/toJson}}\n\n10\n\n{{#toJson}}ctx.payload._value.9{{/toJson}}"
+          }
+        }
+      }
+    }
+  }
+}

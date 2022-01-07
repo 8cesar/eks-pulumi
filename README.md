@@ -70,7 +70,7 @@ You can find the Watchers in [Elastic](https://aa72c8caf80943bab3ce3eb7a4bc0530.
 
 The Heartbeat container (defined in [this Dockerfile](heartbeat/Dockerfile)) pings the "beats" defined in [heartbeat.yml](heartbeat/heartbeat.yml) and then displays the results in the [Elastic Heartbeats Dashboard](https://aa72c8caf80943bab3ce3eb7a4bc0530.westeurope.azure.elastic-cloud.com:9243/app/uptime).
 
-The heartbeats are deployed via the [Heartbeat](https://dev.azure.com/greenflux/Shared/_release?definitionId=51&view=mine&_a=releases) release pipeline.
+The heartbeats are deployed via the [Elastic Heartbeat](https://dev.azure.com/greenflux/Shared/_release?definitionId=51&view=mine&_a=releases) release pipeline.
 
 ## Grafana dashboards
 

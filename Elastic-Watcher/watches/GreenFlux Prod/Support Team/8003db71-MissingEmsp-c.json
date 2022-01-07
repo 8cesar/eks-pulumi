@@ -1,0 +1,74 @@
+{
+  "trigger": {
+    "schedule": {
+      "interval": "2h"
+    }
+  },
+  "input": {
+    "search": {
+      "request": {
+        "search_type": "query_then_fetch",
+        "indices": [
+          "gfx-prod-logs*"
+        ],
+        "body": {
+          "size": 1000,
+          "query": {
+            "bool": {
+              "must": [
+                {
+                  "query_string": {
+                    "query": "indexname: \"OwnTokensNormalizer\" AND message: \"Missing emsp-c: Add emsp-c with coutryCode\" AND level:Warning"
+                  }
+                }
+              ],
+              "filter": [
+                {
+                  "range": {
+                    "@timestamp": {
+                      "lte": "now",
+                      "gte": "now-2h"
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        }
+      }
+    }
+  },
+  "condition": {
+    "compare": {
+      "ctx.payload.hits.total": {
+        "gt": 0
+      }
+    }
+  },
+  "actions": {
+    "MS_Teams": {
+      "transform": {
+        "script": {
+          "source": "def dict=[:];for(int i=0;i<ctx.payload.hits.hits.length;i++){String key=ctx.payload.hits.hits[i]._source.message;def cur=dict.get(key);if(cur==null){dict.put(key,1);}else{dict.put(key,cur+1);}} String result='';for(String k:dict.keySet()){result=result+k+ ': ' + dict[k] + '\\\\r\\\\n\\\\r\\\\n';} return result;",
+          "lang": "painless"
+        }
+      },
+      "webhook": {
+        "scheme": "https",
+        "host": "greenfluxbv.webhook.office.com",
+        "port": 443,
+        "method": "post",
+        "path": "$(watcherWebhookMissingEmsp-c)",
+        "params": {},
+        "headers": {
+          "Content-Type": "application/json; charset=UTF-8"
+        },
+        "body": {
+          "source": {
+            "text": "<h1>Watch 8003db71 (Gfx Prod)</h1><br>Missing emsp-c: Kibana query: \"Missing emsp-c: Add emsp-c with coutryCode\"\r\n\r\n{{ctx.payload._value}}"
+          }
+        }
+      }
+    }
+  }
+}

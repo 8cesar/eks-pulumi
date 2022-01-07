@@ -1,0 +1,99 @@
+{
+  "trigger": {
+    "schedule": {
+      "weekly": {
+        "on": "friday",
+        "at": "9:00"
+      }
+    }
+  },
+  "input": {
+    "search": {
+      "request": {
+        "search_type": "query_then_fetch",
+        "indices": [
+          "gfx-prod-logs*"
+        ],
+        "body": {
+          "size": 2500,
+          "query": {
+            "bool": {
+              "must": [
+                {
+                  "match_phrase": {
+                    "indexname": "CdrServiceV2"
+                  },
+                  "match_phrase": {
+                    "function": "servicebus--billing-cdr-calculated-v2/Subscriptions/cdr-service-v2-cost-calculated"
+                  },
+                  "match_phrase": {
+                    "message": "cannot apply: missing wholesale cost"
+                  },
+                  "match_phrase": {
+                    "level": "Warning"
+                  },
+                  "match_phrase": {
+                    "output": "MissingRule | "
+                  }
+                }
+              ],
+              "filter": [
+                {
+                  "range": {
+                    "@timestamp": {
+                      "lte": "now",
+                      "gte": "now-9h"
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        }
+      }
+    }
+  },
+  "condition": {
+    "compare": {
+      "ctx.payload.hits.total": {
+        "gt": 0
+      }
+    }
+  },
+  "actions": {
+    "MS_Teams": {
+      "transform": {
+        "script": {
+          "inline": "def l = new ArrayList(); def dict = [:]; for (int i = 0; i < ctx.payload.hits.hits.length;i++){     String nojunk = /[\"\\r\\n]/.matcher(ctx.payload.hits.hits[i]._source.input).replaceAll('`');     def m = /cpo-n: '(.*?)', cpo-c: '(.*?)', cpso: '(.*?)', emsp-n: '(.*?)', emsp-c: '(.*?)', emsp: '(.*?)', tc: '(.*?)', rtc: '(.*?)', rp: '(.*?)'/.matcher(nojunk);     if (m.find()) {         String key = 'CPO Network: ' + m.group(1)                       + ' | CPO Contract: ' + m.group(2)                      + ' | CPO: ' + m.group(3)                      + ' | EMSP Network: ' + m.group(4)                       + ' | EMSP Contract: ' + m.group(5)                       + ' | EMSP: ' + m.group(6)                       + ' | Tariff: ' + m.group(7);                               def cur = dict.get(key);         if (cur == null) {             dict.put(key, 1);         } else {             dict.put(key, cur + 1);         }     } }  for (String k: dict.keySet()) {     l.add(k); }  for (int i = l.length; i < 10; i++) {     l.add('{}'); }  return l;"
+        }
+      },
+      "webhook": {
+        "scheme": "https",
+        "method": "POST",
+        "host": "greenfluxbv.webhook.office.com",
+        "port": 443,
+        "path": "$(watcherWebhookMissingRetailRules)",
+        "headers": {
+          "Content-Type": "application/json; charset=UTF-8"
+        },
+        "body": {
+          "source": {
+            "text": "<h1>Watch a1a4f08b (Gfx Prod)</h1><br>Missing wholesale rules\n\n1\n\n{{#toJson}}ctx.payload._value.0{{/toJson}}\n\n2\n\n{{#toJson}}ctx.payload._value.1{{/toJson}}\n\n3\n\n\n{{#toJson}}ctx.payload._value.2{{/toJson}}\n\n4\n\n{{#toJson}}ctx.payload._value.3{{/toJson}}\n\n5\n\n{{#toJson}}ctx.payload._value.4{{/toJson}}\n\n6\n\n{{#toJson}}ctx.payload._value.5{{/toJson}}\n\n7\n\n{{#toJson}}ctx.payload._value.6{{/toJson}}\n\n8\n\n{{#toJson}}ctx.payload._value.7{{/toJson}}\n\n9\n\n{{#toJson}}ctx.payload._value.8{{/toJson}}\n\n10\n\n{{#toJson}}ctx.payload._value.9{{/toJson}}"
+          }
+        }
+      }
+    },
+    "Email": {
+      "email": {
+        "profile": "standard",
+        "to": [
+          "sam.pendered@greenflux.com"
+        ],
+        "subject": "Watch [{{ctx.metadata.name}}] has exceeded the threshold",
+        "body": {
+          "text": "bla bla bla"
+        }
+      }
+    }
+  }
+}
