@@ -16,7 +16,7 @@ The alerts are deployed via the [Azure Alerts](https://dev.azure.com/greenflux/S
 ### Severity levels and actions
 
 | Severity level | Description       | Example                            | Actions                             |
-|----------------|-------------------|------------------------------------|-------------------------------------|
+| -------------- | ----------------- | ---------------------------------- | ----------------------------------- |
 | 0              | Major severity    | System is compromised              | Analyze and close alert, create PBI |
 | 1              | Critical severity | Critical components are in trouble | Analyze and close alert, create PBI |
 | 2              | High severity     | App service stopped working        | Analyze and close alert             |
@@ -67,7 +67,41 @@ We have 2 broad types of watches:
 1. Those that retrieve the Elastic Heartbeat data and send it to MS Teams (stored in the [heartbeats folder](Elastic-Watcher/watches/heartbeats/1a01119c-HeartbeatsTeamDevOps.json))
 2. Those that use queries to retrieve specific data from Elastic. These are first grouped by environment (`Eneco Prod` and `GreenFlux Prod`) and then by team.
 
-Both types are deployed by the [Elastic Watcher](https://dev.azure.com/greenflux/Shared/_release?definitionId=53&view=mine&_a=releases) release pipeline.
+Both types are deployed by the [Elastic Watcher](https://dev.azure.com/greenflux/Shared/_release?definitionId=54&view=mine&_a=releases) release pipeline.
+
+### Naming convention
+
+All watches must have the name of the form:
+
+`<guid>-<ShortFunctionalNameInCamelCase>.json`
+
+### Template conventions
+
+#### Watch action
+
+All the watch actions must follow this structure:
+
+```json
+"actions": {
+    "MS_Teams": {
+      "webhook": {
+        "scheme": "https",
+        "method": "POST",
+        "host": "greenfluxbv.webhook.office.com",
+        "port": 443,
+        "path": "$(watcherWebhook<choose-the-one-for-you>)",
+        "headers": {
+          "Content-Type": "application/json; charset=UTF-8"
+        },
+        "body": {
+          "source": {
+            "text": "<h1>Watch <watch-guid> (<Gfx/Ene> Prod)</h1><br>Message"
+          }
+        }
+      }
+    }
+  }
+```
 
 ## Grafana dashboards
 
