@@ -28,7 +28,7 @@ $RegisteredWatches = (Invoke-RestMethod `
 # if there is a registered watch not in $FileList, delete registered watch
 foreach ($RegisteredWatch in $RegisteredWatches) {
     # only works if the watch ID is the same as the filename
-    if ((($RegisteredWatch._id) + '.json') -notin $FileList) {
+    if ((($RegisteredWatch._id) + '.json') -cnotin $FileList) {
         Invoke-RestMethod `
             -Method DELETE `
             -Uri ($ElasticUrl + '/_watcher/watch/' + $RegisteredWatch._id) `
