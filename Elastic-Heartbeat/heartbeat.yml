@@ -1,3 +1,8 @@
+cloud.id: $(gfx-heartbeat-cloud-id)
+cloud.auth: $(gfx-heartbeat-cloud-auth)
+setup.ilm.rollover_alias: "heartbeat-prod"
+processors:
+  - add_cloud_metadata: ~
 heartbeat.monitors:
   - type: icmp
     id: gfx-tele2-gateway
@@ -769,8 +774,3 @@ heartbeat.monitors:
     ports: [443]
     timeouts: 10s
     check.response.status: [200]
-setup.ilm.rollover_alias: "heartbeat-prod"
-processors:
-  - add_cloud_metadata: ~
-cloud.id: $(gfx-heartbeat-cloud-id)
-cloud.auth: $(gfx-heartbeat-cloud-auth)

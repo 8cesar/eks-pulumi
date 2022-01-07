@@ -1,0 +1,67 @@
+{
+  "trigger": {
+    "schedule": {
+      "interval": "2h"
+    }
+  },
+  "input": {
+    "search": {
+      "request": {
+        "search_type": "query_then_fetch",
+        "indices": [
+          "gfx-prod-logs*"
+        ],
+        "body": {
+          "size": 0,
+          "query": {
+            "bool": {
+              "must": [
+                {
+                  "query_string": {
+                    "query": "indexname:OcpiChargingTokenManager AND function:OcpiAuthorizeToken AND \"No response from emsp within 10 seconds on authorization request\""
+                  }
+                }
+              ],
+              "filter": [
+                {
+                  "range": {
+                    "@timestamp": {
+                      "lte": "now",
+                      "gte": "now-2h"
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        }
+      }
+    }
+  },
+  "condition": {
+    "compare": {
+      "ctx.payload.hits.total": {
+        "gt": 3
+      }
+    }
+  },
+  "actions": {
+    "MS_Teams": {
+      "webhook": {
+        "scheme": "https",
+        "method": "POST",
+        "host": "greenfluxbv.webhook.office.com",
+        "port": 443,
+        "path": "$(watcherWebhookTeamIntegration)",
+        "headers": {
+          "Content-Type": "application/json; charset=UTF-8"
+        },
+        "body": {
+          "source": {
+            "text": "<h1>Watch 086e4e33 (Gfx Prod)</h1><br>No response from emsp within 10 seconds on authorization request"
+          }
+        }
+      }
+    }
+  }
+}

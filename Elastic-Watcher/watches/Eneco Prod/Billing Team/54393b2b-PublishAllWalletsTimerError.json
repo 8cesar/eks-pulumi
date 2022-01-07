@@ -1,0 +1,73 @@
+{
+  "trigger": {
+    "schedule": {
+      "interval": "2h"
+    }
+  },
+  "input": {
+    "search": {
+      "request": {
+        "search_type": "query_then_fetch",
+        "indices": [
+          "gfx-prod-logs*"
+        ],
+        "body": {
+          "size": 0,
+          "query": {
+            "bool": {
+              "must": [
+                {
+                  "match": {
+                    "indexname": "OwnTokensNormalizer"
+                  }
+                },
+                {
+                  "match": {
+                    "function": "PublishAllWalletsTimer"
+                  }
+                }
+              ],
+              "filter": [
+                {
+                  "range": {
+                    "@timestamp": {
+                      "lte": "now",
+                      "gte": "now-24h"
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        }
+      }
+    }
+  },
+  "condition": {
+    "compare": {
+      "ctx.payload.hits.total": {
+        "lt": 1
+      }
+    }
+  },
+  "actions": {
+    "MS_Teams": {
+      "throttle_period": "6h",
+      "webhook": {
+        "scheme": "https",
+        "method": "POST",
+        "host": "greenfluxbv.webhook.office.com",
+        "port": 443,
+        "path": "$(watcherWebhookTeamBilling)",
+        "headers": {
+          "Content-Type": "application/json; charset=UTF-8"
+        },
+        "body": {
+          "source": {
+            "text": "<h1>Watch 54393b2b (Ene Prod)</h1><br>PublishAllWalletsTimerError in the last 24 hours"
+          }
+        }
+      }
+    }
+  }
+}

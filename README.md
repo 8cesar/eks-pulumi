@@ -1,17 +1,15 @@
 # GreenFlux.DevOps.Monitoring
 
-In this repository you can find the templates for our Azure Alerts, Elastic Watchers, Elastic Heartbeats, and Grafana (and its dashboards).
+In this repository you can find the templates for our Azure alerts, Elastic Watcher configuration, Elastic Heartbeat deployment, and Grafana (and its dashboards).
 
 Our infrastructure is monitored using:
 
-1. **Azure Alerts**: for metrics monitoring (e.g. for the [_CPU Percentage_ metric of the gfx-app-plan-p](https://portal.azure.com/#@greenflux.com/blade/Microsoft_Azure_MonitoringMetrics/Metrics.ReactView/Referer/MetricsExplorer/ResourceId/%2Fsubscriptions%2F58d729f3-33af-4981-84ca-93e537fbdfbc%2FresourceGroups%2Fgfx-app-p%2Fproviders%2FMicrosoft.Web%2Fserverfarms%2Fgfx-app-plan-p/TimeContext/%7B%22relative%22%3A%7B%22duration%22%3A86400000%7D%2C%22showUTCTime%22%3Afalse%2C%22grain%22%3A1%7D/ChartDefinition/%7B%22v2charts%22%3A%5B%7B%22metrics%22%3A%5B%7B%22resourceMetadata%22%3A%7B%22id%22%3A%22%2Fsubscriptions%2F58d729f3-33af-4981-84ca-93e537fbdfbc%2FresourceGroups%2Fgfx-app-p%2Fproviders%2FMicrosoft.Web%2Fserverfarms%2Fgfx-app-plan-p%22%7D%2C%22name%22%3A%22CpuPercentage%22%2C%22aggregationType%22%3A4%2C%22namespace%22%3A%22microsoft.web%2Fserverfarms%22%2C%22metricVisualization%22%3A%7B%22displayName%22%3A%22CPU%20Percentage%22%7D%7D%5D%2C%22title%22%3A%22Avg%20CPU%20Percentage%20for%20gfx-app-plan-p%22%2C%22titleKind%22%3A1%2C%22visualization%22%3A%7B%22chartType%22%3A2%2C%22legendVisualization%22%3A%7B%22isVisible%22%3Atrue%2C%22position%22%3A2%2C%22hideSubtitle%22%3Afalse%7D%2C%22axisVisualization%22%3A%7B%22x%22%3A%7B%22isVisible%22%3Atrue%2C%22axisType%22%3A2%7D%2C%22y%22%3A%7B%22isVisible%22%3Atrue%2C%22axisType%22%3A1%7D%7D%7D%7D%5D%7D) App Service Plan)
-2. **Elastic Watchers**: for customizable service health checks
-3. **Elastic Heartbeats**: for pinging API health endpoints
+1. **Azure alerts**: for metrics monitoring (e.g. for the [_CPU Percentage_ metric of the gfx-app-plan-p](https://portal.azure.com/#@greenflux.com/blade/Microsoft_Azure_MonitoringMetrics/Metrics.ReactView/Referer/MetricsExplorer/ResourceId/%2Fsubscriptions%2F58d729f3-33af-4981-84ca-93e537fbdfbc%2FresourceGroups%2Fgfx-app-p%2Fproviders%2FMicrosoft.Web%2Fserverfarms%2Fgfx-app-plan-p/TimeContext/%7B%22relative%22%3A%7B%22duration%22%3A86400000%7D%2C%22showUTCTime%22%3Afalse%2C%22grain%22%3A1%7D/ChartDefinition/%7B%22v2charts%22%3A%5B%7B%22metrics%22%3A%5B%7B%22resourceMetadata%22%3A%7B%22id%22%3A%22%2Fsubscriptions%2F58d729f3-33af-4981-84ca-93e537fbdfbc%2FresourceGroups%2Fgfx-app-p%2Fproviders%2FMicrosoft.Web%2Fserverfarms%2Fgfx-app-plan-p%22%7D%2C%22name%22%3A%22CpuPercentage%22%2C%22aggregationType%22%3A4%2C%22namespace%22%3A%22microsoft.web%2Fserverfarms%22%2C%22metricVisualization%22%3A%7B%22displayName%22%3A%22CPU%20Percentage%22%7D%7D%5D%2C%22title%22%3A%22Avg%20CPU%20Percentage%20for%20gfx-app-plan-p%22%2C%22titleKind%22%3A1%2C%22visualization%22%3A%7B%22chartType%22%3A2%2C%22legendVisualization%22%3A%7B%22isVisible%22%3Atrue%2C%22position%22%3A2%2C%22hideSubtitle%22%3Afalse%7D%2C%22axisVisualization%22%3A%7B%22x%22%3A%7B%22isVisible%22%3Atrue%2C%22axisType%22%3A2%7D%2C%22y%22%3A%7B%22isVisible%22%3Atrue%2C%22axisType%22%3A1%7D%7D%7D%7D%5D%7D) App Service Plan)
+2. **Elastic heartbeats**: for pinging API health endpoints
+3. **Elastic watches**: for (1) delivering the Elastic Heartbeat data from Elastic to Microsoft Teams and (2) customizable service health checks using Kibana queries
 4. **Grafana dashboards**: to get the big picture
 
-The reason we use watchers and heartbeats is because the heartbeats only check our services (and display the status in the [Elatic Heartbeats Dashboard](https://aa72c8caf80943bab3ce3eb7a4bc0530.westeurope.azure.elastic-cloud.com:9243/app/uptime)). It is the goal of the watchers to inform us (through MS Teams notifications) about their health.
-
-## Azure Alerts
+## Azure alerts
 
 The alerts are deployed via the [Azure Alerts](https://dev.azure.com/greenflux/Shared/_release?view=mine&_a=releases&definitionId=9) release pipeline.
 
@@ -54,23 +52,22 @@ We use 3 logic apps: 2 for metrics and 1 for service health alerts in a resource
 The reason we use 2 logic apps for metric alerts and not 1 is a legacy one that will be soon restructured: we hit the [nesting depth](https://docs.microsoft.com/en-us/azure/logic-apps/logic-apps-limits-and-config?tabs=azure-portal#workflow-definition-limits) with the first logic app, so our team created a second one to extend our monitoring capabilities. The second Logic App currently deals with the Charge Assist and Charge Station alerts.
 -->
 
-## Elastic Watchers
-
-WORK IN PROGRESS
-<!-- We have 2 types of watchers:
-
-1. URL endpoints - index starting with 0 (e.g. _[001PROD-gsop-gfx-ocpicdrservice.json]()_)
-2. Query watchers - index starting with 1 (e.g _[101GfxProdOcpiPublisherPost-CdrsSuccessfullyPublishedLessThan1.json]()_)
-
-They are both deployed by the [Alerts - Elastic Watchers](https://dev.azure.com/greenflux/Shared/_release?view=mine&_a=releases&definitionId=11) release pipeline.
-
-You can find the Watchers in [Elastic](https://aa72c8caf80943bab3ce3eb7a4bc0530.westeurope.azure.elastic-cloud.com:9243/app/management/insightsAndAlerting/watcher/watches). -->
-
-## Elastic Heartbeats
+## Elastic heartbeats
 
 The Heartbeat container (defined in [this Dockerfile](heartbeat/Dockerfile)) pings the "beats" defined in [heartbeat.yml](heartbeat/heartbeat.yml) and then displays the results in the [Elastic Heartbeats Dashboard](https://aa72c8caf80943bab3ce3eb7a4bc0530.westeurope.azure.elastic-cloud.com:9243/app/uptime).
 
-The heartbeats are deployed via the [Heartbeat](https://dev.azure.com/greenflux/Shared/_release?definitionId=51&view=mine&_a=releases) release pipeline.
+The heartbeats are deployed via the [Elastic Heartbeat](https://dev.azure.com/greenflux/Shared/_release?definitionId=51&view=mine&_a=releases) release pipeline.
+
+## Elastic watches
+
+Elastic Watcher is an Elasticsearch feature that you can use to create actions based on conditions, which are periodically evaluated using queries on your data.
+
+We have 2 broad types of watches:
+
+1. Those that retrieve the Elastic Heartbeat data and send it to MS Teams (stored in the [heartbeats folder](Elastic-Watcher/watches/heartbeats/1a01119c-HeartbeatsTeamDevOps.json))
+2. Those that use queries to retrieve specific data from Elastic. These are first grouped by environment (`Eneco Prod` and `GreenFlux Prod`) and then by team.
+
+Both types are deployed by the [Elastic Watcher](https://dev.azure.com/greenflux/Shared/_release?definitionId=52&view=mine&_a=releases) release pipeline.
 
 ## Grafana dashboards
 
