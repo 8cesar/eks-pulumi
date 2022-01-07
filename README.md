@@ -67,7 +67,7 @@ We have 2 broad types of watches:
 1. Those that retrieve the Elastic Heartbeat data and send it to MS Teams (stored in the [heartbeats folder](Elastic-Watcher/watches/heartbeats/1a01119c-HeartbeatsTeamDevOps.json))
 2. Those that use queries to retrieve specific data from Elastic. These are first grouped by environment (`Eneco Prod` and `GreenFlux Prod`) and then by team.
 
-Both types are deployed by the [Elastic Watchers](https://dev.azure.com/greenflux/Shared/_release?definitionId=52&view=mine&_a=releases) release pipeline.
+Both types are deployed by the [Elastic Watcher](https://dev.azure.com/greenflux/Shared/_release?definitionId=52&view=mine&_a=releases) release pipeline.
 
 ## Grafana dashboards
 
