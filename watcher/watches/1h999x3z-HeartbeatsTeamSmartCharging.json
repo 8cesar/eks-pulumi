@@ -18,7 +18,7 @@
               "must": [
                 {
                   "query_string": {
-                    "query": "monitor.status:down AND tags:\"DevOps-Team\""
+                    "query": "monitor.status:down AND tags:\"SmartCharging-Team\""
                   }
                 }
               ],
@@ -67,13 +67,13 @@
         "method": "POST",
         "host": "greenfluxbv.webhook.office.com",
         "port": 443,
-        "path": "$(watcherWebhookPathTeamDevOps)",
+        "path": "$(watcherWebhookPathTeamSmartCharging)",
         "headers": {
           "Content-Type": "application/json; charset=UTF-8"
         },
         "body": {
           "source": {
-            "text": "<h1>Elastic watch 1a01119c</h1>Elastic Heartbeat ping failed for:<br><br><table><tr><td>RESOURCE</td><td>URL</td></tr>{{#ctx.payload.aggregations.url.buckets}}<tr><td>{{id.buckets.0.key}}</td><td>{{key}}</td></tr>{{/ctx.payload.aggregations.url.buckets}}</table>"
+            "text": "<h1>Elastic watch 1h999x3z</h1>Elastic Heartbeat ping failed for:<br><br><table><tr><td>RESOURCE</td><td>URL</td></tr>{{#ctx.payload.aggregations.url.buckets}}<tr><td>{{id.buckets.0.key}}</td><td>{{key}}</td></tr>{{/ctx.payload.aggregations.url.buckets}}</table>"
           }
         }
       }
