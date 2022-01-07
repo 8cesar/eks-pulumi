@@ -2,9 +2,9 @@
 
 param
 (
-    [string] $ElasticUrl,
-    [string] $User,
-    [string] $Pass
+    [string] $ElasticUrl = "https://b9a4cfd069234e66be0168c8f9198087.westeurope.azure.elastic-cloud.com:9243",
+    [string] $User = "elastic-watcher",
+    [string] $Pass = "YBZDRiRLh^6oCWnLagzTyk32d"
 )
 
 [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
