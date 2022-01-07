@@ -1,7 +1,7 @@
 {
   "trigger": {
     "schedule": {
-      "interval": "30m"
+      "interval": "15m"
     }
   },
   "input": {
@@ -27,7 +27,7 @@
                   "range": {
                     "@timestamp": {
                       "lte": "now",
-                      "gte": "now-1h"
+                      "gte": "now-15m"
                     }
                   }
                 }
@@ -41,13 +41,13 @@
   "condition": {
     "compare": {
       "ctx.payload.hits.total": {
-        "lt": 40000
+        "lt": 10000
       }
     }
   },
   "actions": {
     "MS_Teams": {
-      "throttle_period": "1h",
+      "throttle_period": "15m",
       "webhook": {
         "scheme": "https",
         "method": "POST",
@@ -59,7 +59,7 @@
         },
         "body": {
           "source": {
-            "text": "<h1>Watch b2145651 (Ene Prod)</h1><br>The 'WebSocketServer' index has less than 40000 hits in the last hour"
+            "text": "<h1>Watch b2145651 (Ene Prod)</h1><br>The 'WebSocketServer' index has less than 10000 hits in the 15 min"
           }
         }
       }
