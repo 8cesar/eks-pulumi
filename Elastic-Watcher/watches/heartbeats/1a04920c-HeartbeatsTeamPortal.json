@@ -61,7 +61,7 @@
   },
   "actions": {
     "MS_Teams": {
-      "throttle_period": "3h",
+      "throttle_period": "4h",
       "webhook": {
         "scheme": "https",
         "method": "POST",
