@@ -1,0 +1,60 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "ServiceHealthName": {
+      "type": "string"
+    },
+    "alertGroupName": {
+      "type": "string"
+    }
+  },
+  "variables": {
+    "actionGroupID": "[resourceId('microsoft.insights/actionGroups', parameters('alertGroupName'))]",
+    "description": "[concat(parameters('ServiceHealthname'),': service-health of azure resources')]"
+  },
+  "resources": [
+    {
+      "name": "[parameters('ServiceHealthName')]",
+      "type": "microsoft.insights/activityLogAlerts",
+      "apiVersion": "2017-04-01",
+      "location": "global",
+      "tags": {
+        "status": "active",
+        "costcenter": "shared",
+        "project": "shared",
+        "team": "devops"
+      },
+      "properties": {
+        "scopes": [
+          "[subscription().id]"
+        ],
+        "enabled": true,
+        "condition": {
+          "allOf": [
+            {
+              "field": "category",
+              "equals": "ServiceHealth"
+            },
+            {
+              "field": "properties.incidentType",
+              "equals": "Incident"
+            },
+            {
+              "field": "properties.RegionName",
+              "equals": "West Europe"
+            }
+          ]
+        },
+        "actions": {
+          "actionGroups": [
+            {
+              "actionGroupId": "[variables('actionGroupId')]"
+            }
+          ]
+        },
+        "description": "[variables('description')]"
+      }
+    }
+  ]
+}

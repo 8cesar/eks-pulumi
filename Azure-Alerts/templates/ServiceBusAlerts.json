@@ -1,0 +1,168 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "alertGroupName": {
+      "type": "string"
+    },
+    "alertGroupRegr": {
+      "type": "string"
+    },
+    "seviceBusName": {
+      "type": "string",
+      "metadata": {
+        "description": "serviceBus name."
+      }
+    },
+    "alertSeverity": {
+      "type": "int",
+      "defaultValue": 3,
+      "allowedValues": [
+        0,
+        1,
+        2,
+        3,
+        4
+      ],
+      "metadata": {
+        "description": "Severity of alert {0,1,2,3,4}"
+      }
+    },
+    "evaluationFrequency": {
+      "type": "string",
+      "defaultValue": "PT1M",
+      "allowedValues": [
+        "PT1M",
+        "PT5M",
+        "PT15M",
+        "PT30M",
+        "PT1H"
+      ],
+      "metadata": {
+        "description": "how often the metric alert is evaluated represented in ISO 8601 duration format"
+      }
+    },
+    "windowSize": {
+      "type": "string",
+      "defaultValue": "PT5M",
+      "allowedValues": [
+        "PT1M",
+        "PT5M",
+        "PT15M",
+        "PT30M",
+        "PT1H",
+        "PT6H",
+        "PT12H",
+        "PT24H"
+      ],
+      "metadata": {
+        "description": "Period of time used to monitor alert activity based on the threshold. Must be between one minute and one day. ISO 8601 duration format."
+      }
+    },
+    "metricName": {
+      "type": "string",
+      "defaultValue": "ServerErrors",
+      "metadata": {
+        "description": "Name of the metric for every azure source can be different name"
+      }
+    },
+    "monitname": {
+      "type": "string",
+      "defaultValue": "server errors fro Service bus",
+      "metadata": {
+        "description": "Name of Alert"
+      }
+    },
+    "operator": {
+      "type": "string",
+      "DefaultValue": "GreaterThan",
+      "allowedValues": [
+        "Equals",
+        "NotEquals",
+        "GreaterThan",
+        "GreaterThanOrEqual",
+        "LessThan",
+        "LessThanOrEqual"
+      ],
+      "metadata": {
+        "description": "The criteria operator. - Equals, NotEquals, GreaterThan, GreaterThanOrEqual, LessThan, LessThanOrEqual"
+      }
+    },
+    "threshold": {
+      "type": "int",
+      "DefaultValue": 10,
+      "metadata": {
+        "descriptions": "the criteria threshold value that activates the alert."
+      }
+    },
+    "timeAggregation": {
+      "type": "string",
+      "DefaultValue": "Average",
+      "allowedValues": [
+        "Average",
+        "Minimum",
+        "Maximum",
+        "Total"
+      ],
+      "metadata": {
+        "description": "the criteria time aggregation types. - Average, Minimum, Maximum, Total"
+      }
+    },
+    "teamName": {
+      "type": "string",
+      "metadata": {
+        "description": "name of teams"
+      }
+    }
+  },
+  "variables": {
+    "serviceBusID": "[resourceId('Microsoft.ServiceBus/namespaces', parameters('SeviceBusName'))]",
+    "actionGroupID": "[resourceId(parameters('alertGroupRegr'),'microsoft.insights/actionGroups', parameters('alertGroupName'))]",
+    "metricAlertSuffix": "ServiceBus Alert",
+    "metricAlertName": "[concat(parameters('seviceBusName'),'-', variables('metricAlertSuffix'),'-', parameters('monitname'))]",
+    "metricAlertDescription": "[concat(parameters('teamName'),': ',variables('metricAlertSuffix'),' : ', parameters('seviceBusName'), '- ', parameters('monitname'), ', where : ', parameters('timeAggregation'), ' ', parameters('operator'), ' ', parameters('threshold'))]"
+  },
+  "resources": [
+    {
+      "apiVersion": "2018-03-01",
+      "location": "global",
+      "name": "[variables('metricAlertName')]",
+      "tags": {
+        "status": "active",
+        "costcenter": "shared",
+        "project": "shared",
+        "team": "devops"
+      },
+      "properties": {
+        "description": "[variables('metricAlertDescription')]",
+        "severity": "[parameters('alertSeverity')]",
+        "enabled": true,
+        "scopes": [
+          "[variables('serviceBusID')]"
+        ],
+        "evaluationFrequency": "[parameters('evaluationFrequency')]",
+        "windowSize": "[parameters('windowSize')]",
+        "criteria": {
+          "odata.type": "Microsoft.Azure.Monitor.SingleResourceMultipleMetricCriteria",
+          "allOf": [
+            {
+              "criterionType": "StaticThresholdCriterion",
+              "dimensions": [],
+              "metricName": "[parameters('metricName')]",
+              "name": "[parameters('monitname')]",
+              "operator": "[parameters('operator')]",
+              "threshold": "[parameters('threshold')]",
+              "timeAggregation": "[parameters('timeAggregation')]"
+            }
+          ]
+        },
+        "actions": [
+          {
+            "actionGroupId": "[variables('actionGroupId')]"
+          }
+        ]
+      },
+      "type": "Microsoft.Insights/metricAlerts"
+    }
+  ]
+}

@@ -17,11 +17,11 @@ The alerts are deployed via the [Azure Alerts](https://dev.azure.com/greenflux/S
 
 | Severity level | Description       | Example                            | Actions                             |
 | -------------- | ----------------- | ---------------------------------- | ----------------------------------- |
-| 0              | Major severity    | System is compromised              | Analyze and close alert, create PBI |
-| 1              | Critical severity | Critical components are in trouble | Analyze and close alert, create PBI |
-| 2              | High severity     | App service stopped working        | Analyze and close alert             |
-| 3              | Medium severity   | Database storage is above 80 %     | Analyze and close alert             |
-| 4              | Low severity      | Low-level alert                    | Analyze and close alert             |
+| 0              | Critical          | System is compromised              | Analyze and close alert, create PBI |
+| 1              | Error             | Critical components are in trouble | Analyze and close alert, create PBI |
+| 2              | Warning           | App service stopped working        | Analyze and close alert             |
+| 3              | Informational     | Database storage is above 80 %     | Analyze and close alert             |
+| 4              | Verbose           | Low-level alert                    | Analyze and close alert             |
 
 See the [Close alerts wiki page](https://dev.azure.com/greenflux/Shared/_wiki/wikis/Shared.wiki/3972/Close-alerts) for info on how to analyze and close alerts.
 

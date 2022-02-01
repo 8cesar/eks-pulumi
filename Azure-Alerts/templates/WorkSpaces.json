@@ -1,0 +1,72 @@
+{
+
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "workspaceName": {
+      "type": "string",
+      "defaultValue": "gfxmonitoring",
+      "metadata": {
+        "description": "Name of the workspace."
+      }
+    },
+    "sku": {
+      "type": "string",
+      "allowedValues": [
+        "pergb2018",
+        "Free",
+        "Standalone",
+        "PerNode",
+        "Standard",
+        "Premium"
+      ],
+      "defaultValue": "pergb2018",
+      "metadata": {
+        "description": "Pricing tier: PerGB2018 or legacy tiers (Free, Standalone, PerNode, Standard or Premium) which are not available to all customers."
+      }
+    },
+    "retentionInDays": {
+      "type": "int",
+      "defaultValue": 120,
+      "metadata": {
+        "description": "Number of days to retain data."
+      }
+    },
+    "resourcePermissions": {
+      "type": "bool",
+      "defaultValue": true,
+      "metadata": {
+        "description": "true to use resource or workspace permissions. false to require workspace permissions."
+      }
+    }
+  },
+  "variables": {
+    "workspaceId": "[resourceId('Microsoft.OperationalInsights/workspaces', parameters('workspaceName'))]",
+    "settingName": "[concat('ActDig-', parameters('workspaceName'))]"
+  },
+  "resources": [
+    {
+      "type": "Microsoft.OperationalInsights/workspaces",
+      "apiVersion": "2020-03-01-preview",
+      "name": "[parameters('workspaceName')]",
+      "location": "[resourceGroup().location]",
+      "tags": {
+        "status": "active",
+        "costcenter": "shared",
+        "project": "shared",
+        "team": "devops"
+      },
+      "properties": {
+        "sku": {
+          "name": "[parameters('sku')]"
+        },
+        "retentionInDays": "[parameters('retentionInDays')]",
+        "features": {
+          "searchVersion": 1,
+          "legacy": 0,
+          "enableLogAccessUsingOnlyResourcePermissions": "[parameters('resourcePermissions')]"
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "logicAppName": {
+      "value": "gfx-monitoring-la01"
+    },
+    "ConnectionName": {
+      "value": "team"
+    },
+    "ConnectionDisplayName": {
+      "value": "monitoring@greenflux.com"
+    },
+    "ConnectiontokenTenantId": {
+      "value": "3145cea7-e759-4aeb-b8fc-506e0a02fd91"
+    }
+  }
+}
