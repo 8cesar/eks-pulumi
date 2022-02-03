@@ -2,6 +2,8 @@
 
 In this repository you can find the templates for our Azure alerts, Elastic Watcher configuration, Elastic Heartbeat deployment, and Grafana (and its dashboards).
 
+[[_TOC_]]
+
 Our infrastructure is monitored using:
 
 1. **Azure alerts**: for metrics monitoring (e.g. for the [_CPU Percentage_ metric of the gfx-app-plan-p](https://portal.azure.com/#@greenflux.com/blade/Microsoft_Azure_MonitoringMetrics/Metrics.ReactView/Referer/MetricsExplorer/ResourceId/%2Fsubscriptions%2F58d729f3-33af-4981-84ca-93e537fbdfbc%2FresourceGroups%2Fgfx-app-p%2Fproviders%2FMicrosoft.Web%2Fserverfarms%2Fgfx-app-plan-p/TimeContext/%7B%22relative%22%3A%7B%22duration%22%3A86400000%7D%2C%22showUTCTime%22%3Afalse%2C%22grain%22%3A1%7D/ChartDefinition/%7B%22v2charts%22%3A%5B%7B%22metrics%22%3A%5B%7B%22resourceMetadata%22%3A%7B%22id%22%3A%22%2Fsubscriptions%2F58d729f3-33af-4981-84ca-93e537fbdfbc%2FresourceGroups%2Fgfx-app-p%2Fproviders%2FMicrosoft.Web%2Fserverfarms%2Fgfx-app-plan-p%22%7D%2C%22name%22%3A%22CpuPercentage%22%2C%22aggregationType%22%3A4%2C%22namespace%22%3A%22microsoft.web%2Fserverfarms%22%2C%22metricVisualization%22%3A%7B%22displayName%22%3A%22CPU%20Percentage%22%7D%7D%5D%2C%22title%22%3A%22Avg%20CPU%20Percentage%20for%20gfx-app-plan-p%22%2C%22titleKind%22%3A1%2C%22visualization%22%3A%7B%22chartType%22%3A2%2C%22legendVisualization%22%3A%7B%22isVisible%22%3Atrue%2C%22position%22%3A2%2C%22hideSubtitle%22%3Afalse%7D%2C%22axisVisualization%22%3A%7B%22x%22%3A%7B%22isVisible%22%3Atrue%2C%22axisType%22%3A2%7D%2C%22y%22%3A%7B%22isVisible%22%3Atrue%2C%22axisType%22%3A1%7D%7D%7D%7D%5D%7D) App Service Plan)
