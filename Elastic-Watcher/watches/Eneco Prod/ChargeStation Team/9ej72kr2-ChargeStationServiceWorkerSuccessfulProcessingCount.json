@@ -41,7 +41,7 @@
   "condition": {
     "compare": {
       "ctx.payload.hits.total": {
-        "lt": 10
+        "lt": 9
       }
     }
   },
@@ -58,7 +58,7 @@
         },
         "body": {
           "source": {
-            "text": "<h1>Watch 9ej72kr2 (Ene Prod)</h1><br>ChargeStationServiceWorker hourly EventHub successful processing count is lower than 10"
+            "text": "<h1>Watch 9ej72kr2 (Ene Prod)</h1><br>ChargeStationServiceWorker hourly EventHub successful processing count is lower than 9"
           }
         }
       }
