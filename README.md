@@ -69,6 +69,8 @@ We have 2 broad types of watches:
 
 Both types are deployed by the [Elastic Watcher](https://dev.azure.com/greenflux/Shared/_release?definitionId=54&view=mine&_a=releases) release pipeline.
 
+Note: Watch use lucene isntead of KQL. Be aware that operators like AND, OR will work on Kibana but not as Watch query.
+
 ### Naming convention
 
 All watches must have the name of the form:

@@ -18,7 +18,7 @@
               "must": [
                 {
                   "query_string": {
-                    "query": "(indexname:WebSocketServer OR indexname:SocketServerPublic OR indexname:SocketServerPrivate OR indexname:TransactionEvents OR indexname:statusservice OR indexname:commandservice OR indexname:chargelocationservice OR indexname:GeoCodingService OR indexname:Legacy.Normalizer OR indexname:MailService OR indexname:ChargeStationServiceWorker OR indexname:ChargeStationServiceApi OR indexname:ChargeStationMigration) and level:error"
+                    "query": "(indexname:WebSocketServer OR indexname:SocketServerPublic OR indexname:SocketServerPrivate OR indexname:TransactionEvents OR indexname:statusservice OR indexname:commandservice OR indexname:chargelocationservice OR indexname:GeoCodingService OR indexname:Legacy.Normalizer OR indexname:MailService OR indexname:ChargeStationServiceWorker OR indexname:ChargeStationServiceApi OR indexname:ChargeStationMigration) AND level:error"
                   }
                 }
               ],

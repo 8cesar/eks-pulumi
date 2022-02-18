@@ -41,7 +41,7 @@
   "condition": {
     "compare": {
       "ctx.payload.hits.total": {
-        "gt": 10
+        "gt": 100
       }
     }
   },
@@ -59,7 +59,7 @@
         },
         "body": {
           "source": {
-            "text": "<h1>Watch a21sc8de3 (Ene Prod)</h1><br>Errors in the ChargeStation domain > 10 in the last 15 min"
+            "text": "<h1>Watch a21sc8de3 (Ene Prod)</h1><br>Errors in the ChargeStation domain > 100 in the last 15 min"
           }
         }
       }
