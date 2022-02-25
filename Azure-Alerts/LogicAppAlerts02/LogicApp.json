@@ -1,5 +1,5 @@
 {
-  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
   "contentVersion": "1.0.0.0",
   "parameters": {
     "logicAppName": {
@@ -47,8 +47,80 @@
         "definition": {
           "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
           "actions": {
-            "Condition": {
-              "type": "If",
+            "And_the_HTTP_request_is_a_service_health_alert": {
+              "actions": {
+                "And_the_alert_is_activated": {
+                  "actions": {
+                    "Post_message_in_the_Severity_1_channel": {
+                      "inputs": {
+                        "body": {
+                          "messageBody": "<p>Activity Log alert: @{triggerBody()?['data']?['context']?['activityLog']?['eventSource']}<br>\nOperation name: @{triggerBody()?['data']?['context']?['activityLog']?['operationName']}<br>\nService Health incident type: @{triggerBody()?['data']?['context']?['activityLog']?['properties']?['incidentType']}<br>\nStatus: @{triggerBody()?['data']?['context']?['activityLog']?['status']}<br>\nTracking ID: @{triggerBody()?['data']?['context']?['activityLog']?['properties']?['trackingId']}<br>\nTitle: @{triggerBody()?['data']?['context']?['activityLog']?['properties']?['title']}<br>\n<br>\n@{triggerBody()?['data']?['context']?['activityLog']?['properties']?['communication']}</p>",
+                          "recipient": {
+                            "channelId": "19:5a76a26e1f4e4a66ac46c26d628de4b6@thread.skype",
+                            "groupId": "7d81e64e-b159-4b4e-8619-a91a5b1f4fca"
+                          }
+                        },
+                        "host": {
+                          "connection": {
+                            "name": "@parameters('$connections')['teams']['connectionId']"
+                          }
+                        },
+                        "method": "post",
+                        "path": "/beta/teams/conversation/message/poster/Flow bot/location/@{encodeURIComponent('Channel')}"
+                      },
+                      "runAfter": {},
+                      "type": "ApiConnection"
+                    }
+                  },
+                  "else": {
+                    "actions": {
+                      "Terminate": {
+                        "inputs": {
+                          "runStatus": "Succeeded"
+                        },
+                        "runAfter": {},
+                        "type": "Terminate"
+                      }
+                    }
+                  },
+                  "expression": {
+                    "and": [
+                      {
+                        "equals": [
+                          "@triggerBody()?['data']?['status']",
+                          "Activated"
+                        ]
+                      }
+                    ]
+                  },
+                  "runAfter": {},
+                  "type": "If"
+                }
+              },
+              "else": {
+                "actions": {
+                  "Post_error_message_in_the_DevOps_channel": {
+                    "inputs": {
+                      "body": {
+                        "messageBody": "<p>The Azure service health monitoring logic app received an unrecognized HTTP request:<br>\n<br>\n@{json(triggerBody())}</p>",
+                        "recipient": {
+                          "channelId": "19:0c8be18da04046daa403c9da4d2361a6@thread.skype",
+                          "groupId": "7d81e64e-b159-4b4e-8619-a91a5b1f4fca"
+                        }
+                      },
+                      "host": {
+                        "connection": {
+                          "name": "@parameters('$connections')['teams']['connectionId']"
+                        }
+                      },
+                      "method": "post",
+                      "path": "/beta/teams/conversation/message/poster/Flow bot/location/@{encodeURIComponent('Channel')}"
+                    },
+                    "runAfter": {},
+                    "type": "ApiConnection"
+                  }
+                }
+              },
               "expression": {
                 "and": [
                   {
@@ -65,92 +137,12 @@
                   }
                 ]
               },
-              "actions": {
-                "Condition:_Activated_or_Resolved": {
-                  "type": "If",
-                  "expression": {
-                    "and": [
-                      {
-                        "equals": [
-                          "@triggerBody()?['data']?['status']",
-                          "Activated"
-                        ]
-                      }
-                    ]
-                  },
-                  "actions": {
-                    "MS_team_activated_service_health": {
-                      "type": "ApiConnection",
-                      "inputs": {
-                        "host": {
-                          "connection": {
-                            "name": "@parameters('$connections')['teams']['connectionId']"
-                          }
-                        },
-                        "method": "post",
-                        "body": {
-                          "body": {
-                            "content": "<p><strong>Service Health: </strong><strong>@{triggerBody()?['data']?['context']?['activityLog']?['properties']?['incidentType']}</strong><strong><br>\nTittle: </strong><strong>@{triggerBody()?['data']?['context']?['activityLog']?['properties']?['title']}</strong><strong><br>\n<br>\n</strong><strong>@{triggerBody()?['data']?['context']?['activityLog']?['properties']?['communication']}</strong><strong></strong><br>\n<br>\nCheck For details, log in to the Azure Service Health dashboard:<br>\nhttps://ms.portal.azure.com/#blade/Microsoft_Azure_Health/AzureHealthBrowseBlade/serviceIssues &nbsp;<br>\n<span style=\"font-size: 10px\">tracking ID: </span><span style=\"font-size: 10px\">@{triggerBody()?['data']?['context']?['activityLog']?['properties']?['trackingId']}</span><span style=\"font-size: 10px\"></span></p>",
-                            "contentType": "html"
-                          }
-                        },
-                        "path": "/v3/beta/teams/@{encodeURIComponent('7d81e64e-b159-4b4e-8619-a91a5b1f4fca')}/channels/@{encodeURIComponent('19:5a76a26e1f4e4a66ac46c26d628de4b6@thread.skype')}/messages"
-                      },
-                      "runAfter": {}
-                    }
-                  },
-                  "runAfter": {},
-                  "else": {
-                    "actions": {
-                      "MS_team_resolved_service_health": {
-                        "type": "ApiConnection",
-                        "inputs": {
-                          "host": {
-                            "connection": {
-                              "name": "@parameters('$connections')['teams']['connectionId']"
-                            }
-                          },
-                          "method": "post",
-                          "body": {
-                            "body": {
-                              "content": "<p><strong>Service Health: </strong><strong>@{triggerBody()?['data']?['context']?['activityLog']?['properties']?['incidentType']}</strong><strong><br>\nTittle: </strong><strong>@{triggerBody()?['data']?['context']?['activityLog']?['properties']?['title']}</strong><strong><br>\n<br>\n<br>\n</strong><strong>@{triggerBody()?['data']?['context']?['activityLog']?['properties']?['communication']}</strong><strong>&nbsp;</strong><br>\n<br>\nCheck For details, log in to the Azure Service Health dashboard:<br>\nhttps://ms.portal.azure.com/#blade/Microsoft_Azure_Health/AzureHealthBrowseBlade/serviceIssues <strong></strong><br>\n<span style=\"font-size: 10px\">tracking ID: </span><span style=\"font-size: 10px\">@{triggerBody()?['data']?['context']?['activityLog']?['properties']?['trackingId']}</span><span style=\"font-size: 10px\"></span></p>",
-                              "contentType": "html"
-                            }
-                          },
-                          "path": "/v3/beta/teams/@{encodeURIComponent('7d81e64e-b159-4b4e-8619-a91a5b1f4fca')}/channels/@{encodeURIComponent('19:5a76a26e1f4e4a66ac46c26d628de4b6@thread.skype')}/messages"
-                        },
-                        "runAfter": {}
-                      }
-                    }
-                  }
-                }
-              },
               "runAfter": {},
-              "else": {
-                "actions": {
-                  "MS_team_unrecongnaizable_service_health": {
-                    "type": "ApiConnection",
-                    "inputs": {
-                      "host": {
-                        "connection": {
-                          "name": "@parameters('$connections')['teams']['connectionId']"
-                        }
-                      },
-                      "method": "post",
-                      "body": {
-                        "body": {
-                          "content": "<p><strong>Service Health Alert<br>\n<br>\nUnrecognized alert schema</strong><br>\n<br>\nCheck : https://ms.portal.azure.com/#blade/Microsoft_Azure_Health/AzureHealthBrowseBlade/serviceIssues &nbsp;For details, log in to the Azure Service Health dashboard.</p>",
-                          "contentType": "html"
-                        }
-                      },
-                      "path": "/v3/beta/teams/@{encodeURIComponent('7d81e64e-b159-4b4e-8619-a91a5b1f4fca')}/channels/@{encodeURIComponent('19:e8fe259419184fa7aa87aaa5c4b5a66d@thread.skype')}/messages"
-                    },
-                    "runAfter": {}
-                  }
-                }
-              }
+              "type": "If"
             }
           },
+          "contentVersion": "1.0.0.0",
+          "outputs": {},
           "parameters": {
             "$connections": {
               "defaultValue": {},
@@ -159,26 +151,14 @@
           },
           "triggers": {
             "manual": {
-              "type": "Request",
-              "kind": "Http",
               "inputs": {
                 "schema": {
-                  "type": "object",
                   "properties": {
-                    "schemaId": {
-                      "type": "string"
-                    },
                     "data": {
-                      "type": "object",
                       "properties": {
-                        "status": {
-                          "type": "string"
-                        },
                         "context": {
-                          "type": "object",
                           "properties": {
                             "activityLog": {
-                              "type": "object",
                               "properties": {
                                 "channels": {
                                   "type": "string"
@@ -189,49 +169,42 @@
                                 "description": {
                                   "type": "string"
                                 },
+                                "eventDataId": {
+                                  "type": "string"
+                                },
                                 "eventSource": {
                                   "type": "string"
                                 },
                                 "eventTimestamp": {
                                   "type": "string"
                                 },
-                                "eventDataId": {
-                                  "type": "string"
-                                },
                                 "level": {
-                                  "type": "string"
-                                },
-                                "operationName": {
                                   "type": "string"
                                 },
                                 "operationId": {
                                   "type": "string"
                                 },
+                                "operationName": {
+                                  "type": "string"
+                                },
                                 "properties": {
-                                  "type": "object",
                                   "properties": {
-                                    "title": {
-                                      "type": "string"
-                                    },
-                                    "service": {
-                                      "type": "string"
-                                    },
-                                    "region": {
-                                      "type": "string"
-                                    },
                                     "communication": {
                                       "type": "string"
                                     },
-                                    "incidentType": {
+                                    "communicationId": {
                                       "type": "string"
                                     },
-                                    "trackingId": {
+                                    "defaultLanguageContent": {
                                       "type": "string"
                                     },
-                                    "impactStartTime": {
+                                    "defaultLanguageTitle": {
                                       "type": "string"
                                     },
                                     "impactMitigationTime": {
+                                      "type": "string"
+                                    },
+                                    "impactStartTime": {
                                       "type": "string"
                                     },
                                     "impactedServices": {
@@ -240,52 +213,69 @@
                                     "impactedServicesTableRows": {
                                       "type": "string"
                                     },
-                                    "defaultLanguageTitle": {
-                                      "type": "string"
-                                    },
-                                    "defaultLanguageContent": {
-                                      "type": "string"
-                                    },
-                                    "stage": {
-                                      "type": "string"
-                                    },
-                                    "communicationId": {
+                                    "incidentType": {
                                       "type": "string"
                                     },
                                     "isHIR": {
                                       "type": "string"
                                     },
+                                    "region": {
+                                      "type": "string"
+                                    },
+                                    "service": {
+                                      "type": "string"
+                                    },
+                                    "stage": {
+                                      "type": "string"
+                                    },
+                                    "title": {
+                                      "type": "string"
+                                    },
+                                    "trackingId": {
+                                      "type": "string"
+                                    },
                                     "version": {
                                       "type": "string"
                                     }
-                                  }
+                                  },
+                                  "type": "object"
                                 },
                                 "status": {
                                   "type": "string"
                                 },
-                                "subscriptionId": {
-                                  "type": "string"
-                                },
                                 "submissionTimestamp": {
                                   "type": "string"
+                                },
+                                "subscriptionId": {
+                                  "type": "string"
                                 }
-                              }
+                              },
+                              "type": "object"
                             }
-                          }
+                          },
+                          "type": "object"
                         },
                         "properties": {
-                          "type": "object",
-                          "properties": {}
+                          "properties": {},
+                          "type": "object"
+                        },
+                        "status": {
+                          "type": "string"
                         }
-                      }
+                      },
+                      "type": "object"
+                    },
+                    "schemaId": {
+                      "type": "string"
                     }
-                  }
+                  },
+                  "type": "object"
                 }
-              }
+              },
+              "kind": "Http",
+              "type": "Request"
             }
-          },
-          "contentVersion": "1.0.0.0",
-          "outputs": {}
+          }
         },
         "parameters": {
           "$connections": {
