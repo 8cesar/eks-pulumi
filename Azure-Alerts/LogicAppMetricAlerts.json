@@ -34,7 +34,6 @@
       "defaultValue": "3145cea7-e759-4aeb-b8fc-506e0a02fd91"
     }
   },
-  "variables": {},
   "resources": [
     {
       "name": "[parameters('logicAppName')]",

@@ -6,7 +6,7 @@
       "type": "string",
       "minLength": 1,
       "maxLength": 80,
-      "defaultValue": "gfx-monitoring-la01"
+      "defaultValue": "gfx-monitoring-sh01"
     },
     "tags": {
       "type": "object",
@@ -34,7 +34,6 @@
       "defaultValue": "3145cea7-e759-4aeb-b8fc-506e0a02fd91"
     }
   },
-  "variables": {},
   "resources": [
     {
       "name": "[parameters('logicAppName')]",
