@@ -1,7 +1,7 @@
 {
   "trigger": {
     "schedule": {
-      "interval": "1m"
+      "interval": "2m"
     }
   },
   "input": {
@@ -27,7 +27,7 @@
                   "range": {
                     "@timestamp": {
                       "lte": "now",
-                      "gte": "now-90s"
+                      "gte": "now-150s"
                     }
                   }
                 }
@@ -55,13 +55,13 @@
   "condition": {
     "compare": {
       "ctx.payload.hits.total": {
-        "gt": 0
+        "gt": 1
       }
     }
   },
   "actions": {
     "MS_Teams": {
-      "throttle_period": "4h",
+      "throttle_period": "30m",
       "webhook": {
         "scheme": "https",
         "method": "POST",
@@ -73,7 +73,7 @@
         },
         "body": {
           "source": {
-            "text": "<h1>Watch 1z39d56e</h1><br>Elastic Heartbeat ping failed for:<br><br><table><tr><td>RESOURCE</td><td>URL</td></tr>{{#ctx.payload.aggregations.url.buckets}}<tr><td>{{id.buckets.0.key}}</td><td><a href=\"{{key}}\">{{key}}</a></td></tr>{{/ctx.payload.aggregations.url.buckets}}</table>"
+            "text": "<h1>Watch 1z39d56e</h1><br>Elastic Heartbeat ping failed twice for:<br><br><table><tr><td>RESOURCE</td><td>URL</td></tr>{{#ctx.payload.aggregations.url.buckets}}<tr><td>{{id.buckets.0.key}}</td><td><a href=\"{{key}}\">{{key}}</a></td></tr>{{/ctx.payload.aggregations.url.buckets}}</table>"
           }
         }
       }
