@@ -1,13 +1,13 @@
 ﻿param(
 
-[String]$templatefile =  '\templates\ConnectionAlerts.json',
 [String]$JsonFile, 
 [String]$alertGroupRegr,
 
-$AzureResourceGroup = 'Connections',
+$AzureResourceGroup = 'Container',
 $processname = 'parameters'
 )
 
+$templatefile =  '\templates\alerts\containerGroup.json'
 $parameterfile = '\parameters\'+$JsonFile
 
 $scriptPath = split-path -parent $MyInvocation.MyCommand.Path
@@ -26,7 +26,7 @@ $arraydata=$data.$processname.$AzureResourceGroup
 
 $resourceGroup=$arraydata.resourceGroup
 $alertGroupName=$arraydata.alertGroupName
-$connectionName=$arraydata.connectionName
+$redisName=$arraydata.containerName
 $alertSeverity=$arraydata.alertSeverity
 $evaluationFrequency=$arraydata.evaluationFrequency
 $windowSize=$arraydata.windowSize
@@ -44,7 +44,7 @@ for ($i =0; $i -le $arraydata.GetUpperBound(0); $i++){
 $deployment = ("$deploymentName" + "$i")
 
 
-New-AzResourceGroupDeployment -name $deployment -ResourceGroupName $resourceGroup[$i] -TemplateFile $tempFilePath -AlertGroupName $alertGroupName[$i] -alertGroupRegr $alertGroupRegr -connectionName $connectionName[$i] -alertSeverity $alertSeverity[$i] -evaluationFrequency $evaluationFrequency[$i] -windowSize  $windowSize[$i]`
+New-AzResourceGroupDeployment -name $deployment -ResourceGroupName $resourceGroup[$i] -TemplateFile $tempFilePath -AlertGroupName $alertGroupName[$i] -alertGroupRegr $alertGroupRegr -containerName $redisName[$i] -alertSeverity $alertSeverity[$i] -evaluationFrequency $evaluationFrequency[$i] -windowSize  $windowSize[$i]`
 -metricName $metricName[$i]`
 -monitname $monitname[$i]`
 -operator $operator[$i]`

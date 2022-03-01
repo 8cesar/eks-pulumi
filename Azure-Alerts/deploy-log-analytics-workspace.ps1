@@ -1,18 +1,18 @@
 ﻿ param(
 
-[String]$templatefile = '\templates\ServiceHealth1.json',
-
 [String]$parameterfile,
 
 [String]$JsonFile, 
 
-[String]$AzureResourceGroup = 'ServiceHealth01',
+[String]$AzureResourceGroup = 'MonitWorkSpace',
 
 $processname = 'parameters'
 
 )
- 
+
+$templatefile = '\templates\azure-monitoring-resources\logAnalyticsWorkspace.json'
 $parameterfile = '\parameters\'+$JsonFile
+
 
 $scriptPath = split-path -parent $MyInvocation.MyCommand.Path
 
@@ -21,6 +21,7 @@ $tempFilePath = $scriptPath + "$templatefile"
 $scriptPath = split-path -parent $MyInvocation.MyCommand.Path
 
 $paramFilePath = $scriptPath + "$parameterfile"
+
 
 $deploymentName=$AzureResourceGroup 
 
@@ -32,9 +33,12 @@ $arraydata=$data.$processname.$AzureResourceGroup
 
 $resourceGroup=$arraydata.resourceGroup
 
-$AlertGroupName=$arraydata.AlertGroupName
+$workSpaceName=$arraydata.workspaceName
 
-$ServiceHealthName=$arraydata.ServiceHealthName
+$sku=$arraydata.sku
 
- New-AzResourceGroupDeployment -name $deploymentName -ResourceGroupName $resourceGroup -TemplateFile $tempFilePath -AlertGroupName $AlertGroupName -ServiceHealthName $ServiceHealthName -Verbose
+$retentionInDays=$arraydata.retentionInDays
+
+
+ New-AzResourceGroupDeployment -name $deploymentName -ResourceGroupName $resourceGroup -TemplateFile $tempFilePath -workspaceName $workSpaceName -sku $sku -retentionInDays $retentionInDays -Verbose
        

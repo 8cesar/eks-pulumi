@@ -1,7 +1,5 @@
 ﻿param(
 
-[String]$templatefile =  '\templates\ActionGroups.json',
-
 [String]$parameterfile ,
 
 [String]$JsonFile  , 
@@ -11,6 +9,7 @@
 [String]$processname = 'parameters'
 )
 
+$templatefile =  '\templates\azure-monitoring-resources\actionGroup.json'
 $parameterfile = '\parameters\'+$JsonFile
 
 $scriptPath = split-path -parent $MyInvocation.MyCommand.Path

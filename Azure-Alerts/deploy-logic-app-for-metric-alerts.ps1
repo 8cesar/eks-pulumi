@@ -1,7 +1,5 @@
 ﻿ param(
 
-[String]$templatefile = '\LogicAppMetricAlerts01\LogicApp.json',
-
 [String]$parameterfile,
 
 [String]$JsonFile, 
@@ -11,7 +9,7 @@
 $processname = 'parameters'
 
 )
- 
+$templatefile = '\templates\azure-monitoring-resources\logicAppMetricAlerts.json'
 $parameterfile = '\parameters\'+$JsonFile
 
 $scriptPath = split-path -parent $MyInvocation.MyCommand.Path

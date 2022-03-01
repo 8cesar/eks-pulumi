@@ -1,13 +1,12 @@
 ﻿param(
 
-[String]$templatefile =  '\templates\SynapseAlerts.json',
 [String]$JsonFile, 
 [String]$alertGroupRegr,
 
 $AzureResourceGroup = 'Synapse',
 $processname = 'parameters'
 )
-
+$templatefile =  '\templates\alerts\synapseWorkspace.json'
 $parameterfile = '\parameters\'+$JsonFile
 
 $scriptPath = split-path -parent $MyInvocation.MyCommand.Path

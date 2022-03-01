@@ -1,13 +1,12 @@
 ﻿param(
 
-[String]$templatefile =  '\templates\RedisAlerts.json',
 [String]$JsonFile, 
 [String]$alertGroupRegr,
 
-$AzureResourceGroup = 'Redis',
+$AzureResourceGroup = 'Gateway',
 $processname = 'parameters'
 )
-
+$templatefile =  '\templates\alerts\virtualNetworkGateway.json'
 $parameterfile = '\parameters\'+$JsonFile
 
 $scriptPath = split-path -parent $MyInvocation.MyCommand.Path
@@ -26,7 +25,7 @@ $arraydata=$data.$processname.$AzureResourceGroup
 
 $resourceGroup=$arraydata.resourceGroup
 $alertGroupName=$arraydata.alertGroupName
-$redisName=$arraydata.redisName
+$redisName=$arraydata.gatewayName
 $alertSeverity=$arraydata.alertSeverity
 $evaluationFrequency=$arraydata.evaluationFrequency
 $windowSize=$arraydata.windowSize
@@ -44,7 +43,7 @@ for ($i =0; $i -le $arraydata.GetUpperBound(0); $i++){
 $deployment = ("$deploymentName" + "$i")
 
 
-New-AzResourceGroupDeployment -name $deployment -ResourceGroupName $resourceGroup[$i] -TemplateFile $tempFilePath -AlertGroupName $alertGroupName[$i] -alertGroupRegr $alertGroupRegr -redisName $redisName[$i] -alertSeverity $alertSeverity[$i] -evaluationFrequency $evaluationFrequency[$i] -windowSize  $windowSize[$i]`
+New-AzResourceGroupDeployment -name $deployment -ResourceGroupName $resourceGroup[$i] -TemplateFile $tempFilePath -AlertGroupName $alertGroupName[$i] -alertGroupRegr $alertGroupRegr -gatewayName $redisName[$i] -alertSeverity $alertSeverity[$i] -evaluationFrequency $evaluationFrequency[$i] -windowSize  $windowSize[$i]`
 -metricName $metricName[$i]`
 -monitname $monitname[$i]`
 -operator $operator[$i]`

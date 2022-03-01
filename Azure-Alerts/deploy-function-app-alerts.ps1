@@ -1,13 +1,12 @@
 ﻿param(
 
-[String]$templatefile =  '\templates\WebServiceAlerts.json',
 [String]$JsonFile  , 
 [String]$alertGroupRegr,
 
 $processname = 'parameters',
 $AzureResourceGroup = "WebServices"
 )
-
+$templatefile =  '\templates\alerts\functionApp.json'
 $parameterfile = '\parameters\'+$JsonFile
 
 $scriptPath = split-path -parent $MyInvocation.MyCommand.Path
