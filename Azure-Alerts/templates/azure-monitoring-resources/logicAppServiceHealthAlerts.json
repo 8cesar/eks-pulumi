@@ -6,7 +6,7 @@
       "type": "string",
       "minLength": 1,
       "maxLength": 80,
-      "defaultValue": "gfx-monitoring-sh01"
+      "defaultValue": "gfx-monitoring-logic-app-service-health"
     },
     "tags": {
       "type": "object",
@@ -23,7 +23,7 @@
     },
     "connectionName": {
       "type": "string",
-      "defaultValue": "teams"
+      "defaultValue": "gfx-monitoring-service-health-api-connection"
     },
     "connectionDisplayName": {
       "type": "string",
