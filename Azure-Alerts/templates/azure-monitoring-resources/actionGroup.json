@@ -1,0 +1,60 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "alertGroupName": {
+      "type": "string"
+    },
+    "alertName": {
+      "type": "string"
+    },
+    "emailAddress": {
+      "type": "string"
+    },
+    "logAppReceiver": {
+      "type": "String"
+    }
+  },
+  "variables": {
+    "alertGroupShortName": "[toLower(parameters('alertGroupName'))]"
+  },
+  "resources": [
+    {
+      "name": "[parameters('alertGroupName')]",
+      "type": "microsoft.insights/actionGroups",
+      "apiVersion": "2019-03-01",
+      "location": "global",
+      "tags": {
+        "status": "active",
+        "costcenter": "shared",
+        "project": "shared",
+        "team": "devops"
+      },
+      "properties": {
+        "groupShortName": "[variables('alertGroupShortName')]",
+        "enabled": true,
+        "emailAddressReceivers": [
+          {
+            "name": "[parameters('alertName')]",
+            "emailAddressAddress": "[parameters('emailAddress')]",
+            "useCommonAlertSchema": true
+          }
+        ],
+        "logicAppReceivers": [
+          {
+            "name": "MSTeamGroup",
+            "resourceId": "[resourceId('Microsoft.Logic/workflows', parameters('logAppReceiver'))]",
+            "callbackUrl": "[listCallbackURL(concat(resourceId('Microsoft.Logic/workflows', parameters('logAppReceiver')), '/triggers/manual'), '2016-06-01').value]",
+            "useCommonAlertSchema": false
+          }
+        ]
+      }
+    }
+  ],
+  "outputs": {
+    "alertGroupId": {
+      "type": "string",
+      "value": "[resourceId('microsoft.insights/actionGroups', parameters('alertGroupName'))]"
+    }
+  }
+}
