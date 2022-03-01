@@ -118,8 +118,8 @@
   "variables": {
     "CosmoDBID": "[resourceId('Microsoft.DocumentDB/databaseAccounts', parameters('cosmoDBName'))]",
     "actionGroupID": "[resourceId(parameters('alertGroupRegr'),'microsoft.insights/actionGroups', parameters('alertGroupName'))]",
-    "metricAlertName": "[concat(parameters('cosmoDBName'), '--cosmos-db-alert--', parameters('timeAggregation'), parameters('metricName'), parameters('operator'), parameters('threshold'))]",
-    "metricAlertDescription": "[concat(parameters('teamName'), ' team alert for the Azure Cosmos BD resource named ', parameters('cosmoDBName'), ' - ', parameters('monitname'))]"
+    "metricAlertName": "[concat(parameters('cosmoDBName'), '-cosmos-db-alert-', parameters('timeAggregation'), parameters('metricName'), parameters('operator'), parameters('threshold'))]",
+    "metricAlertDescription": "[concat(parameters('teamName'), ' team alert for the Azure Cosmos BD resource named ', parameters('cosmoDBName'), ': ', parameters('monitname'))]"
   },
   "resources": [
     {

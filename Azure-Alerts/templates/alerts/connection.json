@@ -115,8 +115,8 @@
   "variables": {
     "ConnectionID": "[resourceId('Microsoft.Network/connections', parameters('connectionName'))]",
     "actionGroupID": "[resourceId(parameters('alertGroupRegr'),'microsoft.insights/actionGroups', parameters('alertGroupName'))]",
-    "metricAlertName": "[concat(parameters('connectionName'), '--connection-alert--', parameters('timeAggregation'), parameters('metricName'), parameters('operator'), parameters('threshold'))]",
-    "metricAlertDescription": "[concat(parameters('teamName'), ' team alert for the Azure Connection resource named ', parameters('connectionName'), ' - ', parameters('monitname'))]"
+    "metricAlertName": "[concat(parameters('connectionName'), '-connection-alert-', parameters('timeAggregation'), parameters('metricName'), parameters('operator'), parameters('threshold'))]",
+    "metricAlertDescription": "[concat(parameters('teamName'), ' team alert for the Azure Connection resource named ', parameters('connectionName'), ': ', parameters('monitname'))]"
   },
   "resources": [
     {
