@@ -118,8 +118,8 @@
   "variables": {
     "eventHubID": "[resourceId('Microsoft.EventHub/namespaces', parameters('eventHubName'))]",
     "actionGroupID": "[resourceId(parameters('alertGroupRegr'),'microsoft.insights/actionGroups', parameters('alertGroupName'))]",
-    "metricAlertName": "[concat(parameters('eventHubName'), '--event-hub-alert--', parameters('timeAggregation'), parameters('metricName'), parameters('operator'), parameters('threshold'))]",
-    "metricAlertDescription": "[concat(parameters('teamName'), ' team alert for the Azure Event Hub resource named ', parameters('eventHubName'), ' - ', parameters('monitname'))]"
+    "metricAlertName": "[concat(parameters('eventHubName'), '-event-hub-alert-', parameters('timeAggregation'), parameters('metricName'), parameters('operator'), parameters('threshold'))]",
+    "metricAlertDescription": "[concat(parameters('teamName'), ' team alert for the Azure Event Hub resource named ', parameters('eventHubName'), ': ', parameters('monitname'))]"
   },
   "resources": [
     {

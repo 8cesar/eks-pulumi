@@ -118,8 +118,8 @@
   "variables": {
     "synapseID": "[resourceId('Microsoft.Synapse/workspaces', parameters('SynapseName'))]",
     "actionGroupID": "[resourceId(parameters('alertGroupRegr'),'microsoft.insights/actionGroups', parameters('alertGroupName'))]",
-    "metricAlertName": "[concat(parameters('SynapseName'), '--azure-synapse-workspace-alert--', parameters('timeAggregation'), parameters('metricName'), parameters('operator'), parameters('threshold'))]",
-    "metricAlertDescription": "[concat(parameters('teamName'), ' team alert for the Azure Synapse Workspace resource named ', parameters('SynapseName'), ' - ', parameters('monitname'))]"
+    "metricAlertName": "[concat(parameters('SynapseName'), '-azure-synapse-workspace-alert-', parameters('timeAggregation'), parameters('metricName'), parameters('operator'), parameters('threshold'))]",
+    "metricAlertDescription": "[concat(parameters('teamName'), ' team alert for the Azure Synapse Workspace resource named ', parameters('SynapseName'), ': ', parameters('monitname'))]"
   },
   "resources": [
     {

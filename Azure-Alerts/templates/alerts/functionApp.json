@@ -116,8 +116,8 @@
   "variables": {
     "webAppID": "[resourceId('Microsoft.Web/sites', parameters('WebAppName'))]",
     "actionGroupID": "[resourceId(parameters('alertGroupRegr'),'microsoft.insights/actionGroups', parameters('alertGroupName'))]",
-    "metricAlertName": "[concat(parameters('WebAppName'), '--azure-function-app-alert--', parameters('timeAggregation'), parameters('metricName'), parameters('operator'), parameters('threshold'))]",
-    "metricAlertDescription": "[concat(parameters('teamName'), ' team alert for the Azure Function App resource named ', parameters('WebAppName'), ' - ', parameters('monitname'))]"
+    "metricAlertName": "[concat(parameters('WebAppName'), '-azure-function-app-alert-', parameters('timeAggregation'), parameters('metricName'), parameters('operator'), parameters('threshold'))]",
+    "metricAlertDescription": "[concat(parameters('teamName'), ' team alert for the Azure Function App resource named ', parameters('WebAppName'), ': ', parameters('monitname'))]"
   },
   "resources": [
     {
