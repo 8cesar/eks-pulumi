@@ -48,97 +48,7 @@
             "And_the_HTTP_request_is_an_Azure_Monitor_Metric_Alert": {
               "actions": {
                 "And_the_alert_is_activated": {
-                  "actions": {
-                    "For_all_severity_0_or_1_alerts": {
-                      "actions": {
-                        "The_alert_is_severity_0_or_1": {
-                          "actions": {
-                            "The_alert_is_severity_0": {
-                              "actions": {
-                                "Post_message_in_the_Severity_0_channel": {
-                                  "inputs": {
-                                    "body": {
-                                      "messageBody": "<p>Resource: &lt;a href=\"@{triggerBody()?['data']?['context']?['resourceName']}\"&gt;@{triggerBody()?['data']?['context']?['resourceName']}&lt;/a&gt;<br>\nMetric: @{items('For_all_severity_0_or_1_alerts')?['metricName']}<br>\nMetric value: @{items('For_all_severity_0_or_1_alerts')?['metricValue']}</p>",
-                                      "recipient": {
-                                        "channelId": "19:218ab363158742e988473ab3507f1c50@thread.skype",
-                                        "groupId": "7d81e64e-b159-4b4e-8619-a91a5b1f4fca"
-                                      }
-                                    },
-                                    "host": {
-                                      "connection": {
-                                        "name": "@parameters('$connections')['teams_1']['connectionId']"
-                                      }
-                                    },
-                                    "method": "post",
-                                    "path": "/beta/teams/conversation/message/poster/Flow bot/location/@{encodeURIComponent('Channel')}"
-                                  },
-                                  "runAfter": {},
-                                  "type": "ApiConnection"
-                                }
-                              },
-                              "else": {
-                                "actions": {
-                                  "Post_message_in_the_Severity_1_channel": {
-                                    "inputs": {
-                                      "body": {
-                                        "messageBody": "<p>Resource: &lt;a href=\"@{triggerBody()?['data']?['context']?['resourceName']}\"&gt;@{triggerBody()?['data']?['context']?['resourceName']}&lt;/a&gt;<br>\nMetric: @{items('For_all_severity_0_or_1_alerts')?['metricName']}<br>\nMetric value: @{items('For_all_severity_0_or_1_alerts')?['metricValue']}</p>",
-                                        "recipient": {
-                                          "channelId": "19:5a76a26e1f4e4a66ac46c26d628de4b6@thread.skype",
-                                          "groupId": "7d81e64e-b159-4b4e-8619-a91a5b1f4fca"
-                                        }
-                                      },
-                                      "host": {
-                                        "connection": {
-                                          "name": "@parameters('$connections')['teams_1']['connectionId']"
-                                        }
-                                      },
-                                      "method": "post",
-                                      "path": "/beta/teams/conversation/message/poster/Flow bot/location/@{encodeURIComponent('Channel')}"
-                                    },
-                                    "runAfter": {},
-                                    "type": "ApiConnection"
-                                  }
-                                }
-                              },
-                              "expression": {
-                                "and": [
-                                  {
-                                    "equals": [
-                                      "@triggerBody()?['data']?['context']?['severity']",
-                                      "0"
-                                    ]
-                                  }
-                                ]
-                              },
-                              "runAfter": {},
-                              "type": "If"
-                            }
-                          },
-                          "expression": {
-                            "or": [
-                              {
-                                "equals": [
-                                  "@triggerBody()?['data']?['context']?['severity']",
-                                  "0"
-                                ]
-                              },
-                              {
-                                "equals": [
-                                  "@triggerBody()?['data']?['context']?['severity']",
-                                  "1"
-                                ]
-                              }
-                            ]
-                          },
-                          "runAfter": {},
-                          "type": "If"
-                        }
-                      },
-                      "foreach": "@triggerBody()?['data']?['context']?['condition']?['allOf']",
-                      "runAfter": {},
-                      "type": "Foreach"
-                    }
-                  },
+                  "actions": {},
                   "else": {
                     "actions": {
                       "Terminate": {
@@ -383,7 +293,7 @@
               },
               "foreach": "@triggerBody()?['data']?['context']?['condition']?['allOf']",
               "runAfter": {
-                "And_the_HTTP_request_is_an_Azure_Monitor_Metric_Alert": [
+                "For_all_severity_0_or_1_alerts": [
                   "Succeeded"
                 ]
               },
@@ -525,6 +435,99 @@
               "foreach": "@triggerBody()?['data']?['context']?['condition']?['allOf']",
               "runAfter": {
                 "For_all_Portal_alerts": [
+                  "Succeeded"
+                ]
+              },
+              "type": "Foreach"
+            },
+            "For_all_severity_0_or_1_alerts": {
+              "actions": {
+                "The_alert_is_severity_0_or_1": {
+                  "actions": {
+                    "The_alert_is_severity_0": {
+                      "actions": {
+                        "Post_message_in_the_Severity_0_channel": {
+                          "inputs": {
+                            "body": {
+                              "messageBody": "<p>Resource: &lt;a href=\"@{triggerBody()?['data']?['context']?['resourceName']}\"&gt;@{triggerBody()?['data']?['context']?['resourceName']}&lt;/a&gt;<br>\nMetric: @{items('For_all_severity_0_or_1_alerts')?['metricName']}<br>\nMetric value: @{items('For_all_severity_0_or_1_alerts')?['metricValue']}</p>",
+                              "recipient": {
+                                "channelId": "19:218ab363158742e988473ab3507f1c50@thread.skype",
+                                "groupId": "7d81e64e-b159-4b4e-8619-a91a5b1f4fca"
+                              }
+                            },
+                            "host": {
+                              "connection": {
+                                "name": "@parameters('$connections')['teams_1']['connectionId']"
+                              }
+                            },
+                            "method": "post",
+                            "path": "/beta/teams/conversation/message/poster/Flow bot/location/@{encodeURIComponent('Channel')}"
+                          },
+                          "runAfter": {},
+                          "type": "ApiConnection"
+                        }
+                      },
+                      "else": {
+                        "actions": {
+                          "Post_message_in_the_Severity_1_channel": {
+                            "inputs": {
+                              "body": {
+                                "messageBody": "<p>Resource: &lt;a href=\"@{triggerBody()?['data']?['context']?['resourceName']}\"&gt;@{triggerBody()?['data']?['context']?['resourceName']}&lt;/a&gt;<br>\nMetric: @{items('For_all_severity_0_or_1_alerts')?['metricName']}<br>\nMetric value: @{items('For_all_severity_0_or_1_alerts')?['metricValue']}</p>",
+                                "recipient": {
+                                  "channelId": "19:5a76a26e1f4e4a66ac46c26d628de4b6@thread.skype",
+                                  "groupId": "7d81e64e-b159-4b4e-8619-a91a5b1f4fca"
+                                }
+                              },
+                              "host": {
+                                "connection": {
+                                  "name": "@parameters('$connections')['teams_1']['connectionId']"
+                                }
+                              },
+                              "method": "post",
+                              "path": "/beta/teams/conversation/message/poster/Flow bot/location/@{encodeURIComponent('Channel')}"
+                            },
+                            "runAfter": {},
+                            "type": "ApiConnection"
+                          }
+                        }
+                      },
+                      "expression": {
+                        "and": [
+                          {
+                            "equals": [
+                              "@triggerBody()?['data']?['context']?['severity']",
+                              "0"
+                            ]
+                          }
+                        ]
+                      },
+                      "runAfter": {},
+                      "type": "If"
+                    }
+                  },
+                  "expression": {
+                    "or": [
+                      {
+                        "equals": [
+                          "@triggerBody()?['data']?['context']?['severity']",
+                          "0"
+                        ]
+                      },
+                      {
+                        "equals": [
+                          "@triggerBody()?['data']?['context']?['severity']",
+                          "1"
+                        ]
+                      }
+                    ]
+                  },
+                  "runAfter": {},
+                  "type": "If"
+                }
+              },
+              "foreach": "@triggerBody()?['data']?['context']?['condition']?['allOf']",
+              "runAfter": {
+                "And_the_HTTP_request_is_an_Azure_Monitor_Metric_Alert": [
                   "Succeeded"
                 ]
               },
