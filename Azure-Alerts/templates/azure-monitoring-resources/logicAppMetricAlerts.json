@@ -532,6 +532,37 @@
                 ]
               },
               "type": "Foreach"
+            },
+            "For_all_unrecognized_alerts": {
+              "actions": {
+                "Post_alert_unrecognized_message_in_the_DevOps_channel": {
+                  "inputs": {
+                    "body": {
+                      "messageBody": "<p>The Azure metric monitoring logic app received an alert belonging to an unrecognized team:<br>\n<br>\n@{json(triggerBody())}</p>",
+                      "recipient": {
+                        "channelId": "19:0c8be18da04046daa403c9da4d2361a6@thread.skype",
+                        "groupId": "7d81e64e-b159-4b4e-8619-a91a5b1f4fca"
+                      }
+                    },
+                    "host": {
+                      "connection": {
+                        "name": "@parameters('$connections')['teams_1']['connectionId']"
+                      }
+                    },
+                    "method": "post",
+                    "path": "/beta/teams/conversation/message/poster/Flow bot/location/@{encodeURIComponent('Channel')}"
+                  },
+                  "runAfter": {},
+                  "type": "ApiConnection"
+                }
+              },
+              "foreach": "@triggerBody()?['data']?['context']?['condition']?['allOf']",
+              "runAfter": {
+                "For_all_SmartCharging_alerts": [
+                  "Succeeded"
+                ]
+              },
+              "type": "Foreach"
             }
           },
           "contentVersion": "1.0.0.0",
