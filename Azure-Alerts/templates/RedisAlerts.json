@@ -1,5 +1,5 @@
 {
-  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
   "contentVersion": "1.0.0.0",
   "parameters": {
     "alertGroupName": {
@@ -118,9 +118,8 @@
   "variables": {
     "RedisID": "[resourceId('Microsoft.Cache/Redis', parameters('redisName'))]",
     "actionGroupID": "[resourceId(parameters('alertGroupRegr'),'microsoft.insights/actionGroups', parameters('alertGroupName'))]",
-    "metricAlertSuffix": "Redis Alert",
-    "metricAlertName": "[concat(parameters('redisName'),'-', variables('metricAlertSuffix'),'-', parameters('monitname'))]",
-    "metricAlertDescription": "[concat(parameters('teamName'),': ',variables('metricAlertSuffix'),' : ', parameters('redisName'), '- ', parameters('monitname'), ', where : ', parameters('timeAggregation'), ' ', parameters('operator'), ' ', parameters('threshold'))]"
+    "metricAlertName": "[concat(parameters('redisName'), '--azure-cache-for-redis-alert--', parameters('timeAggregation'), parameters('metricName'), parameters('operator'), parameters('threshold'))]",
+    "metricAlertDescription": "[concat(parameters('teamName'), ' team alert for the Azure Cache for Redis resource named ', parameters('redisName'), ' - ', parameters('monitname'))]"
   },
   "resources": [
     {

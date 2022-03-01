@@ -1,5 +1,5 @@
 {
-  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
   "contentVersion": "1.0.0.0",
   "parameters": {
     "alertGroupName": {
@@ -122,9 +122,8 @@
   "variables": {
     "serverfarmID": "[resourceId('Microsoft.Web/serverfarms', parameters('serverfarmName'))]",
     "actionGroupID": "[resourceId(parameters('alertGroupRegr'),'microsoft.insights/actionGroups', parameters('alertGroupName'))]",
-    "metricAlertSuffix": "Service plan Alert",
-    "metricAlertName": "[concat(parameters('serverfarmName'),'-', variables('metricAlertSuffix'),'-', parameters('monitname'))]",
-    "metricAlertDescription": "[concat(parameters('teamName'),': ',variables('metricAlertSuffix'),' : ', parameters('serverfarmName'), '- ', parameters('monitname'), ', where : ', parameters('timeAggregation'), ' ', parameters('operator'), ' ', parameters('threshold'))]"
+    "metricAlertName": "[concat(parameters('serverfarmName'), '--azure-app-service-plan-alert--', parameters('timeAggregation'), parameters('metricName'), parameters('operator'), parameters('threshold'))]",
+    "metricAlertDescription": "[concat(parameters('teamName'), ' team alert for the Azure App Service Plan resource named ', parameters('serverfarmName'), ' - ', parameters('monitname'))]"
   },
   "resources": [
     {

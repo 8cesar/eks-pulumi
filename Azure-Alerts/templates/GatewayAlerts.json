@@ -1,5 +1,5 @@
 {
-  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
   "contentVersion": "1.0.0.0",
   "parameters": {
     "alertGroupName": {
@@ -115,9 +115,8 @@
   "variables": {
     "GatewayID": "[resourceId('Microsoft.Network/virtualNetworkGateways', parameters('gatewayName'))]",
     "actionGroupID": "[resourceId(parameters('alertGroupRegr'),'microsoft.insights/actionGroups', parameters('alertGroupName'))]",
-    "metricAlertSuffix": "Gateway Alert",
-    "metricAlertName": "[concat(parameters('gatewayName'),'-', variables('metricAlertSuffix'),'-', parameters('monitname'))]",
-    "metricAlertDescription": "[concat(parameters('teamName'),': ',variables('metricAlertSuffix'),' : ', parameters('gatewayName'), '- ', parameters('monitname'), ', where : ', parameters('timeAggregation'), ' ', parameters('operator'), ' ', parameters('threshold'))]"
+    "metricAlertName": "[concat(parameters('gatewayName'), '--virtual-network-gateway-alert--', parameters('timeAggregation'), parameters('metricName'), parameters('operator'), parameters('threshold'))]",
+    "metricAlertDescription": "[concat(parameters('teamName'), ' team alert for the Azure Virtual Network Gateway resource named ', parameters('gatewayName'), ' - ', parameters('monitname'))]"
   },
   "resources": [
     {

@@ -1,5 +1,5 @@
 {
-  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
   "contentVersion": "1.0.0.0",
   "parameters": {
     "alertGroupName": {
@@ -115,9 +115,8 @@
   "variables": {
     "ConnectionID": "[resourceId('Microsoft.Network/connections', parameters('connectionName'))]",
     "actionGroupID": "[resourceId(parameters('alertGroupRegr'),'microsoft.insights/actionGroups', parameters('alertGroupName'))]",
-    "metricAlertSuffix": "Onnection Alert",
-    "metricAlertName": "[concat(parameters('connectionName'),'-', variables('metricAlertSuffix'),'-', parameters('monitname'))]",
-    "metricAlertDescription": "[concat(parameters('teamName'),': ',variables('metricAlertSuffix'),' : ', parameters('connectionName'), '- ', parameters('monitname'), ', where : ', parameters('timeAggregation'), ' ', parameters('operator'), ' ', parameters('threshold'))]"
+    "metricAlertName": "[concat(parameters('connectionName'), '--connection-alert--', parameters('timeAggregation'), parameters('metricName'), parameters('operator'), parameters('threshold'))]",
+    "metricAlertDescription": "[concat(parameters('teamName'), ' team alert for the Azure Connection resource named ', parameters('connectionName'), ' - ', parameters('monitname'))]"
   },
   "resources": [
     {

@@ -2,25 +2,25 @@
   "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
   "contentVersion": "1.0.0.0",
   "parameters": {
-    "AlertGroupName": {
+    "alertGroupName": {
       "type": "string"
     },
-    "AlertName1": {
+    "alertName": {
       "type": "string"
     },
-    "email": {
+    "emailAddress": {
       "type": "string"
     },
-    "LogAppReceiver": {
+    "logAppReceiver": {
       "type": "String"
     }
   },
   "variables": {
-    "alertShortGroup": "[toLower(parameters('AlertGroupName'))]"
+    "alertGroupShortName": "[toLower(parameters('alertGroupName'))]"
   },
   "resources": [
     {
-      "name": "[parameters('AlertGroupName')]",
+      "name": "[parameters('alertGroupName')]",
       "type": "microsoft.insights/actionGroups",
       "apiVersion": "2019-03-01",
       "location": "global",
@@ -31,20 +31,20 @@
         "team": "devops"
       },
       "properties": {
-        "groupShortName": "[variables('alertShortGroup')]",
+        "groupShortName": "[variables('alertGroupShortName')]",
         "enabled": true,
-        "emailReceivers": [
+        "emailAddressReceivers": [
           {
-            "name": "[parameters('AlertName1')]",
-            "emailAddress": "[parameters('email')]",
+            "name": "[parameters('alertName')]",
+            "emailAddressAddress": "[parameters('emailAddress')]",
             "useCommonAlertSchema": true
           }
         ],
         "logicAppReceivers": [
           {
             "name": "MSTeamGroup",
-            "resourceId": "[resourceId('Microsoft.Logic/workflows', parameters('LogAppReceiver'))]",
-            "callbackUrl": "[listCallbackURL(concat(resourceId('Microsoft.Logic/workflows', parameters('LogAppReceiver')), '/triggers/manual'), '2016-06-01').value]",
+            "resourceId": "[resourceId('Microsoft.Logic/workflows', parameters('logAppReceiver'))]",
+            "callbackUrl": "[listCallbackURL(concat(resourceId('Microsoft.Logic/workflows', parameters('logAppReceiver')), '/triggers/manual'), '2016-06-01').value]",
             "useCommonAlertSchema": false
           }
         ]
@@ -52,9 +52,9 @@
     }
   ],
   "outputs": {
-    "alertGroupID": {
+    "alertGroupId": {
       "type": "string",
-      "value": "[resourceId('microsoft.insights/actionGroups', parameters('AlertGroupName'))]"
+      "value": "[resourceId('microsoft.insights/actionGroups', parameters('alertGroupName'))]"
     }
   }
 }

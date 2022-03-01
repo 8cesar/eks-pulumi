@@ -1,5 +1,5 @@
 {
-  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
   "contentVersion": "1.0.0.0",
   "parameters": {
     "alertGroupName": {
@@ -115,9 +115,8 @@
   "variables": {
     "ContainerID": "[resourceId('Microsoft.ContainerInstance/containerGroups', parameters('containerName'))]",
     "actionGroupID": "[resourceId(parameters('alertGroupRegr'),'microsoft.insights/actionGroups', parameters('alertGroupName'))]",
-    "metricAlertSuffix": "Container Alert",
-    "metricAlertName": "[concat(parameters('containerName'),'-', variables('metricAlertSuffix'),'-', parameters('monitname'))]",
-    "metricAlertDescription": "[concat(parameters('teamName'),': ',variables('metricAlertSuffix'),' : ', parameters('containerName'), '- ', parameters('monitname'), ', where : ', parameters('timeAggregation'), ' ', parameters('operator'), ' ', parameters('threshold'))]"
+    "metricAlertName": "[concat(parameters('containerName'), '--container-alert--', parameters('timeAggregation'), parameters('metricName'), parameters('operator'), parameters('threshold'))]",
+    "metricAlertDescription": "[concat(parameters('teamName'), ' team alert for the Azure Container resource named ', parameters('containerName'), ' - ', parameters('monitname'))]"
   },
   "resources": [
     {

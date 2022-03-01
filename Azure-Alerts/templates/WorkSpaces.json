@@ -40,10 +40,6 @@
       }
     }
   },
-  "variables": {
-    "workspaceId": "[resourceId('Microsoft.OperationalInsights/workspaces', parameters('workspaceName'))]",
-    "settingName": "[concat('ActDig-', parameters('workspaceName'))]"
-  },
   "resources": [
     {
       "type": "Microsoft.OperationalInsights/workspaces",
