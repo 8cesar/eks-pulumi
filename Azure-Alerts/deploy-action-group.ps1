@@ -2,7 +2,7 @@
 
 [String]$parameterfile ,
 
-[String]$JsonFile  , 
+[String]$JsonFile = "gfxprod.param.json"  , 
 
 [String]$AzureResourceGroup = 'ActionGroup',
 
@@ -36,7 +36,7 @@ $alertGroupName=$arraydata.alertGroupName
 
 $alertName=$arraydata.alertName
 
-$email=$arraydata.email
+$emailAddress=$arraydata.emailAddress
 
 $logAppReceiver=$arraydata.logAppReceiver
 
@@ -50,7 +50,7 @@ $notPresent = Get-AzResourceGroup -Name $resourceGroup[$i] -ErrorVariable notPre
 
 if ($notPresent){
 
-        New-AzResourceGroupDeployment -name $deployment -ResourceGroupName $resourceGroup[$i] -TemplateFile $tempFilePath -alertGroupName $alertGroupName[$i] -alertName $alertName[$i] -email $email[$i] -logAppReceiver $logAppReceiver[$i] -Verbose 
+        New-AzResourceGroupDeployment -name $deployment -ResourceGroupName $resourceGroup[$i] -TemplateFile $tempFilePath -alertGroupName $alertGroupName[$i] -alertName $alertName[$i] -emailAddress $emailAddress[$i] -logAppReceiver $logAppReceiver[$i] -Verbose 
 
     }
         else

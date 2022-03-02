@@ -43,7 +43,7 @@
     $AlertName = "devops-emailSB",
     
     [string]
-    $Email = "devops@greenflux.com",
+    $emailAddress = "devops@greenflux.com",
      
     [string]
     $SubscriptionID = "8ecd2896-3c7d-4d67-b0d4-4ed11c393bad",
@@ -137,7 +137,7 @@ $AlertData += (
         
         alertName = "$AlertName"
         
-        email = "$Email"
+        emailAddress = "$emailAddress"
         
         }
      
