@@ -14,7 +14,7 @@
         "logicAppName": "test-metrics-logic-app",
         "ConnectionName": "test-teams-connection",
         "ConnectionDisplayName": "monitoring@greenflux.com",
-        "ConnectiontokenTenantId": "3145cea7-e759-4aeb-b8fc-506e0a02fd91"
+        "tenantId": "3145cea7-e759-4aeb-b8fc-506e0a02fd91"
       }
     ],
     "LogicApp02": [
@@ -23,7 +23,7 @@
         "logicAppName": "test-service-health-logic-app",
         "ConnectionName": "test-teams-connection",
         "ConnectionDisplayName": "monitoring@greenflux.com",
-        "ConnectiontokenTenantId": "3145cea7-e759-4aeb-b8fc-506e0a02fd91"
+        "tenantId": "3145cea7-e759-4aeb-b8fc-506e0a02fd91"
       }
     ],
     "ServiceHealth01": [
