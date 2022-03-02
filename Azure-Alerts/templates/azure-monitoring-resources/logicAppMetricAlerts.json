@@ -23,7 +23,7 @@
     },
     "connectionName": {
       "type": "string",
-      "defaultValue": "gfx-monitoring-metrics-api-connection"
+      "defaultValue": "gfx-monitoring-metrics-teams-connection"
     },
     "connectionDisplayName": {
       "type": "string",

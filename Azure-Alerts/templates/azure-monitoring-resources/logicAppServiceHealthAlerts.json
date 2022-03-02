@@ -23,7 +23,7 @@
     },
     "connectionName": {
       "type": "string",
-      "defaultValue": "gfx-monitoring-service-health-api-connection"
+      "defaultValue": "gfx-monitoring-service-health-teams-connection"
     },
     "connectionDisplayName": {
       "type": "string",
