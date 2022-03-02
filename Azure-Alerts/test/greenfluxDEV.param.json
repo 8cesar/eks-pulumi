@@ -14,7 +14,7 @@
         "logicAppName": "test-metrics-logic-app",
         "ConnectionName": "test-teams-connection",
         "ConnectionDisplayName": "monitoring@greenflux.com",
-        "ConnectiontokenTenantId": "3145cea7-e759-4aeb-b8fc-506e0a02fd91"
+        "tenantId": "3145cea7-e759-4aeb-b8fc-506e0a02fd91"
       }
     ],
     "LogicApp02": [
@@ -23,7 +23,7 @@
         "logicAppName": "test-service-health-logic-app",
         "ConnectionName": "test-teams-connection",
         "ConnectionDisplayName": "monitoring@greenflux.com",
-        "ConnectiontokenTenantId": "3145cea7-e759-4aeb-b8fc-506e0a02fd91"
+        "tenantId": "3145cea7-e759-4aeb-b8fc-506e0a02fd91"
       }
     ],
     "ServiceHealth01": [
@@ -37,14 +37,14 @@
       {
         "resourceGroup": "test-monitoring-rg",
         "alertGroupName": "metric-alert",
-        "AlertName1": "monit01",
+        "alertName": "monit01",
         "email": "devops@greenflux.com",
         "LogAppReceiver": "test-metrics-logic-app"
       },
       {
         "resourceGroup": "test-monitoring-rg",
         "alertGroupName": "serv-hlth",
-        "AlertName1": "service-health",
+        "alertName": "service-health",
         "email": "devops@greenflux.com",
         "LogAppReceiver": "test-service-health-logic-app"
       }

@@ -136,7 +136,7 @@ $AlertData += (
         
         alertGroupName = $AlertGroupName
         
-        AlertName1 = "$AlertName"
+        alertName = "$AlertName"
         
         email = "$Email"
         

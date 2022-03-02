@@ -39,13 +39,13 @@ $ConnectionName=$arraydata.ConnectionName
 
 $ConnectionDisplayName=$arraydata.ConnectionDisplayName
 
-$ConnectiontokenTenantId=$arraydata.ConnectiontokenTenantId
+$tenantId=$arraydata.tenantId
 
 
  New-AzResourceGroupDeployment -name $deploymentName -ResourceGroupName $resourceGroup -TemplateFile $tempFilePath `
      -logicAppName $logicAppName `
      -ConnectionName $ConnectionName `
      -ConnectionDisplayName $ConnectionDisplayName `
-     -ConnectiontokenTenantId $ConnectiontokenTenantId `
+     -tenantId $tenantId `
      -Verbose
        
