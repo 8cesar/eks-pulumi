@@ -45,7 +45,7 @@ $deployment = ("$deploymentName" + "$i")
 # TO FIX: $resourceGroup[$i] can mean either the first string in an array or the first char in a string, if arraydata.length == 1
 # You can cast it: [array]$resourceGroup=$arraydata.resourceGroup
 # By default, PowerShell variables are loosely typed (i.e. can store any object type)
-New-AzResourceGroupDeployment -name $deployment -ResourceGroupName $resourceGroup[$i] -TemplateFile $tempFilePath -AlertGroupName $alertGroupName[$i] -alertGroupRegr $alertGroupRegr -synapseName $synapseName[$i] -alertSeverity $alertSeverity[$i] -evaluationFrequency $evaluationFrequency[$i] -windowSize  $windowSize[$i]`
+New-AzResourceGroupDeployment -name $deployment -ResourceGroupName $resourceGroup[$i] -TemplateFile $tempFilePath -alertGroupName $alertGroupName[$i] -alertGroupRegr $alertGroupRegr -synapseName $synapseName[$i] -alertSeverity $alertSeverity[$i] -evaluationFrequency $evaluationFrequency[$i] -windowSize  $windowSize[$i]`
 -metricName $metricName[$i]`
 -monitname $monitname[$i]`
 -operator $operator[$i]`

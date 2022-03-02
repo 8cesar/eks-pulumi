@@ -29,7 +29,7 @@
     "ServiceHealth01": [
       {
         "resourceGroup": "test-monitoring-rg",
-        "AlertGroupName": "serv-hlth",
+        "alertGroupName": "serv-hlth",
         "ServiceHealthName": "florin-test-azure-HealthStatus"
       }
     ],
@@ -39,14 +39,14 @@
         "alertGroupName": "metric-alert",
         "alertName": "monit01",
         "email": "devops@greenflux.com",
-        "LogAppReceiver": "test-metrics-logic-app"
+        "logAppReceiver": "test-metrics-logic-app"
       },
       {
         "resourceGroup": "test-monitoring-rg",
         "alertGroupName": "serv-hlth",
         "alertName": "service-health",
         "email": "devops@greenflux.com",
-        "LogAppReceiver": "test-service-health-logic-app"
+        "logAppReceiver": "test-service-health-logic-app"
       }
     ],
     "AppservicePLan1": [
