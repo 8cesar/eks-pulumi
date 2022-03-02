@@ -37,7 +37,7 @@
     $ResourceGroupAlertG = "ene-monitoring-rg",
     
     [string]
-    $AlertGroupName = "monitoringSB",
+    $alertGroupName = "monitoringSB",
     
     [string]
     $AlertName = "devops-emailSB",
@@ -134,7 +134,7 @@ $AlertData += (
         
         resourceGroup = $ResourceGroupAlertG 
         
-        alertGroupName = $AlertGroupName
+        alertGroupName = $alertGroupName
         
         alertName = "$AlertName"
         

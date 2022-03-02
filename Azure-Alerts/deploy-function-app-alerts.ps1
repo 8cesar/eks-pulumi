@@ -43,7 +43,7 @@ for ($i =0; $i -le $arraydata.GetUpperBound(0); $i++){
 $deployment = ("$deploymentName" + "$i")
 
 New-AzResourceGroupDeployment -name $deployment -ResourceGroupName $resourceGroup[$i] -TemplateFile $tempFilePath `
-        -AlertGroupName $alertGroupName[$i]`
+        -alertGroupName $alertGroupName[$i]`
         -alertGroupRegr $alertGroupRegr `
         -WebAppName $WebAppName[$i]`
         -alertSeverity $alertSeverity[$i]`

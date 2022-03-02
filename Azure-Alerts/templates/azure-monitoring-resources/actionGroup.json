@@ -33,10 +33,10 @@
       "properties": {
         "groupShortName": "[variables('alertGroupShortName')]",
         "enabled": true,
-        "emailAddressReceivers": [
+        "emailReceivers": [
           {
             "name": "[parameters('alertName')]",
-            "emailAddressAddress": "[parameters('emailAddress')]",
+            "emailAddress": "[parameters('emailAddress')]",
             "useCommonAlertSchema": true
           }
         ],

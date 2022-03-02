@@ -38,7 +38,7 @@ $alertName=$arraydata.alertName
 
 $email=$arraydata.email
 
-$LogAppReceiver=$arraydata.LogAppReceiver
+$logAppReceiver=$arraydata.logAppReceiver
 
 
 for ($i =0; $i -le $arraydata.GetUpperBound(0); $i++){
@@ -50,7 +50,7 @@ $notPresent = Get-AzResourceGroup -Name $resourceGroup[$i] -ErrorVariable notPre
 
 if ($notPresent){
 
-        New-AzResourceGroupDeployment -name $deployment -ResourceGroupName $resourceGroup[$i] -TemplateFile $tempFilePath -AlertGroupName $alertGroupName[$i] -alertName $alertName[$i] -email $email[$i] -LogAppReceiver $LogAppReceiver[$i] -Verbose 
+        New-AzResourceGroupDeployment -name $deployment -ResourceGroupName $resourceGroup[$i] -TemplateFile $tempFilePath -alertGroupName $alertGroupName[$i] -alertName $alertName[$i] -email $email[$i] -logAppReceiver $logAppReceiver[$i] -Verbose 
 
     }
         else

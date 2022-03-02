@@ -30,9 +30,9 @@ $arraydata=$data.$processname.$AzureResourceGroup
 
 $resourceGroup=$arraydata.resourceGroup
 
-$AlertGroupName=$arraydata.AlertGroupName
+$alertGroupName=$arraydata.alertGroupName
 
 $ServiceHealthName=$arraydata.ServiceHealthName
 
- New-AzResourceGroupDeployment -name $deploymentName -ResourceGroupName $resourceGroup -TemplateFile $tempFilePath -AlertGroupName $AlertGroupName -ServiceHealthName $ServiceHealthName -Verbose
+ New-AzResourceGroupDeployment -name $deploymentName -ResourceGroupName $resourceGroup -TemplateFile $tempFilePath -alertGroupName $alertGroupName -ServiceHealthName $ServiceHealthName -Verbose
        
