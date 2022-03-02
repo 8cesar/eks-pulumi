@@ -37,14 +37,14 @@
       {
         "resourceGroup": "test-monitoring-rg",
         "alertGroupName": "metric-alert",
-        "AlertName1": "monit01",
+        "alertName": "monit01",
         "email": "devops@greenflux.com",
         "LogAppReceiver": "test-metrics-logic-app"
       },
       {
         "resourceGroup": "test-monitoring-rg",
         "alertGroupName": "serv-hlth",
-        "AlertName1": "service-health",
+        "alertName": "service-health",
         "email": "devops@greenflux.com",
         "LogAppReceiver": "test-service-health-logic-app"
       }
