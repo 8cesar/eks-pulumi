@@ -17,13 +17,13 @@ The alerts are deployed via the [Azure Alerts](https://dev.azure.com/greenflux/S
 
 ### Severity levels and actions
 
-| Severity level | Description       | Example                            | Actions                             |
-| -------------- | ----------------- | ---------------------------------- | ----------------------------------- |
-| 0              | Critical          | System is compromised              | Analyze and close alert, create PBI |
-| 1              | Error             | Critical components are in trouble | Analyze and close alert, create PBI |
-| 2              | Warning           | App service stopped working        | Analyze and close alert             |
-| 3              | Informational     | Database storage is above 80 %     | Analyze and close alert             |
-| 4              | Verbose           | Low-level alert                    | Analyze and close alert             |
+| Severity level | Description   | Example                            | Actions                             |
+| -------------- | ------------- | ---------------------------------- | ----------------------------------- |
+| 0              | Critical      | System is compromised              | Analyze and close alert, create PBI |
+| 1              | Error         | Critical components are in trouble | Analyze and close alert, create PBI |
+| 2              | Warning       | App service stopped working        | Analyze and close alert             |
+| 3              | Informational | Database storage is above 80 %     | Analyze and close alert             |
+| 4              | Verbose       | Low-level alert                    | Analyze and close alert             |
 
 See the [Close alerts wiki page](https://dev.azure.com/greenflux/Shared/_wiki/wikis/Shared.wiki/3972/Close-alerts) for info on how to analyze and close alerts.
 
@@ -33,26 +33,19 @@ Composed of 5 resources:
 
 1. Alert rules
 2. Logic Apps
-3. Action groups
+3. Action Groups
 4. API connections
 5. Microsoft.Insights activityLogAlerts (for the service health alerts in a resource's activity log)
 
-The Logic Apps do the heavy lifting of parsing the alert to determine the MS Teams channel it should be sent to - either a team channel or the Severity 0/1 team-independent channels.
+The Logic Apps do the heavy lifting of parsing the alert to determine the MS Teams channel it should be sent to - either a team channel or the Severity 0/1 team-independent channels. See the [gfx-monitoring-logic-app-metrics](https://portal.azure.com/#@greenflux.com/resource/subscriptions/58d729f3-33af-4981-84ca-93e537fbdfbc/resourceGroups/gfx-monitoring-rg/providers/Microsoft.Logic/workflows/gfx-monitoring-logic-app-metrics/logicApp) and the [gfx-monitoring-logic-app-service-health](https://portal.azure.com/#@greenflux.com/resource/subscriptions/58d729f3-33af-4981-84ca-93e537fbdfbc/resourceGroups/gfx-monitoring-rg/providers/Microsoft.Logic/workflows/gfx-monitoring-logic-app-service-health/logicApp) as an example.
 
-Action groups define a list of actions to execute when an alert is triggered. In our case, there is only one defined action: send alerts to MS Teams and the devops@greenflux.com shared mailbox (as a backup in case Teams goes down).
+Action groups define a list of actions to execute when an alert is triggered. In our case, there are two defined actions: send alerts to MS Teams and the devops@greenflux.com shared mailbox (as a backup in case Teams goes down).
 
 The API connections are used to connect the Logic Apps to MS Teams.
 
 ### Flow
 
 The [Azure Monitor](https://docs.microsoft.com/en-us/azure/azure-monitor/overview) retrieves metrics from Azure resources. Our alert rules poll Azure Monitor (at intervals we specify) for metrics. If the metric for a particular resource meets our selected threshold, the azure alert uses an action group to send the Azure Monitor data to our aforementioned logic apps. The logic apps determine where to send the alert to based on severity, team tag, and alert status. Then, using the API connection to Teams, the logic apps send the alert to the proper Teams channel.
-
-<!-- #### Logic Apps in-depth
-
-We use 3 logic apps: 2 for metrics and 1 for service health alerts in a resource's activity log.
-
-The reason we use 2 logic apps for metric alerts and not 1 is a legacy one that will be soon restructured: we hit the [nesting depth](https://docs.microsoft.com/en-us/azure/logic-apps/logic-apps-limits-and-config?tabs=azure-portal#workflow-definition-limits) with the first logic app, so our team created a second one to extend our monitoring capabilities. The second Logic App currently deals with the Charge Assist and Charge Station alerts.
--->
 
 ## Elastic heartbeats
 
@@ -71,7 +64,7 @@ We have 2 broad types of watches:
 
 Both types are deployed by the [Elastic Watcher](https://dev.azure.com/greenflux/Shared/_release?definitionId=54&view=mine&_a=releases) release pipeline.
 
-Note: Watch use lucene isntead of KQL. Be aware that operators like AND, OR will work on Kibana but not as Watch query.
+**<font color="red">Important!</font>** Watches use the Lucene query language instead of the KQL, which is the default in the web version of Elastic. Be aware that logical operators (e.g. AND, OR) will need to be CAPITALIZED in the Watch query, otherwise they won't work. This is because Lucene is more strict than KQL.
 
 ### Naming convention
 
