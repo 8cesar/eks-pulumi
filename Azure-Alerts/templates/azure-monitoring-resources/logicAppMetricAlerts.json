@@ -91,7 +91,7 @@
                         }
                       },
                       "method": "post",
-                      "path": "/beta/teams/conversation/message/poster/Flow bot/location/@{encodeURIComponent('Channel')}"
+                      "path": "/beta/teams/conversation/message/poster/@{encodeURIComponent('User')}/location/@{encodeURIComponent('Channel')}"
                     },
                     "runAfter": {},
                     "type": "ApiConnection"
@@ -118,7 +118,7 @@
                     "Post_message_in_the_Billing_channel": {
                       "inputs": {
                         "body": {
-                          "messageBody": "<p>Resource: &lt;a href=\"@{triggerBody()?['data']?['context']?['resourceName']}\"&gt;@{triggerBody()?['data']?['context']?['resourceName']}&lt;/a&gt;<br>\nMetric: @{items('For_all_Billing_alerts')?['metricName']}<br>\nMetric value: @{items('For_all_Billing_alerts')?['metricValue']}</p>",
+                          "messageBody": "<p>Resource: <a href=\"@{triggerBody()?['data']?['context']?['portalLink']}\">@{triggerBody()?['data']?['context']?['resourceName']}</a><br>\nMetric: @{items('For_all_Billing_alerts')?['metricName']}<br>\nMetric value: @{items('For_all_Billing_alerts')?['metricValue']}</p>",
                           "recipient": {
                             "channelId": "19:8b93b572d671485e94c9cd8f1fad97da@thread.skype",
                             "groupId": "7d81e64e-b159-4b4e-8619-a91a5b1f4fca"
@@ -130,7 +130,7 @@
                           }
                         },
                         "method": "post",
-                        "path": "/beta/teams/conversation/message/poster/Flow bot/location/@{encodeURIComponent('Channel')}"
+                        "path": "/beta/teams/conversation/message/poster/@{encodeURIComponent('User')}/location/@{encodeURIComponent('Channel')}"
                       },
                       "runAfter": {},
                       "type": "ApiConnection"
@@ -165,7 +165,7 @@
                     "Post_message_in_the_ChargeStation_channel": {
                       "inputs": {
                         "body": {
-                          "messageBody": "<p>Resource: &lt;a href=\"@{triggerBody()?['data']?['context']?['resourceName']}\"&gt;@{triggerBody()?['data']?['context']?['resourceName']}&lt;/a&gt;<br>\nMetric: @{items('For_all_ChargeStation_alerts')?['metricName']}<br>\nMetric value: @{items('For_all_ChargeStation_alerts')?['metricValue']}</p>",
+                          "messageBody": "<p>Resource: <a href=\"@{triggerBody()?['data']?['context']?['portalLink']}\">@{triggerBody()?['data']?['context']?['resourceName']}</a><br>\nMetric: @{items('For_all_ChargeStation_alerts')?['metricName']}<br>\nMetric value: @{items('For_all_ChargeStation_alerts')?['metricValue']}</p>",
                           "recipient": {
                             "channelId": "19:13f02a7a1755426185945dbdfa8e6914@thread.skype",
                             "groupId": "7d81e64e-b159-4b4e-8619-a91a5b1f4fca"
@@ -177,7 +177,7 @@
                           }
                         },
                         "method": "post",
-                        "path": "/beta/teams/conversation/message/poster/Flow bot/location/@{encodeURIComponent('Channel')}"
+                        "path": "/beta/teams/conversation/message/poster/@{encodeURIComponent('User')}/location/@{encodeURIComponent('Channel')}"
                       },
                       "runAfter": {},
                       "type": "ApiConnection"
@@ -212,7 +212,7 @@
                     "Post_message_in_the_Charge_Assist_channel": {
                       "inputs": {
                         "body": {
-                          "messageBody": "<p>Resource: &lt;a href=\"@{triggerBody()?['data']?['context']?['resourceName']}\"&gt;@{triggerBody()?['data']?['context']?['resourceName']}&lt;/a&gt;<br>\nMetric: @{items('For_all_Charge_Assist_alerts')?['metricName']}<br>\nMetric value: @{items('For_all_Charge_Assist_alerts')?['metricValue']}</p>",
+                          "messageBody": "<p>Resource: <a href=\"@{triggerBody()?['data']?['context']?['portalLink']}\">@{triggerBody()?['data']?['context']?['resourceName']}</a><br>\nMetric: @{items('For_all_Charge_Assist_alerts')?['metricName']}<br>\nMetric value: @{items('For_all_Charge_Assist_alerts')?['metricValue']}</p>",
                           "recipient": {
                             "channelId": "19:98beaedcbde84648995232d918735efa@thread.skype",
                             "groupId": "7d81e64e-b159-4b4e-8619-a91a5b1f4fca"
@@ -224,7 +224,7 @@
                           }
                         },
                         "method": "post",
-                        "path": "/beta/teams/conversation/message/poster/Flow bot/location/@{encodeURIComponent('Channel')}"
+                        "path": "/beta/teams/conversation/message/poster/@{encodeURIComponent('User')}/location/@{encodeURIComponent('Channel')}"
                       },
                       "runAfter": {},
                       "type": "ApiConnection"
@@ -259,7 +259,7 @@
                     "Post_message_in_the_DevOps_channel": {
                       "inputs": {
                         "body": {
-                          "messageBody": "<p>Resource: &lt;a href=\"@{triggerBody()?['data']?['context']?['resourceName']}\"&gt;@{triggerBody()?['data']?['context']?['resourceName']}&lt;/a&gt;<br>\nMetric: @{items('For_all_DevOps_alerts')?['metricName']}<br>\nMetric value: @{items('For_all_DevOps_alerts')?['metricValue']}</p>",
+                          "messageBody": "<p>Resource: <a href=\"@{triggerBody()?['data']?['context']?['portalLink']}\">@{triggerBody()?['data']?['context']?['resourceName']}</a><br>\nMetric: @{items('For_all_DevOps_alerts')?['metricName']}<br>\nMetric value: @{items('For_all_DevOps_alerts')?['metricValue']}</p>",
                           "recipient": {
                             "channelId": "19:0c8be18da04046daa403c9da4d2361a6@thread.skype",
                             "groupId": "7d81e64e-b159-4b4e-8619-a91a5b1f4fca"
@@ -271,7 +271,7 @@
                           }
                         },
                         "method": "post",
-                        "path": "/beta/teams/conversation/message/poster/Flow bot/location/@{encodeURIComponent('Channel')}"
+                        "path": "/beta/teams/conversation/message/poster/@{encodeURIComponent('User')}/location/@{encodeURIComponent('Channel')}"
                       },
                       "runAfter": {},
                       "type": "ApiConnection"
@@ -306,7 +306,7 @@
                     "Post_message_in_the_Integration_channel": {
                       "inputs": {
                         "body": {
-                          "messageBody": "<p>Resource: &lt;a href=\"@{triggerBody()?['data']?['context']?['resourceName']}\"&gt;@{triggerBody()?['data']?['context']?['resourceName']}&lt;/a&gt;<br>\nMetric: @{items('For_all_Integration_alerts')?['metricName']}<br>\nMetric value: @{items('For_all_Integration_alerts')?['metricValue']}</p>",
+                          "messageBody": "<p>Resource: <a href=\"@{triggerBody()?['data']?['context']?['portalLink']}\">@{triggerBody()?['data']?['context']?['resourceName']}</a><br>\nMetric: @{items('For_all_Integration_alerts')?['metricName']}<br>\nMetric value: @{items('For_all_Integration_alerts')?['metricValue']}</p>",
                           "recipient": {
                             "channelId": "19:37aa5a0e29ae4b59bfb879082efd65c0@thread.skype",
                             "groupId": "7d81e64e-b159-4b4e-8619-a91a5b1f4fca"
@@ -318,7 +318,7 @@
                           }
                         },
                         "method": "post",
-                        "path": "/beta/teams/conversation/message/poster/Flow bot/location/@{encodeURIComponent('Channel')}"
+                        "path": "/beta/teams/conversation/message/poster/@{encodeURIComponent('User')}/location/@{encodeURIComponent('Channel')}"
                       },
                       "runAfter": {},
                       "type": "ApiConnection"
@@ -353,7 +353,7 @@
                     "Post_message_in_the_Portal_channel": {
                       "inputs": {
                         "body": {
-                          "messageBody": "<p>Resource: &lt;a href=\"@{triggerBody()?['data']?['context']?['resourceName']}\"&gt;@{triggerBody()?['data']?['context']?['resourceName']}&lt;/a&gt;<br>\nMetric: @{items('For_all_Portal_alerts')?['metricName']}<br>\nMetric value: @{items('For_all_Portal_alerts')?['metricValue']}</p>",
+                          "messageBody": "<p>Resource: <a href=\"@{triggerBody()?['data']?['context']?['portalLink']}\">@{triggerBody()?['data']?['context']?['resourceName']}</a><br>\nMetric: @{items('For_all_Portal_alerts')?['metricName']}<br>\nMetric value: @{items('For_all_Portal_alerts')?['metricValue']}</p>",
                           "recipient": {
                             "channelId": "19:26c0299807ef46b2acb735a6abf79929@thread.skype",
                             "groupId": "7d81e64e-b159-4b4e-8619-a91a5b1f4fca"
@@ -365,7 +365,7 @@
                           }
                         },
                         "method": "post",
-                        "path": "/beta/teams/conversation/message/poster/Flow bot/location/@{encodeURIComponent('Channel')}"
+                        "path": "/beta/teams/conversation/message/poster/@{encodeURIComponent('User')}/location/@{encodeURIComponent('Channel')}"
                       },
                       "runAfter": {},
                       "type": "ApiConnection"
@@ -400,7 +400,7 @@
                     "Post_message_in_the_SmartCharging_channel": {
                       "inputs": {
                         "body": {
-                          "messageBody": "<p>Resource: &lt;a href=\"@{triggerBody()?['data']?['context']?['resourceName']}\"&gt;@{triggerBody()?['data']?['context']?['resourceName']}&lt;/a&gt;<br>\nMetric: @{items('For_all_SmartCharging_alerts')?['metricName']}<br>\nMetric value: @{items('For_all_SmartCharging_alerts')?['metricValue']}</p>",
+                          "messageBody": "<p>Resource: <a href=\"@{triggerBody()?['data']?['context']?['portalLink']}\">@{triggerBody()?['data']?['context']?['resourceName']}</a><br>\nMetric: @{items('For_all_SmartCharging_alerts')?['metricName']}<br>\nMetric value: @{items('For_all_SmartCharging_alerts')?['metricValue']}</p>",
                           "recipient": {
                             "channelId": "19:bf8b6cbf31f84ecf8a2ab006c7906f11@thread.skype",
                             "groupId": "7d81e64e-b159-4b4e-8619-a91a5b1f4fca"
@@ -412,7 +412,7 @@
                           }
                         },
                         "method": "post",
-                        "path": "/beta/teams/conversation/message/poster/Flow bot/location/@{encodeURIComponent('Channel')}"
+                        "path": "/beta/teams/conversation/message/poster/@{encodeURIComponent('User')}/location/@{encodeURIComponent('Channel')}"
                       },
                       "runAfter": {},
                       "type": "ApiConnection"
@@ -449,7 +449,7 @@
                         "Post_message_in_the_Severity_0_channel": {
                           "inputs": {
                             "body": {
-                              "messageBody": "<p>Resource: &lt;a href=\"@{triggerBody()?['data']?['context']?['resourceName']}\"&gt;@{triggerBody()?['data']?['context']?['resourceName']}&lt;/a&gt;<br>\nMetric: @{items('For_all_severity_0_or_1_alerts')?['metricName']}<br>\nMetric value: @{items('For_all_severity_0_or_1_alerts')?['metricValue']}</p>",
+                              "messageBody": "<p>Resource: <a href=\"@{triggerBody()?['data']?['context']?['portalLink']}\">@{triggerBody()?['data']?['context']?['resourceName']}</a><br>\nMetric: @{items('For_all_severity_0_or_1_alerts')?['metricName']}<br>\nMetric value: @{items('For_all_severity_0_or_1_alerts')?['metricValue']}</p>",
                               "recipient": {
                                 "channelId": "19:218ab363158742e988473ab3507f1c50@thread.skype",
                                 "groupId": "7d81e64e-b159-4b4e-8619-a91a5b1f4fca"
@@ -461,7 +461,7 @@
                               }
                             },
                             "method": "post",
-                            "path": "/beta/teams/conversation/message/poster/Flow bot/location/@{encodeURIComponent('Channel')}"
+                            "path": "/beta/teams/conversation/message/poster/@{encodeURIComponent('User')}/location/@{encodeURIComponent('Channel')}"
                           },
                           "runAfter": {},
                           "type": "ApiConnection"
@@ -472,7 +472,7 @@
                           "Post_message_in_the_Severity_1_channel": {
                             "inputs": {
                               "body": {
-                                "messageBody": "<p>Resource: &lt;a href=\"@{triggerBody()?['data']?['context']?['resourceName']}\"&gt;@{triggerBody()?['data']?['context']?['resourceName']}&lt;/a&gt;<br>\nMetric: @{items('For_all_severity_0_or_1_alerts')?['metricName']}<br>\nMetric value: @{items('For_all_severity_0_or_1_alerts')?['metricValue']}</p>",
+                                "messageBody": "<p>Resource: <a href=\"@{triggerBody()?['data']?['context']?['portalLink']}\">@{triggerBody()?['data']?['context']?['resourceName']}</a><br>\nMetric: @{items('For_all_severity_0_or_1_alerts')?['metricName']}<br>\nMetric value: @{items('For_all_severity_0_or_1_alerts')?['metricValue']}</p>",
                                 "recipient": {
                                   "channelId": "19:5a76a26e1f4e4a66ac46c26d628de4b6@thread.skype",
                                   "groupId": "7d81e64e-b159-4b4e-8619-a91a5b1f4fca"
@@ -484,7 +484,7 @@
                                 }
                               },
                               "method": "post",
-                              "path": "/beta/teams/conversation/message/poster/Flow bot/location/@{encodeURIComponent('Channel')}"
+                              "path": "/beta/teams/conversation/message/poster/@{encodeURIComponent('User')}/location/@{encodeURIComponent('Channel')}"
                             },
                             "runAfter": {},
                             "type": "ApiConnection"
@@ -550,7 +550,7 @@
                       }
                     },
                     "method": "post",
-                    "path": "/beta/teams/conversation/message/poster/Flow bot/location/@{encodeURIComponent('Channel')}"
+                    "path": "/beta/teams/conversation/message/poster/@{encodeURIComponent('User')}/location/@{encodeURIComponent('Channel')}"
                   },
                   "runAfter": {},
                   "type": "ApiConnection"

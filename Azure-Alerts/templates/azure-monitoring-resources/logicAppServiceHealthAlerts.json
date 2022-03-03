@@ -64,7 +64,7 @@
                           }
                         },
                         "method": "post",
-                        "path": "/beta/teams/conversation/message/poster/Flow bot/location/@{encodeURIComponent('Channel')}"
+                        "path": "/beta/teams/conversation/message/poster/@{encodeURIComponent('User')}/location/@{encodeURIComponent('Channel')}"
                       },
                       "runAfter": {},
                       "type": "ApiConnection"
@@ -112,7 +112,7 @@
                         }
                       },
                       "method": "post",
-                      "path": "/beta/teams/conversation/message/poster/Flow bot/location/@{encodeURIComponent('Channel')}"
+                      "path": "/beta/teams/conversation/message/poster/@{encodeURIComponent('User')}/location/@{encodeURIComponent('Channel')}"
                     },
                     "runAfter": {},
                     "type": "ApiConnection"
