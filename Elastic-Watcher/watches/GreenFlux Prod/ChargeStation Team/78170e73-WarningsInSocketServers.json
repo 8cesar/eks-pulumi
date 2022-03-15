@@ -1,0 +1,67 @@
+{
+    "trigger": {
+      "schedule": {
+        "interval": "1h"
+      }
+    },
+    "input": {
+      "search": {
+        "request": {
+          "search_type": "query_then_fetch",
+          "indices": [
+            "gfx-prod-logs*"
+          ],
+          "body": {
+            "size": 0,
+            "query": {
+              "bool": {
+                "must": [
+                  {
+                    "query_string": {
+                      "query": "indexname:*SocketServer* AND level:warning"
+                    }
+                  }
+                ],
+                "filter": [
+                  {
+                    "range": {
+                      "@timestamp": {
+                        "lte": "now",
+                        "gte": "now-60m"
+                      }
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "condition": {
+      "compare": {
+        "ctx.payload.hits.total": {
+          "gt": 10000
+        }
+      }
+    },
+    "actions": {
+      "MS_Teams": {
+        "webhook": {
+          "scheme": "https",
+          "method": "POST",
+          "host": "greenfluxbv.webhook.office.com",
+          "port": 443,
+          "path": "$(watcherWebhookTeamChargeStation)",
+          "headers": {
+            "Content-Type": "application/json; charset=UTF-8"
+          },
+          "body": {
+            "source": {
+              "text": "<h1>Watch 78170e73 (Gfx Prod)</h1><br>More than 10000 warnings in socket servers in past 1h"
+            }
+          }
+        }
+      }
+    }
+  }
