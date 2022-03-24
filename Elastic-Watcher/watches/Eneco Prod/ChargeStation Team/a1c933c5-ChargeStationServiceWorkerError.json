@@ -1,0 +1,67 @@
+{
+    "trigger": {
+      "schedule": {
+        "interval": "1h"
+      }
+    },
+    "input": {
+      "search": {
+        "request": {
+          "search_type": "query_then_fetch",
+          "indices": [
+            "ene-prod-logs*"
+          ],
+          "body": {
+            "size": 0,
+            "query": {
+              "bool": {
+                "must": [
+                  {
+                    "query_string": {
+                      "query": "indexname:ChargeStationServiceWorker AND level:error"
+                    }
+                  }
+                ],
+                "filter": [
+                  {
+                    "range": {
+                      "@timestamp": {
+                        "lte": "now",
+                        "gte": "now-70m"
+                      }
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "condition": {
+      "compare": {
+        "ctx.payload.hits.total": {
+          "gt": 5
+        }
+      }
+    },
+    "actions": {
+      "MS_Teams": {
+        "webhook": {
+          "scheme": "https",
+          "method": "POST",
+          "host": "greenfluxbv.webhook.office.com",
+          "port": 443,
+          "path": "$(watcherWebhookTeamChargeStation)",
+          "headers": {
+            "Content-Type": "application/json; charset=UTF-8"
+          },
+          "body": {
+            "source": {
+              "text": "<h1>Watch a1c933c5 (Ene Prod)</h1><br>More than 5 errors in the ChargeStationServiceWorker in past 1h"
+            }
+          }
+        }
+      }
+    }
+  }
