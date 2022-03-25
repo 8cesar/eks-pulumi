@@ -263,6 +263,24 @@ heartbeat.monitors:
     timeouts: 10s
     check.response.status: [200]
   - type: http
+    id: gsop-gfx-ocpijobscheduler
+    name: OCPI Jobscheduler
+    tags: ["GFX", "PROD", "Integration-Team"]
+    schedule: "@every 60s"
+    urls: ["https://gsop-gfx-ocpijobscheduler.azurewebsites.net/api/health"]
+    ports: [443]
+    timeouts: 10s
+    check.response.status: [200]
+  - type: http
+    id: gsop-ene-ocpijobscheduler
+    name: OCPI Jobscheduler
+    tags: ["ENE", "PROD", "Integration-Team"]
+    schedule: "@every 60s"
+    urls: ["https://gsop-ene-ocpijobscheduler.azurewebsites.net/api/health"]
+    ports: [443]
+    timeouts: 10s
+    check.response.status: [200]
+  - type: http
     id: gfx-scinsights-api-p
     name: SmartCharging Insights API
     tags: ["GFX", "PROD", "SmartCharging-Team"]
