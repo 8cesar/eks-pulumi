@@ -41,7 +41,7 @@
   "condition": {
     "compare": {
       "ctx.payload.hits.total": {
-        "gt": 5
+        "gt": 30
       }
     }
   },
@@ -59,7 +59,7 @@
         },
         "body": {
           "source": {
-            "text": "<h1>Watch ff169431 (Gfx Prod)</h1><br>Contactless remote-start rejected sessions are greater than 5 in the last 15 min"
+            "text": "<h1>Watch ff169431 (Gfx Prod)</h1><br>Contactless remote-start rejected sessions are greater than 30 in the last 15 min"
           }
         }
       }
