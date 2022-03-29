@@ -65,13 +65,13 @@
         "method": "POST",
         "host": "greenfluxbv.webhook.office.com",
         "port": 443,
-        "path": "/webhookb2/7d81e64e-b159-4b4e-8619-a91a5b1f4fca@3145cea7-e759-4aeb-b8fc-506e0a02fd91/IncomingWebhook/3f0bf185dee141ec9054c38521f4ef77/301b0c1e-f1c9-46f2-b720-2e2bb4509f07",
+        "path": "$(watcherWebhookTeamBillingTest)",
         "headers": {
           "Content-Type": "application/json; charset=UTF-8"
         },
         "body": {
           "source": {
-            "text": "<h1>Watch 8b5a6fe6 (Gfx Test)</h1><br>Billing ITX tests scheduled run duration for individual tests is greater than 1 min on QA\n\n1\n\n{{#toJson}}ctx.payload._value.0{{/toJson}}\n\n2\n\n{{#toJson}}ctx.payload._value.1{{/toJson}}\n\n3\n\n\n{{#toJson}}ctx.payload._value.2{{/toJson}}\n\n4\n\n{{#toJson}}ctx.payload._value.3{{/toJson}}\n\n5\n\n{{#toJson}}ctx.payload._value.4{{/toJson}}\n\n6\n\n{{#toJson}}ctx.payload._value.5{{/toJson}}\n\n7\n\n{{#toJson}}ctx.payload._value.6{{/toJson}}\n\n8\n\n{{#toJson}}ctx.payload._value.7{{/toJson}}\n\n9\n\n{{#toJson}}ctx.payload._value.8{{/toJson}}\n\n10\n\n{{#toJson}}ctx.payload._value.9{{/toJson}}"
+            "text": "<h1>Watch 4h96b6c6 (Gfx Test)</h1><br>Billing ITX tests scheduled run duration for individual tests is greater than 1 min on QA\n\n1\n\n{{#toJson}}ctx.payload._value.0{{/toJson}}\n\n2\n\n{{#toJson}}ctx.payload._value.1{{/toJson}}\n\n3\n\n\n{{#toJson}}ctx.payload._value.2{{/toJson}}\n\n4\n\n{{#toJson}}ctx.payload._value.3{{/toJson}}\n\n5\n\n{{#toJson}}ctx.payload._value.4{{/toJson}}\n\n6\n\n{{#toJson}}ctx.payload._value.5{{/toJson}}\n\n7\n\n{{#toJson}}ctx.payload._value.6{{/toJson}}\n\n8\n\n{{#toJson}}ctx.payload._value.7{{/toJson}}\n\n9\n\n{{#toJson}}ctx.payload._value.8{{/toJson}}\n\n10\n\n{{#toJson}}ctx.payload._value.9{{/toJson}}"
           }
         }
       }
