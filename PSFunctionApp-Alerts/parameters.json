@@ -1,0 +1,160 @@
+{
+    "parameters": {
+        "ServiceBusSubscription": [
+            {
+                "subscription": "58d729f3-33af-4981-84ca-93e537fbdfbc",
+                "resourceGroup": "gsop-gfx-core",
+                "serviceBusNamespace": "gfxprdgsopservicebus",
+                "serviceBusTopic": "chargepoints",
+                "serviceBusSubscrition": "RemoteCommandResponse",
+                "threshold": "1000",
+                "text": "RemoteCommandResponse Subscription is > 1000 on GFX PROD",
+                "teamName": "ChargeStation"
+            },
+            {
+                "subscription": "3c9ecae3-4584-440f-b7cc-b2deb19f2d9c",
+                "resourceGroup": "gsop-ene-core",
+                "serviceBusNamespace": "eneprdgsopservicebus",
+                "serviceBusTopic": "chargepoints",
+                "serviceBusSubscrition": "RemoteCommandResponse",
+                "threshold": "1000",
+                "text": "RemoteCommandResponse Subscription is > 1000 on ENE PROD",
+                "teamName": "ChargeStation"
+            },
+            {
+                "subscription": "58d729f3-33af-4981-84ca-93e537fbdfbc",
+                "resourceGroup": "gsop-gfx-core",
+                "serviceBusNamespace": "gfxprdgsopservicebus",
+                "serviceBusTopic": "chargepoints",
+                "serviceBusSubscrition": "TransactionEvents.MeterValues",
+                "threshold": "1000",
+                "text": "TransactionEvents.MeterValues Subscription is > 1000 on GFX PROD",
+                "teamName": "ChargeStation"
+            },
+            {
+                "subscription": "3c9ecae3-4584-440f-b7cc-b2deb19f2d9c",
+                "resourceGroup": "gsop-ene-core",
+                "serviceBusNamespace": "eneprdgsopservicebus",
+                "serviceBusTopic": "chargepoints",
+                "serviceBusSubscrition": "TransactionEvents.MeterValues",
+                "threshold": "1000",
+                "text": "TransactionEvents.MeterValues Subscription is > 1000 on ENE PROD",
+                "teamName": "ChargeStation"
+            },{
+                "subscription": "58d729f3-33af-4981-84ca-93e537fbdfbc",
+                "resourceGroup": "gsop-gfx-core",
+                "serviceBusNamespace": "gfxprdgsopservicebus",
+                "serviceBusTopic": "chargepoints",
+                "serviceBusSubscrition": "TransactionEvents.PaymentTagEvent",
+                "threshold": "1000",
+                "text": "TransactionEvents.PaymentTagEvent Subscription is > 1000 on GFX PROD",
+                "teamName": "ChargeStation"
+            },
+            {
+                "subscription": "3c9ecae3-4584-440f-b7cc-b2deb19f2d9c",
+                "resourceGroup": "gsop-ene-core",
+                "serviceBusNamespace": "eneprdgsopservicebus",
+                "serviceBusTopic": "chargepoints",
+                "serviceBusSubscrition": "TransactionEvents.PaymentTagEvent",
+                "threshold": "1000",
+                "text": "TransactionEvents.PaymentTagEvent Subscription is > 1000 on ENE PROD",
+                "teamName": "ChargeStation"
+            },{
+                "subscription": "58d729f3-33af-4981-84ca-93e537fbdfbc",
+                "resourceGroup": "gsop-gfx-core",
+                "serviceBusNamespace": "gfxprdgsopservicebus",
+                "serviceBusTopic": "chargepoints",
+                "serviceBusSubscrition": "TransactionEvents.SignedMeterValues",
+                "threshold": "1000",
+                "text": "TransactionEvents.SignedMeterValues Subscription is > 1000 on GFX PROD",
+                "teamName": "ChargeStation"
+            },
+            {
+                "subscription": "3c9ecae3-4584-440f-b7cc-b2deb19f2d9c",
+                "resourceGroup": "gsop-ene-core",
+                "serviceBusNamespace": "eneprdgsopservicebus",
+                "serviceBusTopic": "chargepoints",
+                "serviceBusSubscrition": "TransactionEvents.SignedMeterValues",
+                "threshold": "1000",
+                "text": "TransactionEvents.SignedMeterValues Subscription is > 1000 on ENE PROD",
+                "teamName": "ChargeStation"
+            },{
+                "subscription": "58d729f3-33af-4981-84ca-93e537fbdfbc",
+                "resourceGroup": "gsop-gfx-core",
+                "serviceBusNamespace": "gfxprdgsopservicebus",
+                "serviceBusTopic": "chargepoints",
+                "serviceBusSubscrition": "TransactionEvents.TransactionEvent",
+                "threshold": "1000",
+                "text": "TransactionEvents.TransactionEvent Subscription is > 1000 on GFX PROD",
+                "teamName": "ChargeStation"
+            },
+            {
+                "subscription": "3c9ecae3-4584-440f-b7cc-b2deb19f2d9c",
+                "resourceGroup": "gsop-ene-core",
+                "serviceBusNamespace": "eneprdgsopservicebus",
+                "serviceBusTopic": "chargepoints",
+                "serviceBusSubscrition": "TransactionEvents.TransactionEvent",
+                "threshold": "1000",
+                "text": "TransactionEvents.TransactionEvent Subscription is > 1000 on ENE PROD",
+                "teamName": "ChargeStation"
+            },{
+                "subscription": "58d729f3-33af-4981-84ca-93e537fbdfbc",
+                "resourceGroup": "gsop-gfx-core",
+                "serviceBusNamespace": "gfxprdgsopservicebus",
+                "serviceBusTopic": "chargepoints",
+                "serviceBusSubscrition": "TransactionEvents.VIDForTransaction",
+                "threshold": "1000",
+                "text": "TransactionEvents.VIDForTransaction Subscription is > 1000 on GFX PROD",
+                "teamName": "ChargeStation"
+            },
+            {
+                "subscription": "3c9ecae3-4584-440f-b7cc-b2deb19f2d9c",
+                "resourceGroup": "gsop-ene-core",
+                "serviceBusNamespace": "eneprdgsopservicebus",
+                "serviceBusTopic": "chargepoints",
+                "serviceBusSubscrition": "TransactionEvents.VIDForTransaction",
+                "threshold": "1000",
+                "text": "TransactionEvents.VIDForTransaction Subscription is > 1000 on ENE PROD",
+                "teamName": "ChargeStation"
+            },{
+                "subscription": "58d729f3-33af-4981-84ca-93e537fbdfbc",
+                "resourceGroup": "gsop-gfx-core",
+                "serviceBusNamespace": "gfxprdgsopservicebus",
+                "serviceBusTopic": "chargepoints",
+                "serviceBusSubscrition": "StatusService.AllToGsop",
+                "threshold": "1000",
+                "text": "StatusService.AllToGsop Subscription is > 1000 on GFX PROD",
+                "teamName": "ChargeStation"
+            },
+            {
+                "subscription": "3c9ecae3-4584-440f-b7cc-b2deb19f2d9c",
+                "resourceGroup": "gsop-ene-core",
+                "serviceBusNamespace": "eneprdgsopservicebus",
+                "serviceBusTopic": "chargepoints",
+                "serviceBusSubscrition": "RemoteStatusService.AllToGsopCommandResponse",
+                "threshold": "1000",
+                "text": "StatusService.AllToGsop Subscription is > 1000 on ENE PROD",
+                "teamName": "ChargeStation"
+            },{
+                "subscription": "58d729f3-33af-4981-84ca-93e537fbdfbc",
+                "resourceGroup": "gsop-gfx-core",
+                "serviceBusNamespace": "gfxprdgsopservicebus",
+                "serviceBusTopic": "chargepoints",
+                "serviceBusSubscrition": "StatusService.AllToChargePoint",
+                "threshold": "1000",
+                "text": "StatusService.AllToChargePoint Subscription is > 1000 on GFX PROD",
+                "teamName": "ChargeStation"
+            },
+            {
+                "subscription": "3c9ecae3-4584-440f-b7cc-b2deb19f2d9c",
+                "resourceGroup": "gsop-ene-core",
+                "serviceBusNamespace": "eneprdgsopservicebus",
+                "serviceBusTopic": "chargepoints",
+                "serviceBusSubscrition": "StatusService.AllToChargePoint",
+                "threshold": "1000",
+                "text": "StatusService.AllToChargePoint Subscription is > 1000 on ENE PROD",
+                "teamName": "ChargeStation"
+            }
+        ]
+    }
+}
