@@ -131,7 +131,7 @@
                 "resourceGroup": "gsop-ene-core",
                 "serviceBusNamespace": "eneprdgsopservicebus",
                 "serviceBusTopic": "chargepoints",
-                "serviceBusSubscrition": "RemoteStatusService.AllToGsopCommandResponse",
+                "serviceBusSubscrition": "StatusService.AllToGsop",
                 "threshold": "1000",
                 "text": "StatusService.AllToGsop Subscription is > 1000 on ENE PROD",
                 "teamName": "ChargeStation"
