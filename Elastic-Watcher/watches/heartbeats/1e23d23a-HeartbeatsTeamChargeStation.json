@@ -73,7 +73,7 @@
         },
         "body": {
           "source": {
-            "text": "<h1>Watch 1e23d23a</h1><br>Elastic Heartbeat ping failed twice for:<br><br><table><tr><td>RESOURCE</td><td>URL</td></tr>{{#ctx.payload.aggregations.url.buckets}}<tr><td>{{id.buckets.0.key}}</td><td><a href=\"{{key}}\">{{key}}</a></td></tr>{{/ctx.payload.aggregations.url.buckets}}</table>"
+            "text": "<h1>Watch 1e23d23a</h1><br>Elastic Heartbeat ping failed five times:<br><br><table><tr><td>RESOURCE</td><td>URL</td></tr>{{#ctx.payload.aggregations.url.buckets}}<tr><td>{{id.buckets.0.key}}</td><td><a href=\"{{key}}\">{{key}}</a></td></tr>{{/ctx.payload.aggregations.url.buckets}}</table>"
           }
         }
       }

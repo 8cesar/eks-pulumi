@@ -443,24 +443,6 @@ heartbeat.monitors:
     timeouts: 10s
     check.response.status: [200]
   - type: http
-    id: gsop-ene-legacynormalizer
-    name: ChargeStation LegacyNormalizer
-    tags: ["ENE", "PROD", "ChargeStation-Team"]
-    schedule: "@every 60s"
-    urls: ["https://gsop-ene-legacynormalizer.azurewebsites.net"]
-    ports: [443]
-    timeouts: 10s
-    check.response.status: [200]
-  - type: http
-    id: gsop-gfx-legacynormalizer
-    name: ChargeStation LegacyNormalizer
-    tags: ["GFX", "PROD", "ChargeStation-Team"]
-    schedule: "@every 60s"
-    urls: ["https://gsop-gfx-legacynormalizer.azurewebsites.net"]
-    ports: [443]
-    timeouts: 10s
-    check.response.status: [200]
-  - type: http
     id: gsop-gfx-chargestation-worker
     name: ChargeStation Worker
     tags: ["GFX", "PROD", "ChargeStation-Team"]
