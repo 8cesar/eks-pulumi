@@ -43,669 +43,798 @@
       "apiVersion": "2016-06-01",
       "properties": {
         "definition": {
-          "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
-          "actions": {
+        "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+        "actions": {
             "And_the_HTTP_request_is_an_Azure_Monitor_Metric_Alert": {
-              "actions": {
-                "And_the_alert_is_activated": {
-                  "actions": {},
-                  "else": {
-                    "actions": {
-                      "Terminate": {
-                        "inputs": {
-                          "runStatus": "Succeeded"
+                "actions": {
+                    "And_the_alert_is_activated": {
+                        "actions": {},
+                        "else": {
+                            "actions": {
+                                "Terminate": {
+                                    "inputs": {
+                                        "runStatus": "Succeeded"
+                                    },
+                                    "runAfter": {},
+                                    "type": "Terminate"
+                                }
+                            }
+                        },
+                        "expression": {
+                            "and": [
+                                {
+                                    "equals": [
+                                        "@triggerBody()?['data']?['status']",
+                                        "Activated"
+                                    ]
+                                }
+                            ]
                         },
                         "runAfter": {},
-                        "type": "Terminate"
-                      }
+                        "type": "If"
                     }
-                  },
-                  "expression": {
-                    "and": [
-                      {
-                        "equals": [
-                          "@triggerBody()?['data']?['status']",
-                          "Activated"
-                        ]
-                      }
-                    ]
-                  },
-                  "runAfter": {},
-                  "type": "If"
-                }
-              },
-              "else": {
-                "actions": {
-                  "Post_error_message_in_the_DevOps_channel": {
-                    "inputs": {
-                      "body": {
-                        "messageBody": "<p>The Azure metric monitoring logic app received an unrecognized HTTP request:<br>\n<br>\n@{json(triggerBody())}</p>",
-                        "recipient": {
-                          "channelId": "19:0c8be18da04046daa403c9da4d2361a6@thread.skype",
-                          "groupId": "7d81e64e-b159-4b4e-8619-a91a5b1f4fca"
-                        }
-                      },
-                      "host": {
-                        "connection": {
-                          "name": "@parameters('$connections')['teams_1']['connectionId']"
-                        }
-                      },
-                      "method": "post",
-                      "path": "/beta/teams/conversation/message/poster/@{encodeURIComponent('User')}/location/@{encodeURIComponent('Channel')}"
-                    },
-                    "runAfter": {},
-                    "type": "ApiConnection"
-                  }
-                }
-              },
-              "expression": {
-                "and": [
-                  {
-                    "equals": [
-                      "@triggerBody()?['schemaId']",
-                      "AzureMonitorMetricAlert"
-                    ]
-                  }
-                ]
-              },
-              "runAfter": {},
-              "type": "If"
-            },
-            "For_all_Billing_alerts": {
-              "actions": {
-                "The_alert_belongs_to_the_Billing_team": {
-                  "actions": {
-                    "Post_message_in_the_Billing_channel": {
-                      "inputs": {
-                        "body": {
-                          "messageBody": "<p>Resource: <a href=\"@{triggerBody()?['data']?['context']?['portalLink']}\">@{triggerBody()?['data']?['context']?['resourceName']}</a><br>\nMetric: @{items('For_all_Billing_alerts')?['metricName']}<br>\nMetric value: @{items('For_all_Billing_alerts')?['metricValue']}</p>",
-                          "recipient": {
-                            "channelId": "19:8b93b572d671485e94c9cd8f1fad97da@thread.skype",
-                            "groupId": "7d81e64e-b159-4b4e-8619-a91a5b1f4fca"
-                          }
-                        },
-                        "host": {
-                          "connection": {
-                            "name": "@parameters('$connections')['teams_1']['connectionId']"
-                          }
-                        },
-                        "method": "post",
-                        "path": "/beta/teams/conversation/message/poster/@{encodeURIComponent('User')}/location/@{encodeURIComponent('Channel')}"
-                      },
-                      "runAfter": {},
-                      "type": "ApiConnection"
-                    }
-                  },
-                  "expression": {
-                    "and": [
-                      {
-                        "startsWith": [
-                          "@triggerBody()?['data']?['context']?['description']",
-                          "Billing"
-                        ]
-                      }
-                    ]
-                  },
-                  "runAfter": {},
-                  "type": "If"
-                }
-              },
-              "foreach": "@triggerBody()?['data']?['context']?['condition']?['allOf']",
-              "runAfter": {
-                "For_all_DevOps_alerts": [
-                  "Succeeded"
-                ]
-              },
-              "type": "Foreach"
-            },
-            "For_all_ChargeStation_alerts": {
-              "actions": {
-                "The_alert_belongs_to_the_ChargeStation_team": {
-                  "actions": {
-                    "Post_message_in_the_ChargeStation_channel": {
-                      "inputs": {
-                        "body": {
-                          "messageBody": "<p>Resource: <a href=\"@{triggerBody()?['data']?['context']?['portalLink']}\">@{triggerBody()?['data']?['context']?['resourceName']}</a><br>\nMetric: @{items('For_all_ChargeStation_alerts')?['metricName']}<br>\nMetric value: @{items('For_all_ChargeStation_alerts')?['metricValue']}</p>",
-                          "recipient": {
-                            "channelId": "19:13f02a7a1755426185945dbdfa8e6914@thread.skype",
-                            "groupId": "7d81e64e-b159-4b4e-8619-a91a5b1f4fca"
-                          }
-                        },
-                        "host": {
-                          "connection": {
-                            "name": "@parameters('$connections')['teams_1']['connectionId']"
-                          }
-                        },
-                        "method": "post",
-                        "path": "/beta/teams/conversation/message/poster/@{encodeURIComponent('User')}/location/@{encodeURIComponent('Channel')}"
-                      },
-                      "runAfter": {},
-                      "type": "ApiConnection"
-                    }
-                  },
-                  "expression": {
-                    "and": [
-                      {
-                        "startsWith": [
-                          "@triggerBody()?['data']?['context']?['description']",
-                          "ChargeStation"
-                        ]
-                      }
-                    ]
-                  },
-                  "runAfter": {},
-                  "type": "If"
-                }
-              },
-              "foreach": "@triggerBody()?['data']?['context']?['condition']?['allOf']",
-              "runAfter": {
-                "For_all_Charge_Assist_alerts": [
-                  "Succeeded"
-                ]
-              },
-              "type": "Foreach"
-            },
-            "For_all_Charge_Assist_alerts": {
-              "actions": {
-                "The_alert_belongs_to_the_Charge_Assist_team": {
-                  "actions": {
-                    "Post_message_in_the_Charge_Assist_channel": {
-                      "inputs": {
-                        "body": {
-                          "messageBody": "<p>Resource: <a href=\"@{triggerBody()?['data']?['context']?['portalLink']}\">@{triggerBody()?['data']?['context']?['resourceName']}</a><br>\nMetric: @{items('For_all_Charge_Assist_alerts')?['metricName']}<br>\nMetric value: @{items('For_all_Charge_Assist_alerts')?['metricValue']}</p>",
-                          "recipient": {
-                            "channelId": "19:98beaedcbde84648995232d918735efa@thread.skype",
-                            "groupId": "7d81e64e-b159-4b4e-8619-a91a5b1f4fca"
-                          }
-                        },
-                        "host": {
-                          "connection": {
-                            "name": "@parameters('$connections')['teams_1']['connectionId']"
-                          }
-                        },
-                        "method": "post",
-                        "path": "/beta/teams/conversation/message/poster/@{encodeURIComponent('User')}/location/@{encodeURIComponent('Channel')}"
-                      },
-                      "runAfter": {},
-                      "type": "ApiConnection"
-                    }
-                  },
-                  "expression": {
-                    "and": [
-                      {
-                        "startsWith": [
-                          "@triggerBody()?['data']?['context']?['description']",
-                          "ChargeAssist"
-                        ]
-                      }
-                    ]
-                  },
-                  "runAfter": {},
-                  "type": "If"
-                }
-              },
-              "foreach": "@triggerBody()?['data']?['context']?['condition']?['allOf']",
-              "runAfter": {
-                "For_all_Billing_alerts": [
-                  "Succeeded"
-                ]
-              },
-              "type": "Foreach"
-            },
-            "For_all_DevOps_alerts": {
-              "actions": {
-                "The_alert_belongs_to_the_DevOps_team": {
-                  "actions": {
-                    "Post_message_in_the_DevOps_channel": {
-                      "inputs": {
-                        "body": {
-                          "messageBody": "<p>Resource: <a href=\"@{triggerBody()?['data']?['context']?['portalLink']}\">@{triggerBody()?['data']?['context']?['resourceName']}</a><br>\nMetric: @{items('For_all_DevOps_alerts')?['metricName']}<br>\nMetric value: @{items('For_all_DevOps_alerts')?['metricValue']}</p>",
-                          "recipient": {
-                            "channelId": "19:0c8be18da04046daa403c9da4d2361a6@thread.skype",
-                            "groupId": "7d81e64e-b159-4b4e-8619-a91a5b1f4fca"
-                          }
-                        },
-                        "host": {
-                          "connection": {
-                            "name": "@parameters('$connections')['teams_1']['connectionId']"
-                          }
-                        },
-                        "method": "post",
-                        "path": "/beta/teams/conversation/message/poster/@{encodeURIComponent('User')}/location/@{encodeURIComponent('Channel')}"
-                      },
-                      "runAfter": {},
-                      "type": "ApiConnection"
-                    }
-                  },
-                  "expression": {
-                    "and": [
-                      {
-                        "startsWith": [
-                          "@triggerBody()?['data']?['context']?['description']",
-                          "DevOps"
-                        ]
-                      }
-                    ]
-                  },
-                  "runAfter": {},
-                  "type": "If"
-                }
-              },
-              "foreach": "@triggerBody()?['data']?['context']?['condition']?['allOf']",
-              "runAfter": {
-                "For_all_severity_0_or_1_alerts": [
-                  "Succeeded"
-                ]
-              },
-              "type": "Foreach"
-            },
-            "For_all_Integration_alerts": {
-              "actions": {
-                "The_alert_belongs_to_the_Integration_team": {
-                  "actions": {
-                    "Post_message_in_the_Integration_channel": {
-                      "inputs": {
-                        "body": {
-                          "messageBody": "<p>Resource: <a href=\"@{triggerBody()?['data']?['context']?['portalLink']}\">@{triggerBody()?['data']?['context']?['resourceName']}</a><br>\nMetric: @{items('For_all_Integration_alerts')?['metricName']}<br>\nMetric value: @{items('For_all_Integration_alerts')?['metricValue']}</p>",
-                          "recipient": {
-                            "channelId": "19:37aa5a0e29ae4b59bfb879082efd65c0@thread.skype",
-                            "groupId": "7d81e64e-b159-4b4e-8619-a91a5b1f4fca"
-                          }
-                        },
-                        "host": {
-                          "connection": {
-                            "name": "@parameters('$connections')['teams_1']['connectionId']"
-                          }
-                        },
-                        "method": "post",
-                        "path": "/beta/teams/conversation/message/poster/@{encodeURIComponent('User')}/location/@{encodeURIComponent('Channel')}"
-                      },
-                      "runAfter": {},
-                      "type": "ApiConnection"
-                    }
-                  },
-                  "expression": {
-                    "and": [
-                      {
-                        "startsWith": [
-                          "@triggerBody()?['data']?['context']?['description']",
-                          "Integration"
-                        ]
-                      }
-                    ]
-                  },
-                  "runAfter": {},
-                  "type": "If"
-                }
-              },
-              "foreach": "@triggerBody()?['data']?['context']?['condition']?['allOf']",
-              "runAfter": {
-                "For_all_ChargeStation_alerts": [
-                  "Succeeded"
-                ]
-              },
-              "type": "Foreach"
-            },
-            "For_all_Portal_alerts": {
-              "actions": {
-                "The_alert_belongs_to_the_Portal_team": {
-                  "actions": {
-                    "Post_message_in_the_Portal_channel": {
-                      "inputs": {
-                        "body": {
-                          "messageBody": "<p>Resource: <a href=\"@{triggerBody()?['data']?['context']?['portalLink']}\">@{triggerBody()?['data']?['context']?['resourceName']}</a><br>\nMetric: @{items('For_all_Portal_alerts')?['metricName']}<br>\nMetric value: @{items('For_all_Portal_alerts')?['metricValue']}</p>",
-                          "recipient": {
-                            "channelId": "19:26c0299807ef46b2acb735a6abf79929@thread.skype",
-                            "groupId": "7d81e64e-b159-4b4e-8619-a91a5b1f4fca"
-                          }
-                        },
-                        "host": {
-                          "connection": {
-                            "name": "@parameters('$connections')['teams_1']['connectionId']"
-                          }
-                        },
-                        "method": "post",
-                        "path": "/beta/teams/conversation/message/poster/@{encodeURIComponent('User')}/location/@{encodeURIComponent('Channel')}"
-                      },
-                      "runAfter": {},
-                      "type": "ApiConnection"
-                    }
-                  },
-                  "expression": {
-                    "and": [
-                      {
-                        "startsWith": [
-                          "@triggerBody()?['data']?['context']?['description']",
-                          "Portal"
-                        ]
-                      }
-                    ]
-                  },
-                  "runAfter": {},
-                  "type": "If"
-                }
-              },
-              "foreach": "@triggerBody()?['data']?['context']?['condition']?['allOf']",
-              "runAfter": {
-                "For_all_Integration_alerts": [
-                  "Succeeded"
-                ]
-              },
-              "type": "Foreach"
-            },
-            "For_all_SmartCharging_alerts": {
-              "actions": {
-                "The_alert_belongs_to_the_SmartCharging_team": {
-                  "actions": {
-                    "Post_message_in_the_SmartCharging_channel": {
-                      "inputs": {
-                        "body": {
-                          "messageBody": "<p>Resource: <a href=\"@{triggerBody()?['data']?['context']?['portalLink']}\">@{triggerBody()?['data']?['context']?['resourceName']}</a><br>\nMetric: @{items('For_all_SmartCharging_alerts')?['metricName']}<br>\nMetric value: @{items('For_all_SmartCharging_alerts')?['metricValue']}</p>",
-                          "recipient": {
-                            "channelId": "19:bf8b6cbf31f84ecf8a2ab006c7906f11@thread.skype",
-                            "groupId": "7d81e64e-b159-4b4e-8619-a91a5b1f4fca"
-                          }
-                        },
-                        "host": {
-                          "connection": {
-                            "name": "@parameters('$connections')['teams_1']['connectionId']"
-                          }
-                        },
-                        "method": "post",
-                        "path": "/beta/teams/conversation/message/poster/@{encodeURIComponent('User')}/location/@{encodeURIComponent('Channel')}"
-                      },
-                      "runAfter": {},
-                      "type": "ApiConnection"
-                    }
-                  },
-                  "expression": {
-                    "and": [
-                      {
-                        "startsWith": [
-                          "@triggerBody()?['data']?['context']?['description']",
-                          "SmartCharging"
-                        ]
-                      }
-                    ]
-                  },
-                  "runAfter": {},
-                  "type": "If"
-                }
-              },
-              "foreach": "@triggerBody()?['data']?['context']?['condition']?['allOf']",
-              "runAfter": {
-                "For_all_Portal_alerts": [
-                  "Succeeded"
-                ]
-              },
-              "type": "Foreach"
-            },
-            "For_all_severity_0_or_1_alerts": {
-              "actions": {
-                "The_alert_is_severity_0_or_1": {
-                  "actions": {
-                    "The_alert_is_severity_0": {
-                      "actions": {
-                        "Post_message_in_the_Severity_0_channel": {
-                          "inputs": {
-                            "body": {
-                              "messageBody": "<p>Resource: <a href=\"@{triggerBody()?['data']?['context']?['portalLink']}\">@{triggerBody()?['data']?['context']?['resourceName']}</a><br>\nMetric: @{items('For_all_severity_0_or_1_alerts')?['metricName']}<br>\nMetric value: @{items('For_all_severity_0_or_1_alerts')?['metricValue']}</p>",
-                              "recipient": {
-                                "channelId": "19:218ab363158742e988473ab3507f1c50@thread.skype",
-                                "groupId": "7d81e64e-b159-4b4e-8619-a91a5b1f4fca"
-                              }
-                            },
-                            "host": {
-                              "connection": {
-                                "name": "@parameters('$connections')['teams_1']['connectionId']"
-                              }
-                            },
-                            "method": "post",
-                            "path": "/beta/teams/conversation/message/poster/@{encodeURIComponent('User')}/location/@{encodeURIComponent('Channel')}"
-                          },
-                          "runAfter": {},
-                          "type": "ApiConnection"
-                        }
-                      },
-                      "else": {
-                        "actions": {
-                          "Post_message_in_the_Severity_1_channel": {
+                },
+                "else": {
+                    "actions": {
+                        "Post_error_message_in_the_DevOps_channel": {
                             "inputs": {
-                              "body": {
-                                "messageBody": "<p>Resource: <a href=\"@{triggerBody()?['data']?['context']?['portalLink']}\">@{triggerBody()?['data']?['context']?['resourceName']}</a><br>\nMetric: @{items('For_all_severity_0_or_1_alerts')?['metricName']}<br>\nMetric value: @{items('For_all_severity_0_or_1_alerts')?['metricValue']}</p>",
-                                "recipient": {
-                                  "channelId": "19:5a76a26e1f4e4a66ac46c26d628de4b6@thread.skype",
-                                  "groupId": "7d81e64e-b159-4b4e-8619-a91a5b1f4fca"
-                                }
-                              },
-                              "host": {
-                                "connection": {
-                                  "name": "@parameters('$connections')['teams_1']['connectionId']"
-                                }
-                              },
-                              "method": "post",
-                              "path": "/beta/teams/conversation/message/poster/@{encodeURIComponent('User')}/location/@{encodeURIComponent('Channel')}"
+                                "body": {
+                                    "messageBody": "<p>The Azure metric monitoring logic app received an unrecognized HTTP request:<br>\n<br>\n@{json(triggerBody())}</p>",
+                                    "recipient": {
+                                        "channelId": "19:0c8be18da04046daa403c9da4d2361a6@thread.skype",
+                                        "groupId": "7d81e64e-b159-4b4e-8619-a91a5b1f4fca"
+                                    }
+                                },
+                                "host": {
+                                    "connection": {
+                                        "name": "@parameters('$connections')['teams_1']['connectionId']"
+                                    }
+                                },
+                                "method": "post",
+                                "path": "/beta/teams/conversation/message/poster/@{encodeURIComponent('User')}/location/@{encodeURIComponent('Channel')}"
                             },
                             "runAfter": {},
                             "type": "ApiConnection"
-                          }
                         }
-                      },
-                      "expression": {
-                        "and": [
-                          {
-                            "equals": [
-                              "@triggerBody()?['data']?['context']?['severity']",
-                              "0"
-                            ]
-                          }
-                        ]
-                      },
-                      "runAfter": {},
-                      "type": "If"
                     }
-                  },
-                  "expression": {
-                    "or": [
-                      {
-                        "equals": [
-                          "@triggerBody()?['data']?['context']?['severity']",
-                          "0"
-                        ]
-                      },
-                      {
-                        "equals": [
-                          "@triggerBody()?['data']?['context']?['severity']",
-                          "1"
-                        ]
-                      }
+                },
+                "expression": {
+                    "and": [
+                        {
+                            "equals": [
+                                "@triggerBody()?['schemaId']",
+                                "AzureMonitorMetricAlert"
+                            ]
+                        }
                     ]
-                  },
-                  "runAfter": {},
-                  "type": "If"
-                }
-              },
-              "foreach": "@triggerBody()?['data']?['context']?['condition']?['allOf']",
-              "runAfter": {
-                "And_the_HTTP_request_is_an_Azure_Monitor_Metric_Alert": [
-                  "Succeeded"
-                ]
-              },
-              "type": "Foreach"
+                },
+                "runAfter": {},
+                "type": "If"
+            },
+            "For_all_Billing_alerts": {
+                "actions": {
+                    "The_alert_belongs_to_the_Billing_team": {
+                        "actions": {
+                            "Post_message_in_the_Billing_channel": {
+                                "inputs": {
+                                    "body": {
+                                        "messageBody": "<p>Resource: <a href=\"@{triggerBody()?['data']?['context']?['portalLink']}\">@{triggerBody()?['data']?['context']?['resourceName']}</a><br>\nMetric: @{items('For_all_Billing_alerts')?['metricName']}<br>\nMetric value: @{items('For_all_Billing_alerts')?['metricValue']}</p>",
+                                        "recipient": {
+                                            "channelId": "19:8b93b572d671485e94c9cd8f1fad97da@thread.skype",
+                                            "groupId": "7d81e64e-b159-4b4e-8619-a91a5b1f4fca"
+                                        }
+                                    },
+                                    "host": {
+                                        "connection": {
+                                            "name": "@parameters('$connections')['teams_1']['connectionId']"
+                                        }
+                                    },
+                                    "method": "post",
+                                    "path": "/beta/teams/conversation/message/poster/@{encodeURIComponent('User')}/location/@{encodeURIComponent('Channel')}"
+                                },
+                                "runAfter": {},
+                                "type": "ApiConnection"
+                            },
+                            "Set_variable_3": {
+                                "inputs": {
+                                    "name": "isTriggered",
+                                    "value": true
+                                },
+                                "runAfter": {
+                                    "Post_message_in_the_Billing_channel": [
+                                        "Succeeded"
+                                    ]
+                                },
+                                "type": "SetVariable"
+                            }
+                        },
+                        "expression": {
+                            "and": [
+                                {
+                                    "startsWith": [
+                                        "@triggerBody()?['data']?['context']?['description']",
+                                        "Billing"
+                                    ]
+                                }
+                            ]
+                        },
+                        "runAfter": {},
+                        "type": "If"
+                    }
+                },
+                "foreach": "@triggerBody()?['data']?['context']?['condition']?['allOf']",
+                "runAfter": {
+                    "For_all_DevOps_alerts": [
+                        "Succeeded"
+                    ]
+                },
+                "type": "Foreach"
+            },
+            "For_all_ChargeStation_alerts": {
+                "actions": {
+                    "The_alert_belongs_to_the_ChargeStation_team": {
+                        "actions": {
+                            "Post_message_in_the_ChargeStation_channel": {
+                                "inputs": {
+                                    "body": {
+                                        "messageBody": "<p>Resource: <a href=\"@{triggerBody()?['data']?['context']?['portalLink']}\">@{triggerBody()?['data']?['context']?['resourceName']}</a><br>\nMetric: @{items('For_all_ChargeStation_alerts')?['metricName']}<br>\nMetric value: @{items('For_all_ChargeStation_alerts')?['metricValue']}</p>",
+                                        "recipient": {
+                                            "channelId": "19:13f02a7a1755426185945dbdfa8e6914@thread.skype",
+                                            "groupId": "7d81e64e-b159-4b4e-8619-a91a5b1f4fca"
+                                        }
+                                    },
+                                    "host": {
+                                        "connection": {
+                                            "name": "@parameters('$connections')['teams_1']['connectionId']"
+                                        }
+                                    },
+                                    "method": "post",
+                                    "path": "/beta/teams/conversation/message/poster/@{encodeURIComponent('User')}/location/@{encodeURIComponent('Channel')}"
+                                },
+                                "runAfter": {},
+                                "type": "ApiConnection"
+                            },
+                            "Set_variable_5": {
+                                "inputs": {
+                                    "name": "isTriggered",
+                                    "value": true
+                                },
+                                "runAfter": {
+                                    "Post_message_in_the_ChargeStation_channel": [
+                                        "Succeeded"
+                                    ]
+                                },
+                                "type": "SetVariable"
+                            }
+                        },
+                        "expression": {
+                            "and": [
+                                {
+                                    "startsWith": [
+                                        "@triggerBody()?['data']?['context']?['description']",
+                                        "ChargeStation"
+                                    ]
+                                }
+                            ]
+                        },
+                        "runAfter": {},
+                        "type": "If"
+                    }
+                },
+                "foreach": "@triggerBody()?['data']?['context']?['condition']?['allOf']",
+                "runAfter": {
+                    "For_all_Charge_Assist_alerts": [
+                        "Succeeded"
+                    ]
+                },
+                "type": "Foreach"
+            },
+            "For_all_Charge_Assist_alerts": {
+                "actions": {
+                    "The_alert_belongs_to_the_Charge_Assist_team": {
+                        "actions": {
+                            "Post_message_in_the_Charge_Assist_channel": {
+                                "inputs": {
+                                    "body": {
+                                        "messageBody": "<p>Resource: <a href=\"@{triggerBody()?['data']?['context']?['portalLink']}\">@{triggerBody()?['data']?['context']?['resourceName']}</a><br>\nMetric: @{items('For_all_Charge_Assist_alerts')?['metricName']}<br>\nMetric value: @{items('For_all_Charge_Assist_alerts')?['metricValue']}</p>",
+                                        "recipient": {
+                                            "channelId": "19:98beaedcbde84648995232d918735efa@thread.skype",
+                                            "groupId": "7d81e64e-b159-4b4e-8619-a91a5b1f4fca"
+                                        }
+                                    },
+                                    "host": {
+                                        "connection": {
+                                            "name": "@parameters('$connections')['teams_1']['connectionId']"
+                                        }
+                                    },
+                                    "method": "post",
+                                    "path": "/beta/teams/conversation/message/poster/@{encodeURIComponent('User')}/location/@{encodeURIComponent('Channel')}"
+                                },
+                                "runAfter": {},
+                                "type": "ApiConnection"
+                            },
+                            "Set_variable_4": {
+                                "inputs": {
+                                    "name": "isTriggered",
+                                    "value": true
+                                },
+                                "runAfter": {
+                                    "Post_message_in_the_Charge_Assist_channel": [
+                                        "Succeeded"
+                                    ]
+                                },
+                                "type": "SetVariable"
+                            }
+                        },
+                        "expression": {
+                            "and": [
+                                {
+                                    "startsWith": [
+                                        "@triggerBody()?['data']?['context']?['description']",
+                                        "ChargeAssist"
+                                    ]
+                                }
+                            ]
+                        },
+                        "runAfter": {},
+                        "type": "If"
+                    }
+                },
+                "foreach": "@triggerBody()?['data']?['context']?['condition']?['allOf']",
+                "runAfter": {
+                    "For_all_Billing_alerts": [
+                        "Succeeded"
+                    ]
+                },
+                "type": "Foreach"
+            },
+            "For_all_DevOps_alerts": {
+                "actions": {
+                    "The_alert_belongs_to_the_DevOps_team": {
+                        "actions": {
+                            "Post_message_in_the_DevOps_channel": {
+                                "inputs": {
+                                    "body": {
+                                        "messageBody": "<p>Resource: <a href=\"@{triggerBody()?['data']?['context']?['portalLink']}\">@{triggerBody()?['data']?['context']?['resourceName']}</a><br>\nMetric: @{items('For_all_DevOps_alerts')?['metricName']}<br>\nMetric value: @{items('For_all_DevOps_alerts')?['metricValue']}</p>",
+                                        "recipient": {
+                                            "channelId": "19:0c8be18da04046daa403c9da4d2361a6@thread.skype",
+                                            "groupId": "7d81e64e-b159-4b4e-8619-a91a5b1f4fca"
+                                        }
+                                    },
+                                    "host": {
+                                        "connection": {
+                                            "name": "@parameters('$connections')['teams_1']['connectionId']"
+                                        }
+                                    },
+                                    "method": "post",
+                                    "path": "/beta/teams/conversation/message/poster/@{encodeURIComponent('User')}/location/@{encodeURIComponent('Channel')}"
+                                },
+                                "runAfter": {},
+                                "type": "ApiConnection"
+                            },
+                            "Set_variable_2": {
+                                "inputs": {
+                                    "name": "isTriggered",
+                                    "value": true
+                                },
+                                "runAfter": {
+                                    "Post_message_in_the_DevOps_channel": [
+                                        "Succeeded"
+                                    ]
+                                },
+                                "type": "SetVariable"
+                            }
+                        },
+                        "expression": {
+                            "and": [
+                                {
+                                    "startsWith": [
+                                        "@triggerBody()?['data']?['context']?['description']",
+                                        "DevOps"
+                                    ]
+                                }
+                            ]
+                        },
+                        "runAfter": {},
+                        "type": "If"
+                    }
+                },
+                "foreach": "@triggerBody()?['data']?['context']?['condition']?['allOf']",
+                "runAfter": {
+                    "For_all_severity_0_or_1_alerts": [
+                        "Succeeded"
+                    ]
+                },
+                "type": "Foreach"
+            },
+            "For_all_Integration_alerts": {
+                "actions": {
+                    "The_alert_belongs_to_the_Integration_team": {
+                        "actions": {
+                            "Post_message_in_the_Integration_channel": {
+                                "inputs": {
+                                    "body": {
+                                        "messageBody": "<p>Resource: <a href=\"@{triggerBody()?['data']?['context']?['portalLink']}\">@{triggerBody()?['data']?['context']?['resourceName']}</a><br>\nMetric: @{items('For_all_Integration_alerts')?['metricName']}<br>\nMetric value: @{items('For_all_Integration_alerts')?['metricValue']}</p>",
+                                        "recipient": {
+                                            "channelId": "19:37aa5a0e29ae4b59bfb879082efd65c0@thread.skype",
+                                            "groupId": "7d81e64e-b159-4b4e-8619-a91a5b1f4fca"
+                                        }
+                                    },
+                                    "host": {
+                                        "connection": {
+                                            "name": "@parameters('$connections')['teams_1']['connectionId']"
+                                        }
+                                    },
+                                    "method": "post",
+                                    "path": "/beta/teams/conversation/message/poster/@{encodeURIComponent('User')}/location/@{encodeURIComponent('Channel')}"
+                                },
+                                "runAfter": {},
+                                "type": "ApiConnection"
+                            },
+                            "Set_variable_6": {
+                                "inputs": {
+                                    "name": "isTriggered",
+                                    "value": true
+                                },
+                                "runAfter": {
+                                    "Post_message_in_the_Integration_channel": [
+                                        "Succeeded"
+                                    ]
+                                },
+                                "type": "SetVariable"
+                            }
+                        },
+                        "expression": {
+                            "and": [
+                                {
+                                    "startsWith": [
+                                        "@triggerBody()?['data']?['context']?['description']",
+                                        "Integration"
+                                    ]
+                                }
+                            ]
+                        },
+                        "runAfter": {},
+                        "type": "If"
+                    }
+                },
+                "foreach": "@triggerBody()?['data']?['context']?['condition']?['allOf']",
+                "runAfter": {
+                    "For_all_ChargeStation_alerts": [
+                        "Succeeded"
+                    ]
+                },
+                "type": "Foreach"
+            },
+            "For_all_Portal_alerts": {
+                "actions": {
+                    "The_alert_belongs_to_the_Portal_team": {
+                        "actions": {
+                            "Post_message_in_the_Portal_channel": {
+                                "inputs": {
+                                    "body": {
+                                        "messageBody": "<p>Resource: <a href=\"@{triggerBody()?['data']?['context']?['portalLink']}\">@{triggerBody()?['data']?['context']?['resourceName']}</a><br>\nMetric: @{items('For_all_Portal_alerts')?['metricName']}<br>\nMetric value: @{items('For_all_Portal_alerts')?['metricValue']}</p>",
+                                        "recipient": {
+                                            "channelId": "19:26c0299807ef46b2acb735a6abf79929@thread.skype",
+                                            "groupId": "7d81e64e-b159-4b4e-8619-a91a5b1f4fca"
+                                        }
+                                    },
+                                    "host": {
+                                        "connection": {
+                                            "name": "@parameters('$connections')['teams_1']['connectionId']"
+                                        }
+                                    },
+                                    "method": "post",
+                                    "path": "/beta/teams/conversation/message/poster/@{encodeURIComponent('User')}/location/@{encodeURIComponent('Channel')}"
+                                },
+                                "runAfter": {},
+                                "type": "ApiConnection"
+                            },
+                            "Set_variable_7": {
+                                "inputs": {
+                                    "name": "isTriggered",
+                                    "value": true
+                                },
+                                "runAfter": {
+                                    "Post_message_in_the_Portal_channel": [
+                                        "Succeeded"
+                                    ]
+                                },
+                                "type": "SetVariable"
+                            }
+                        },
+                        "expression": {
+                            "and": [
+                                {
+                                    "startsWith": [
+                                        "@triggerBody()?['data']?['context']?['description']",
+                                        "Portal"
+                                    ]
+                                }
+                            ]
+                        },
+                        "runAfter": {},
+                        "type": "If"
+                    }
+                },
+                "foreach": "@triggerBody()?['data']?['context']?['condition']?['allOf']",
+                "runAfter": {
+                    "For_all_Integration_alerts": [
+                        "Succeeded"
+                    ]
+                },
+                "type": "Foreach"
+            },
+            "For_all_SmartCharging_alerts": {
+                "actions": {
+                    "The_alert_belongs_to_the_SmartCharging_team": {
+                        "actions": {
+                            "Post_message_in_the_SmartCharging_channel": {
+                                "inputs": {
+                                    "body": {
+                                        "messageBody": "<p>Resource: <a href=\"@{triggerBody()?['data']?['context']?['portalLink']}\">@{triggerBody()?['data']?['context']?['resourceName']}</a><br>\nMetric: @{items('For_all_SmartCharging_alerts')?['metricName']}<br>\nMetric value: @{items('For_all_SmartCharging_alerts')?['metricValue']}</p>",
+                                        "recipient": {
+                                            "channelId": "19:bf8b6cbf31f84ecf8a2ab006c7906f11@thread.skype",
+                                            "groupId": "7d81e64e-b159-4b4e-8619-a91a5b1f4fca"
+                                        }
+                                    },
+                                    "host": {
+                                        "connection": {
+                                            "name": "@parameters('$connections')['teams_1']['connectionId']"
+                                        }
+                                    },
+                                    "method": "post",
+                                    "path": "/beta/teams/conversation/message/poster/@{encodeURIComponent('User')}/location/@{encodeURIComponent('Channel')}"
+                                },
+                                "runAfter": {},
+                                "type": "ApiConnection"
+                            },
+                            "Set_variable_8": {
+                                "inputs": {
+                                    "name": "isTriggered",
+                                    "value": "True"
+                                },
+                                "runAfter": {
+                                    "Post_message_in_the_SmartCharging_channel": [
+                                        "Succeeded"
+                                    ]
+                                },
+                                "type": "SetVariable"
+                            }
+                        },
+                        "expression": {
+                            "and": [
+                                {
+                                    "startsWith": [
+                                        "@triggerBody()?['data']?['context']?['description']",
+                                        "SmartCharging"
+                                    ]
+                                }
+                            ]
+                        },
+                        "runAfter": {},
+                        "type": "If"
+                    }
+                },
+                "foreach": "@triggerBody()?['data']?['context']?['condition']?['allOf']",
+                "runAfter": {
+                    "For_all_Portal_alerts": [
+                        "Succeeded"
+                    ]
+                },
+                "type": "Foreach"
+            },
+            "For_all_severity_0_or_1_alerts": {
+                "actions": {
+                    "The_alert_is_severity_0_or_1": {
+                        "actions": {
+                            "Set_variable": {
+                                "inputs": {
+                                    "name": "isTriggered",
+                                    "value": true
+                                },
+                                "runAfter": {
+                                    "The_alert_is_severity_0": [
+                                        "Succeeded"
+                                    ]
+                                },
+                                "type": "SetVariable"
+                            },
+                            "The_alert_is_severity_0": {
+                                "actions": {
+                                    "Post_message_in_the_Severity_0_channel": {
+                                        "inputs": {
+                                            "body": {
+                                                "messageBody": "<p>Resource: <a href=\"@{triggerBody()?['data']?['context']?['portalLink']}\">@{triggerBody()?['data']?['context']?['resourceName']}</a><br>\nMetric: @{items('For_all_severity_0_or_1_alerts')?['metricName']}<br>\nMetric value: @{items('For_all_severity_0_or_1_alerts')?['metricValue']}</p>",
+                                                "recipient": {
+                                                    "channelId": "19:218ab363158742e988473ab3507f1c50@thread.skype",
+                                                    "groupId": "7d81e64e-b159-4b4e-8619-a91a5b1f4fca"
+                                                }
+                                            },
+                                            "host": {
+                                                "connection": {
+                                                    "name": "@parameters('$connections')['teams_1']['connectionId']"
+                                                }
+                                            },
+                                            "method": "post",
+                                            "path": "/beta/teams/conversation/message/poster/@{encodeURIComponent('User')}/location/@{encodeURIComponent('Channel')}"
+                                        },
+                                        "runAfter": {},
+                                        "type": "ApiConnection"
+                                    }
+                                },
+                                "else": {
+                                    "actions": {
+                                        "Post_message_in_the_Severity_1_channel": {
+                                            "inputs": {
+                                                "body": {
+                                                    "messageBody": "<p>Resource: <a href=\"@{triggerBody()?['data']?['context']?['portalLink']}\">@{triggerBody()?['data']?['context']?['resourceName']}</a><br>\nMetric: @{items('For_all_severity_0_or_1_alerts')?['metricName']}<br>\nMetric value: @{items('For_all_severity_0_or_1_alerts')?['metricValue']}</p>",
+                                                    "recipient": {
+                                                        "channelId": "19:5a76a26e1f4e4a66ac46c26d628de4b6@thread.skype",
+                                                        "groupId": "7d81e64e-b159-4b4e-8619-a91a5b1f4fca"
+                                                    }
+                                                },
+                                                "host": {
+                                                    "connection": {
+                                                        "name": "@parameters('$connections')['teams_1']['connectionId']"
+                                                    }
+                                                },
+                                                "method": "post",
+                                                "path": "/beta/teams/conversation/message/poster/@{encodeURIComponent('User')}/location/@{encodeURIComponent('Channel')}"
+                                            },
+                                            "runAfter": {},
+                                            "type": "ApiConnection"
+                                        }
+                                    }
+                                },
+                                "expression": {
+                                    "and": [
+                                        {
+                                            "equals": [
+                                                "@triggerBody()?['data']?['context']?['severity']",
+                                                "0"
+                                            ]
+                                        }
+                                    ]
+                                },
+                                "runAfter": {},
+                                "type": "If"
+                            }
+                        },
+                        "expression": {
+                            "or": [
+                                {
+                                    "equals": [
+                                        "@triggerBody()?['data']?['context']?['severity']",
+                                        "0"
+                                    ]
+                                },
+                                {
+                                    "equals": [
+                                        "@triggerBody()?['data']?['context']?['severity']",
+                                        "1"
+                                    ]
+                                }
+                            ]
+                        },
+                        "runAfter": {},
+                        "type": "If"
+                    }
+                },
+                "foreach": "@triggerBody()?['data']?['context']?['condition']?['allOf']",
+                "runAfter": {
+                    "Initialize_variable": [
+                        "Succeeded"
+                    ]
+                },
+                "type": "Foreach"
             },
             "For_all_unrecognized_alerts": {
-              "actions": {
-                "Post_alert_unrecognized_message_in_the_DevOps_channel": {
-                  "inputs": {
-                    "body": {
-                      "messageBody": "<p>The Azure metric monitoring logic app received an alert belonging to an unrecognized team:<br>\n<br>\n@{json(triggerBody())}</p>",
-                      "recipient": {
-                        "channelId": "19:0c8be18da04046daa403c9da4d2361a6@thread.skype",
-                        "groupId": "7d81e64e-b159-4b4e-8619-a91a5b1f4fca"
-                      }
-                    },
-                    "host": {
-                      "connection": {
-                        "name": "@parameters('$connections')['teams_1']['connectionId']"
-                      }
-                    },
-                    "method": "post",
-                    "path": "/beta/teams/conversation/message/poster/@{encodeURIComponent('User')}/location/@{encodeURIComponent('Channel')}"
-                  },
-                  "runAfter": {},
-                  "type": "ApiConnection"
-                }
-              },
-              "foreach": "@triggerBody()?['data']?['context']?['condition']?['allOf']",
-              "runAfter": {
-                "For_all_SmartCharging_alerts": [
-                  "Succeeded"
-                ]
-              },
-              "type": "Foreach"
-            }
-          },
-          "contentVersion": "1.0.0.0",
-          "outputs": {},
-          "parameters": {
-            "$connections": {
-              "defaultValue": {},
-              "type": "Object"
-            }
-          },
-          "triggers": {
-            "manual": {
-              "inputs": {
-                "schema": {
-                  "properties": {
-                    "data": {
-                      "properties": {
-                        "context": {
-                          "properties": {
-                            "condition": {
-                              "properties": {
-                                "allOf": {
-                                  "items": {
-                                    "properties": {
-                                      "dimensions": {
-                                        "items": {
-                                          "properties": {
-                                            "name": {
-                                              "type": "string"
-                                            },
-                                            "value": {
-                                              "type": "string"
-                                            }
-                                          },
-                                          "required": [
-                                            "name",
-                                            "value"
-                                          ],
-                                          "type": "object"
-                                        },
-                                        "type": "array"
-                                      },
-                                      "metricName": {
-                                        "type": "string"
-                                      },
-                                      "metricNamespace": {
-                                        "type": "string"
-                                      },
-                                      "metricValue": {
-                                        "type": "number"
-                                      },
-                                      "operator": {
-                                        "type": "string"
-                                      },
-                                      "threshold": {
-                                        "type": "string"
-                                      },
-                                      "timeAggregation": {
-                                        "type": "string"
-                                      },
-                                      "webTestName": {}
+                "actions": {
+                    "Condition": {
+                        "actions": {
+                            "Post_alert_unrecognized_message_in_the_DevOps_channel": {
+                                "inputs": {
+                                    "body": {
+                                        "messageBody": "<p>The Azure metric monitoring logic app received an alert belonging to an unrecognized team:<br>\n<br>\n@{string(triggerBody())}</p>",
+                                        "recipient": {
+                                            "channelId": "19:0c8be18da04046daa403c9da4d2361a6@thread.skype",
+                                            "groupId": "7d81e64e-b159-4b4e-8619-a91a5b1f4fca"
+                                        }
                                     },
-                                    "required": [
-                                      "metricName",
-                                      "metricNamespace",
-                                      "operator",
-                                      "threshold",
-                                      "timeAggregation",
-                                      "dimensions",
-                                      "metricValue",
-                                      "webTestName"
-                                    ],
-                                    "type": "object"
-                                  },
-                                  "type": "array"
+                                    "host": {
+                                        "connection": {
+                                            "name": "@parameters('$connections')['teams_1']['connectionId']"
+                                        }
+                                    },
+                                    "method": "post",
+                                    "path": "/beta/teams/conversation/message/poster/@{encodeURIComponent('User')}/location/@{encodeURIComponent('Channel')}"
                                 },
-                                "windowSize": {
-                                  "type": "string"
-                                }
-                              },
-                              "type": "object"
-                            },
-                            "conditionType": {
-                              "type": "string"
-                            },
-                            "description": {
-                              "type": "string"
-                            },
-                            "id": {
-                              "type": "string"
-                            },
-                            "name": {
-                              "type": "string"
-                            },
-                            "portalLink": {
-                              "type": "string"
-                            },
-                            "resourceGroupName": {
-                              "type": "string"
-                            },
-                            "resourceId": {
-                              "type": "string"
-                            },
-                            "resourceName": {
-                              "type": "string"
-                            },
-                            "resourceType": {
-                              "type": "string"
-                            },
-                            "severity": {
-                              "type": "string"
-                            },
-                            "subscriptionId": {
-                              "type": "string"
-                            },
-                            "timestamp": {
-                              "type": "string"
+                                "runAfter": {},
+                                "type": "ApiConnection"
                             }
-                          },
-                          "type": "object"
                         },
-                        "properties": {},
-                        "status": {
-                          "type": "string"
+                        "expression": {
+                            "and": [
+                                {
+                                    "equals": [
+                                        "@variables('isTriggered')",
+                                        false
+                                    ]
+                                }
+                            ]
                         },
-                        "version": {
-                          "type": "string"
-                        }
-                      },
-                      "type": "object"
-                    },
-                    "schemaId": {
-                      "type": "string"
+                        "runAfter": {},
+                        "type": "If"
                     }
-                  },
-                  "type": "object"
-                }
-              },
-              "kind": "Http",
-              "type": "Request"
+                },
+                "foreach": "@triggerBody()?['data']?['context']?['condition']?['allOf']",
+                "runAfter": {
+                    "For_all_SmartCharging_alerts": [
+                        "Succeeded"
+                    ]
+                },
+                "type": "Foreach"
+            },
+            "Initialize_variable": {
+                "inputs": {
+                    "variables": [
+                        {
+                            "name": "isTriggered",
+                            "type": "boolean",
+                            "value": false
+                        }
+                    ]
+                },
+                "runAfter": {
+                    "And_the_HTTP_request_is_an_Azure_Monitor_Metric_Alert": [
+                        "Succeeded"
+                    ]
+                },
+                "type": "InitializeVariable"
             }
-          }
         },
+        "contentVersion": "1.0.0.0",
+        "outputs": {},
+        "parameters": {
+            "$connections": {
+                "defaultValue": {},
+                "type": "Object"
+            }
+        },
+        "triggers": {
+            "manual": {
+                "inputs": {
+                    "schema": {
+                        "properties": {
+                            "data": {
+                                "properties": {
+                                    "context": {
+                                        "properties": {
+                                            "condition": {
+                                                "properties": {
+                                                    "allOf": {
+                                                        "items": {
+                                                            "properties": {
+                                                                "dimensions": {
+                                                                    "items": {
+                                                                        "properties": {
+                                                                            "name": {
+                                                                                "type": "string"
+                                                                            },
+                                                                            "value": {
+                                                                                "type": "string"
+                                                                            }
+                                                                        },
+                                                                        "required": [
+                                                                            "name",
+                                                                            "value"
+                                                                        ],
+                                                                        "type": "object"
+                                                                    },
+                                                                    "type": "array"
+                                                                },
+                                                                "metricName": {
+                                                                    "type": "string"
+                                                                },
+                                                                "metricNamespace": {
+                                                                    "type": "string"
+                                                                },
+                                                                "metricValue": {
+                                                                    "type": "number"
+                                                                },
+                                                                "operator": {
+                                                                    "type": "string"
+                                                                },
+                                                                "threshold": {
+                                                                    "type": "string"
+                                                                },
+                                                                "timeAggregation": {
+                                                                    "type": "string"
+                                                                },
+                                                                "webTestName": {}
+                                                            },
+                                                            "required": [
+                                                                "metricName",
+                                                                "metricNamespace",
+                                                                "operator",
+                                                                "threshold",
+                                                                "timeAggregation",
+                                                                "dimensions",
+                                                                "metricValue",
+                                                                "webTestName"
+                                                            ],
+                                                            "type": "object"
+                                                        },
+                                                        "type": "array"
+                                                    },
+                                                    "windowSize": {
+                                                        "type": "string"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            },
+                                            "conditionType": {
+                                                "type": "string"
+                                            },
+                                            "description": {
+                                                "type": "string"
+                                            },
+                                            "id": {
+                                                "type": "string"
+                                            },
+                                            "name": {
+                                                "type": "string"
+                                            },
+                                            "portalLink": {
+                                                "type": "string"
+                                            },
+                                            "resourceGroupName": {
+                                                "type": "string"
+                                            },
+                                            "resourceId": {
+                                                "type": "string"
+                                            },
+                                            "resourceName": {
+                                                "type": "string"
+                                            },
+                                            "resourceType": {
+                                                "type": "string"
+                                            },
+                                            "severity": {
+                                                "type": "string"
+                                            },
+                                            "subscriptionId": {
+                                                "type": "string"
+                                            },
+                                            "timestamp": {
+                                                "type": "string"
+                                            }
+                                        },
+                                        "type": "object"
+                                    },
+                                    "properties": {},
+                                    "status": {
+                                        "type": "string"
+                                    },
+                                    "version": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            },
+                            "schemaId": {
+                                "type": "string"
+                            }
+                        },
+                        "type": "object"
+                    }
+                },
+                "kind": "Http",
+                "type": "Request"
+            }
+        }
+    },
         "parameters": {
           "$connections": {
             "value": {
