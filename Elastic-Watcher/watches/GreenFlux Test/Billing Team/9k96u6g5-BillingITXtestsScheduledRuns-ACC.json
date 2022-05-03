@@ -18,7 +18,7 @@
               "must": [
                 {
                   "query_string": {
-                    "query": "indexname:\"ITX\" AND \"test succeeded\" AND NOT \"recalculation\" AND NOT \"export\" AND NOT \"import\" AND NOT \"SearchCdrs\" AND NOT \"Watchdog\" "
+                    "query": "indexname:\"ITX\" AND \"test succeeded\" AND NOT \"recalculation\" AND NOT \"export\" AND NOT \"import\" AND NOT \"SearchCdrs\" AND NOT \"Watchdog\" AND NOT function:test\\:SearchCdrs* "
                   }
                 }
               ],
