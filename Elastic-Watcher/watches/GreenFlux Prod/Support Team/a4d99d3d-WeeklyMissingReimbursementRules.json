@@ -31,7 +31,7 @@
                 },
                 {
                   "match_phrase": {
-                    "message": "cannot apply: missing wholesale cost"
+                    "message": "failed to calculate reimbursement cost: MissingRule"
                   }
                 },
                 {
