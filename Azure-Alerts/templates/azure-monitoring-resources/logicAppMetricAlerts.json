@@ -295,7 +295,7 @@
                             "Post_message_in_the_DevOps_channel": {
                                 "inputs": {
                                     "body": {
-                                        "messageBody": "<p>Resource: <a href=\"@{triggerBody()?['data']?['context']?['portalLink']}\">@{triggerBody()?['data']?['context']?['resourceName']}</a><br>\nMetric: @{items('For_all_DevOps_alerts')?['metricName']}<br>\nMetric value: @{items('For_all_DevOps_alerts')?['metricValue']}</p>",
+                                        "messageBody": "<p>Resource: <a href=\"@{triggerBody()?['data']?['context']?['portalLink']}\">@{triggerBody()?['data']?['context']?['resourceName']}</a><br>\nMetric: @{items('For_all_DevOps_alerts')?['metricName']}<br>\nMetric Value: @{items('For_all_DevOps_alerts')?['metricValue']}\nDescription: @{items('For_all_DevOps_alerts')?['description']}</p>",
                                         "recipient": {
                                             "channelId": "19:0c8be18da04046daa403c9da4d2361a6@thread.skype",
                                             "groupId": "7d81e64e-b159-4b4e-8619-a91a5b1f4fca"
