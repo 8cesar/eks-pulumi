@@ -752,6 +752,9 @@
                                                                 "timeAggregation": {
                                                                     "type": "string"
                                                                 },
+                                                                "description": {
+                                                                    "type": "string"
+                                                                },
                                                                 "webTestName": {}
                                                             },
                                                             "required": [
@@ -762,6 +765,7 @@
                                                                 "timeAggregation",
                                                                 "dimensions",
                                                                 "metricValue",
+                                                                "description",
                                                                 "webTestName"
                                                             ],
                                                             "type": "object"
