@@ -326,47 +326,11 @@ heartbeat.monitors:
     timeouts: 10s
     check.response.status: [200]
   - type: http
-    id: gfx-smartcharging-fnevseeventlistener-p
-    name: SmartCharging EventListener
-    tags: ["GFX", "PROD", "SmartCharging-Team"]
-    schedule: "@every 60s"
-    urls: ["https://gfx-smartcharging-fnevseeventlistener-p.azurewebsites.net/api/gfx/healthCheck"]
-    ports: [443]
-    timeouts: 10s
-    check.response.status: [200]
-  - type: http
-    id: gfx-smartcharging-fn-externalmeter-p
-    name: SmartCharging ExternalMeter
-    tags: ["GFX", "PROD", "SmartCharging-Team"]
-    schedule: "@every 60s"
-    urls: ["https://gfx-smartcharging-fn-externalmeter-p.azurewebsites.net/api/gfx/healthCheck"]
-    ports: [443]
-    timeouts: 10s
-    check.response.status: [200]
-  - type: http
     id: ene-smartcharging-api-p
     name: SmartCharging API
     tags: ["ENE", "PROD", "SmartCharging-Team"]
     schedule: "@every 60s"
     urls: ["https://ene-smartcharging-api-p.azurewebsites.net/health"]
-    ports: [443]
-    timeouts: 10s
-    check.response.status: [200]
-  - type: http
-    id: ene-smartcharging-fnevseeventlistener-p
-    name: SmartCharging EventListener
-    tags: ["ENE", "PROD", "SmartCharging-Team"]
-    schedule: "@every 60s"
-    urls: ["https://ene-smartcharging-fnevseeventlistener-p.azurewebsites.net/api/gfx/healthCheck"]
-    ports: [443]
-    timeouts: 10s
-    check.response.status: [200]
-  - type: http
-    id: ene-smartcharging-fn-externalmeter-p
-    name: SmartCharging ExternalMeter
-    tags: ["ENE", "PROD", "SmartCharging-Team"]
-    schedule: "@every 60s"
-    urls: ["https://ene-smartcharging-fn-externalmeter-p.azurewebsites.net/api/gfx/healthCheck"]
     ports: [443]
     timeouts: 10s
     check.response.status: [200]
