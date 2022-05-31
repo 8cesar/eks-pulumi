@@ -1,0 +1,68 @@
+{
+  "trigger": {
+    "schedule": {
+      "interval": "24h"
+    }
+  },
+  "input": {
+    "search": {
+      "request": {
+        "search_type": "query_then_fetch",
+        "indices": [
+          "gfx-prod-logs*"
+        ],
+        "body": {
+          "size": 0,
+          "query": {
+            "bool": {
+              "must": [
+                {
+                  "query_string": {
+                    "query": "indexname:\"DkvCdrExporterService\" AND \"BL_DKV_EXPORTER_NONDKV_FILES_SUCCESS\""
+                  }
+                }
+              ],
+              "filter": [
+                {
+                  "range": {
+                    "@timestamp": {
+                      "lte": "now",
+                      "gte": "now-24h"
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        }
+      }
+    }
+  },
+  "condition": {
+    "compare": {
+      "ctx.payload.hits.total": {
+        "lt": 1
+      }
+    }
+  },
+  "actions": {
+    "MS_Teams": {
+      "throttle_period": "1h",
+      "webhook": {
+        "scheme": "https",
+        "method": "POST",
+        "host": "greenfluxbv.webhook.office.com",
+        "port": 443,
+        "path": "$(watcherWebhookTeamBilling)",
+        "headers": {
+          "Content-Type": "application/json; charset=UTF-8"
+        },
+        "body": {
+          "source": {
+            "text": "<h1>Watch 4c4a168f (Gfx Prod)</h1><br>There is an error while exporting non-dkv files"
+          }
+        }
+      }
+    }
+  }
+}
