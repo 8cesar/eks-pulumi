@@ -155,6 +155,18 @@
                 "text": "StatusService.AllToChargePoint Subscription is > 1000 on ENE PROD",
                 "teamName": "ChargeStation"
             }
+        ],
+        "ServiceBusSubscriptionDQL": [
+            {
+                "subscription": "511143d6-8846-4123-b816-83126e200fc5",
+                "resourceGroup": "gfx-core-t",
+                "serviceBusNamespace": "gfx-core-servicebus-t",
+                "serviceBusTopic": "event",
+                "serviceBusSubscrition": "OcpiCdrServiceCdrCalculated",
+                "threshold": "0",
+                "text": "TEST_ALERT - Message(s) in DLQ for 'OcpiCdrServiceCdrCalculated' subscription in Event topic is > 0",
+                "teamName": "DevOps"
+            }
         ]
     }
 }

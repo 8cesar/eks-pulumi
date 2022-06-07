@@ -16,3 +16,18 @@ foreach ($alert in $alerts){
       sendAlertTo -Team $alert.teamName -Text $alert.text
   }
 }
+
+
+# Alerting DLQ message count at topic-subscription level
+
+$DLQSubscription="ServiceBusSubscriptionDQL"
+$alerts=$data.$processname.$DLQSubscription
+
+foreach ($alert in $alerts){
+    Select-AzSubscription -SubscriptionId $alert.subscription
+    $dlq = Get-AzServiceBusSubscription -ResourceGroupName $alert.resourceGroup -Namespace $alert.serviceBusNamespace -Topic $alert.serviceBusTopic -Name $alert.serviceBusSubscrition
+    if ($dql.MessageCount -gt $alert.threshold)
+    {
+      sendAlertTo -Team $alert.teamName -Text $alert.text
+  }
+}
