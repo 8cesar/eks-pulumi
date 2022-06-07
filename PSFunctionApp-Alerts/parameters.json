@@ -158,14 +158,14 @@
         ],
         "ServiceBusSubscriptionDQL": [
             {
-                "subscription": "511143d6-8846-4123-b816-83126e200fc5",
-                "resourceGroup": "gfx-core-t",
-                "serviceBusNamespace": "gfx-core-servicebus-t",
+                "subscription": "58d729f3-33af-4981-84ca-93e537fbdfbc",
+                "resourceGroup": "gsop-gfx-core",
+                "serviceBusNamespace": "gfxprdgsopservicebus",
                 "serviceBusTopic": "event",
                 "serviceBusSubscrition": "OcpiCdrServiceCdrCalculated",
                 "threshold": "0",
-                "text": "TEST_ALERT - Message(s) in DLQ for 'OcpiCdrServiceCdrCalculated' subscription in Event topic is > 0",
-                "teamName": "DevOps"
+                "text": "Message(s) in DLQ for 'OcpiCdrServiceCdrCalculated' subscription in Event topic are > 0",
+                "teamName": "Integration"
             }
         ]
     }
