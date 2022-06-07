@@ -155,6 +155,18 @@
                 "text": "StatusService.AllToChargePoint Subscription is > 1000 on ENE PROD",
                 "teamName": "ChargeStation"
             }
+        ],
+        "ServiceBusSubscriptionDQL": [
+            {
+                "subscription": "58d729f3-33af-4981-84ca-93e537fbdfbc",
+                "resourceGroup": "gsop-gfx-core",
+                "serviceBusNamespace": "gfxprdgsopservicebus",
+                "serviceBusTopic": "event",
+                "serviceBusSubscrition": "OcpiCdrServiceCdrCalculated",
+                "threshold": "0",
+                "text": "Message(s) in DLQ for 'OcpiCdrServiceCdrCalculated' subscription in Event topic are > 0",
+                "teamName": "Integration"
+            }
         ]
     }
 }
