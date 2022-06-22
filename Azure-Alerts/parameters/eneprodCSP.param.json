@@ -306,20 +306,6 @@
           "teamName": "SmartCharging"
         },
         {
-          "resourceGroup": "gsop-ene-smartcharging-p",
-          "WebAppName": "ene-smartcharging-fnevseeventlistener-p",
-          "alertGroupName": "ene-metrics",
-          "alertSeverity": 3,
-          "evaluationFrequency": "PT15M",
-          "windowSize": "PT1H",
-          "metricName": "Http5xx",
-          "monitname": "Http 5xx errors greater than 10",
-          "operator": "GreaterThan",
-          "threshold": 10,
-          "timeAggregation": "Total",
-          "teamName": "SmartCharging"
-        },
-        {
           "resourceGroup": "ene-smartcharging-insights-p",
           "WebAppName": "ene-scinsights-api-p",
           "alertGroupName": "ene-metrics",
