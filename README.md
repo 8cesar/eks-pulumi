@@ -99,6 +99,10 @@ All the watch actions must follow this structure:
     }
   }
 ```
+## PSFunctionApp
+
+Since Azure Metrics doesn't allow us to monitor subscritions under topic, this service is workaround for such scenarios.
+parameters.json hold subscritions that are monitored. 
 
 ## Grafana dashboards
 
