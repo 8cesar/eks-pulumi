@@ -12,7 +12,7 @@
                 "teamName": "ChargeStation"
             },
             {
-                "subscription": "3c9ecae3-4584-440f-b7cc-b2deb19f2d9c",
+                "subscription": "bb3b7f81-a212-4eb7-a8b7-ddc717562f76",
                 "resourceGroup": "gsop-ene-core",
                 "serviceBusNamespace": "eneprdgsopservicebus",
                 "serviceBusTopic": "chargepoints",
@@ -32,7 +32,7 @@
                 "teamName": "ChargeStation"
             },
             {
-                "subscription": "3c9ecae3-4584-440f-b7cc-b2deb19f2d9c",
+                "subscription": "bb3b7f81-a212-4eb7-a8b7-ddc717562f76",
                 "resourceGroup": "gsop-ene-core",
                 "serviceBusNamespace": "eneprdgsopservicebus",
                 "serviceBusTopic": "chargepoints",
@@ -51,7 +51,7 @@
                 "teamName": "ChargeStation"
             },
             {
-                "subscription": "3c9ecae3-4584-440f-b7cc-b2deb19f2d9c",
+                "subscription": "bb3b7f81-a212-4eb7-a8b7-ddc717562f76",
                 "resourceGroup": "gsop-ene-core",
                 "serviceBusNamespace": "eneprdgsopservicebus",
                 "serviceBusTopic": "chargepoints",
@@ -70,7 +70,7 @@
                 "teamName": "ChargeStation"
             },
             {
-                "subscription": "3c9ecae3-4584-440f-b7cc-b2deb19f2d9c",
+                "subscription": "bb3b7f81-a212-4eb7-a8b7-ddc717562f76",
                 "resourceGroup": "gsop-ene-core",
                 "serviceBusNamespace": "eneprdgsopservicebus",
                 "serviceBusTopic": "chargepoints",
@@ -89,7 +89,7 @@
                 "teamName": "ChargeStation"
             },
             {
-                "subscription": "3c9ecae3-4584-440f-b7cc-b2deb19f2d9c",
+                "subscription": "bb3b7f81-a212-4eb7-a8b7-ddc717562f76",
                 "resourceGroup": "gsop-ene-core",
                 "serviceBusNamespace": "eneprdgsopservicebus",
                 "serviceBusTopic": "chargepoints",
@@ -108,7 +108,7 @@
                 "teamName": "ChargeStation"
             },
             {
-                "subscription": "3c9ecae3-4584-440f-b7cc-b2deb19f2d9c",
+                "subscription": "bb3b7f81-a212-4eb7-a8b7-ddc717562f76",
                 "resourceGroup": "gsop-ene-core",
                 "serviceBusNamespace": "eneprdgsopservicebus",
                 "serviceBusTopic": "chargepoints",
@@ -127,7 +127,7 @@
                 "teamName": "ChargeStation"
             },
             {
-                "subscription": "3c9ecae3-4584-440f-b7cc-b2deb19f2d9c",
+                "subscription": "bb3b7f81-a212-4eb7-a8b7-ddc717562f76",
                 "resourceGroup": "gsop-ene-core",
                 "serviceBusNamespace": "eneprdgsopservicebus",
                 "serviceBusTopic": "chargepoints",
@@ -146,7 +146,7 @@
                 "teamName": "ChargeStation"
             },
             {
-                "subscription": "3c9ecae3-4584-440f-b7cc-b2deb19f2d9c",
+                "subscription": "bb3b7f81-a212-4eb7-a8b7-ddc717562f76",
                 "resourceGroup": "gsop-ene-core",
                 "serviceBusNamespace": "eneprdgsopservicebus",
                 "serviceBusTopic": "chargepoints",
