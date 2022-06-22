@@ -166,6 +166,16 @@
                 "threshold": "0",
                 "text": "Message(s) in DLQ for 'OcpiCdrServiceCdrCalculated' subscription in Event topic are > 0",
                 "teamName": "Integration"
+            },
+            {
+                "subscription": "bb3b7f81-a212-4eb7-a8b7-ddc717562f76",
+                "resourceGroup": "gsop-ene-core",
+                "serviceBusNamespace": "eneprdgsopservicebus",
+                "serviceBusTopic": "event",
+                "serviceBusSubscrition": "OcpiCdrServiceCdrCalculated",
+                "threshold": "0",
+                "text": "Message(s) in DLQ for 'OcpiCdrServiceCdrCalculated' subscription in Event topic are > 0",
+                "teamName": "Integration"
             }
         ]
     }
