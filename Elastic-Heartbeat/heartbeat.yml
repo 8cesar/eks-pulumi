@@ -738,3 +738,13 @@ heartbeat.monitors:
     ports: [443]
     timeouts: 10s
     check.response.status: [200]
+
+  - type: http
+    id: gsop-gfx-oicpemspservice
+    name: Hubject Emsp Service
+    tags: ["GFX", "PROD", "Integration-Team"]
+    schedule: "@every 60s"
+    urls: ["https://gsop-gfx-oicpemspservice.azurewebsites.net/api/health"]
+    ports: [443]
+    timeouts: 10s
+    check.response.status: [200]
