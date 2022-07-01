@@ -73,6 +73,13 @@
         "description": "Name of Alert"
       }
     },
+    "dimensionsValues": {
+      "type": "string",
+      "defaultValue": "",
+      "metadata": {
+        "description": "Name of the Service Bus Topic"
+      }
+    },
     "operator": {
       "type": "string",
       "DefaultValue": "GreaterThan",
@@ -118,7 +125,7 @@
   "variables": {
     "serviceBusID": "[resourceId('Microsoft.ServiceBus/namespaces', parameters('SeviceBusName'))]",
     "actionGroupID": "[resourceId(parameters('alertGroupRegr'),'microsoft.insights/actionGroups', parameters('alertGroupName'))]",
-    "metricAlertName": "[concat(parameters('seviceBusName'), '-azure-service-bus-namespace-alert-', parameters('timeAggregation'), parameters('metricName'), parameters('operator'), parameters('threshold'))]",
+    "metricAlertName": "[concat(parameters('seviceBusName'), '-azure-service-bus-namespace-alert-', parameters('timeAggregation'), parameters('metricName'), parameters('dimensionsValues'), parameters('operator'), parameters('threshold'))]",
     "metricAlertDescription": "[concat(parameters('teamName'), ' team alert for the Azure Service Bus Namespace resource named ', parameters('seviceBusName'), ': ', parameters('monitname'))]"
   },
   "resources": [
