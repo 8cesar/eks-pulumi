@@ -17,8 +17,10 @@
               "bool": {
                 "must": [
                   {
-                    "query_string": {
-                      "query": "Instance is broken"
+                    "multi_match": {
+                      "type": "phrase",
+                      "query": "Instance is broken",
+                      "lenient": true
                     }
                   }
                 ],
