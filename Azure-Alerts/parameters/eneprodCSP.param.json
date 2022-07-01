@@ -304,7 +304,7 @@
           "teamName": "ChargeStation",
           "dimensionsName":"EntityName",
           "dimensionsOperator":"Include",
-          "dimensionsValues":"cpievnt"
+          "dimensionsValues":"cpievent"
         },
         {
           "resourceGroup": "gsop-ene-core",
