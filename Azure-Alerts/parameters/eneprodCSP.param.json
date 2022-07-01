@@ -297,7 +297,7 @@
           "evaluationFrequency": "PT1H",
           "windowSize": "PT1H",
           "metricName": "ActiveMessages",
-          "monitname": "Active messages on cpievnt topic greater than 50000",
+          "monitname": "Active messages on cpievent topic greater than 50000",
           "operator": "GreaterThan",
           "threshold": 50000,
           "timeAggregation": "Average",
