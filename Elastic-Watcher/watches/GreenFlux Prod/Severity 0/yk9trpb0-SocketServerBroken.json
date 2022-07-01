@@ -24,11 +24,6 @@
                 ],
                 "filter": [
                   {
-                    "term":  {
-                      "function": "TriggerSubscriptionsCleanUp"
-                    }
-                  },
-                  {
                     "range": {
                       "@timestamp": {
                         "lte": "now",
