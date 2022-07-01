@@ -75,7 +75,7 @@
     },
     "dimensionsValues": {
       "type": "string",
-      "defaultValue": "",
+      "defaultValue": "-",
       "metadata": {
         "description": "Name of the Service Bus Topic"
       }
