@@ -68,6 +68,7 @@ for ($i =0; $i -le $arraydata.GetUpperBound(0); $i++){
         New-AzResourceGroupDeployment -name $deployment -ResourceGroupName $resourceGroup[$i] -TemplateFile $tempFilePathIncDimensions -alertGroupName $alertGroupName[$i] -alertGroupRegr $alertGroupRegr -seviceBusName $seviceBusName[$i] -alertSeverity $alertSeverity[$i] -evaluationFrequency $evaluationFrequency[$i] -windowSize  $windowSize[$i]`
             -metricName $metricName[$i]`
             -monitname $monitname[$i]`
+            -dimensionsValues $dimensionsValues[$i]`
             -operator $operator[$i]`
             -threshold $threshold[$i]`
             -timeAggregation $timeAggregation[$i]`
