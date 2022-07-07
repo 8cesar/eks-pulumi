@@ -284,7 +284,7 @@
           "operator": "GreaterThan",
           "threshold": 50000,
           "timeAggregation": "Maximum",
-          "teamName": "Portal",
+          "teamName": "Shared",
           "dimensionsName":"EntityName",
           "dimensionsOperator":"Include",
           "dimensionsValues":"chargepoints"
@@ -301,7 +301,7 @@
           "operator": "GreaterThan",
           "threshold": 50000,
           "timeAggregation": "Maximum",
-          "teamName": "Portal",
+          "teamName": "Shared",
           "dimensionsName":"EntityName",
           "dimensionsOperator":"Include",
           "dimensionsValues":"cpievent"
@@ -318,7 +318,7 @@
           "operator": "GreaterThan",
           "threshold": 50000,
           "timeAggregation": "Maximum",
-          "teamName": "Portal",
+          "teamName": "Shared",
           "dimensionsName":"EntityName",
           "dimensionsOperator":"Include",
           "dimensionsValues":"event"
@@ -335,7 +335,7 @@
           "operator": "GreaterThan",
           "threshold": 50000,
           "timeAggregation": "Maximum",
-          "teamName": "Portal",
+          "teamName": "Shared",
           "dimensionsName":"EntityName",
           "dimensionsOperator":"Include",
           "dimensionsValues":"command"
