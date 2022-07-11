@@ -52,13 +52,13 @@
           "method": "POST",
           "host": "greenfluxbv.webhook.office.com",
           "port": 443,
-          "path": "$(watcherWebhookTeamChargeStation)",
+          "path": "$(watcherWebhookSeverity0)",
           "headers": {
             "Content-Type": "application/json; charset=UTF-8"
           },
           "body": {
             "source": {
-              "text": "<h1>Watch 6aebc6b5 (Gfx Prod)</h1><br>More than 3000 boot notifications in past 1h"
+              "text": "<h1>Watch 6aebc6b6 (Gfx Prod)</h1><br>More than 3000 boot notifications in past 1h"
             }
           }
         }
