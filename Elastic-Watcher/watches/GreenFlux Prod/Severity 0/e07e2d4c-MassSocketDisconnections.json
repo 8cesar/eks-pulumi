@@ -1,0 +1,67 @@
+{
+    "trigger": {
+      "schedule": {
+        "interval": "1h"
+      }
+    },
+    "input": {
+      "search": {
+        "request": {
+          "search_type": "query_then_fetch",
+          "indices": [
+            "gfx-prod-logs*"
+          ],
+          "body": {
+            "size": 0,
+            "query": {
+              "bool": {
+                "must": [
+                  {
+                    "query_string": {
+                      "query": "indexname:*SocketServer* AND \"Connection Closed\"" 
+                    }
+                  }
+                ],
+                "filter": [
+                  {
+                    "range": {
+                      "@timestamp": {
+                        "lte": "now",
+                        "gte": "now-60m"
+                      }
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "condition": {
+      "compare": {
+        "ctx.payload.hits.total": {
+          "gt": 12000
+        }
+      }
+    },
+    "actions": {
+      "MS_Teams": {
+        "webhook": {
+          "scheme": "https",
+          "method": "POST",
+          "host": "greenfluxbv.webhook.office.com",
+          "port": 443,
+          "path": "$(watcherWebhookSeverity0)",
+          "headers": {
+            "Content-Type": "application/json; charset=UTF-8"
+          },
+          "body": {
+            "source": {
+              "text": "<h1>Watch e07e2d4c (Gfx Prod)</h1><br>Mass socket disconnections detected. More than 12k in past 1h"
+            }
+          }
+        }
+      }
+    }
+  }

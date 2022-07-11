@@ -1,0 +1,67 @@
+{
+    "trigger": {
+      "schedule": {
+        "interval": "1h"
+      }
+    },
+    "input": {
+      "search": {
+        "request": {
+          "search_type": "query_then_fetch",
+          "indices": [
+            "gfx-prod-logs*"
+          ],
+          "body": {
+            "size": 0,
+            "query": {
+              "bool": {
+                "must": [
+                  {
+                    "query_string": {
+                      "query": "is now online"
+                    }
+                  }
+                ],
+                "filter": [
+                  {
+                    "range": {
+                      "@timestamp": {
+                        "lte": "now",
+                        "gte": "now-60m"
+                      }
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "condition": {
+      "compare": {
+        "ctx.payload.hits.total": {
+          "gt": 500
+        }
+      }
+    },
+    "actions": {
+      "MS_Teams": {
+        "webhook": {
+          "scheme": "https",
+          "method": "POST",
+          "host": "greenfluxbv.webhook.office.com",
+          "port": 443,
+          "path": "$(watcherWebhookSeverity0)",
+          "headers": {
+            "Content-Type": "application/json; charset=UTF-8"
+          },
+          "body": {
+            "source": {
+              "text": "<h1>Watch 183f9f5e (Gfx Prod)</h1><br>Mass online events detected. More than 500 in past 1h"
+            }
+          }
+        }
+      }
+    }
+  }
