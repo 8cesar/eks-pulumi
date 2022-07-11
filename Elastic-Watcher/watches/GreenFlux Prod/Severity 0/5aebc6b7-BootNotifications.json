@@ -41,7 +41,7 @@
     "condition": {
       "compare": {
         "ctx.payload.hits.total": {
-          "gt": 2000
+          "gt": 3000
         }
       }
     },
@@ -58,7 +58,7 @@
           },
           "body": {
             "source": {
-              "text": "<h1>Watch 5aebc6b7 (Gfx Prod)</h1><br>More than 2000 boot notifications in past 1h"
+              "text": "<h1>Watch 5aebc6b7 (Gfx Prod)</h1><br>More than 3000 boot notifications in past 1h"
             }
           }
         }
