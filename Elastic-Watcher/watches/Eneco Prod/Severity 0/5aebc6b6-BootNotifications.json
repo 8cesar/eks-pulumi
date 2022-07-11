@@ -52,7 +52,7 @@
           "method": "POST",
           "host": "greenfluxbv.webhook.office.com",
           "port": 443,
-          "path": "$(watcherWebhookTeamChargeStation)",
+          "path": "$(watcherWebhookSeverity0)",
           "headers": {
             "Content-Type": "application/json; charset=UTF-8"
           },
