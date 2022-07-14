@@ -887,7 +887,21 @@
           "threshold": 10,
           "timeAggregation": "Total",
           "teamName": "DevOps"
-        }
+        },
+        {
+          "resourceGroup": "gsop-ene-billing-p",
+          "WebAppName": "gsop-ene-billingservice-v2-p",
+          "alertGroupName": "ene-metrics",
+          "alertSeverity": 3,
+          "evaluationFrequency": "PT15M",
+          "windowSize": "PT1H",
+          "metricName": "Http5xx",
+          "monitname": "Http 5xx errors greater than 10",
+          "operator": "GreaterThan",
+          "threshold": 10,
+          "timeAggregation": "Total",
+          "teamName": "Billing"
+        }  
       ],
       "AppservicePLan1": [
         {
@@ -1445,6 +1459,34 @@
           "windowSize": "PT1H",
           "metricName": "MemoryPercentage",
           "monitname": "Memory usage greater than 90",
+          "operator": "GreaterThan",
+          "threshold": 90,
+          "timeAggregation": "Average",
+          "teamName": "DevOps"
+        },
+        {
+          "resourceGroup": "gsop-ene-billing-p",
+          "serverfarmName": "gsop-ene-billing-p",
+          "alertGroupName": "ene-metrics",
+          "alertSeverity": 3,
+          "evaluationFrequency": "PT15M",
+          "windowSize": "PT1H",
+          "metricName": "MemoryPercentage",
+          "monitname": "Memory usage greater than 90",
+          "operator": "GreaterThan",
+          "threshold": 90,
+          "timeAggregation": "Average",
+          "teamName": "DevOps"
+        },
+        {
+          "resourceGroup": "gsop-ene-billing-p",
+          "serverfarmName": "gsop-ene-billing-p",
+          "alertGroupName": "ene-metrics",
+          "alertSeverity": 3,
+          "evaluationFrequency": "PT15M",
+          "windowSize": "PT1H",
+          "metricName": "CpuPercentage",
+          "monitname": "CPU usage greater than 90",
           "operator": "GreaterThan",
           "threshold": 90,
           "timeAggregation": "Average",
