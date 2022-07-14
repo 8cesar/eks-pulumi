@@ -18,7 +18,7 @@
                 "must": [
                   {
                     "query_string": {
-                      "query": "is now offline"
+                      "query": "\"is now offline\""
                     }
                   }
                 ],
