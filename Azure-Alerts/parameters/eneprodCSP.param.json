@@ -901,7 +901,21 @@
           "threshold": 10,
           "timeAggregation": "Total",
           "teamName": "Billing"
-        }  
+        },
+        {
+          "resourceGroup": "gsop-ene-importservice-v2-p",
+          "WebAppName": "gsop-ene-importservice-v2-p",
+          "alertGroupName": "ene-metrics",
+          "alertSeverity": 3,
+          "evaluationFrequency": "PT15M",
+          "windowSize": "PT1H",
+          "metricName": "Http5xx",
+          "monitname": "Http 5xx errors greater than 10",
+          "operator": "GreaterThan",
+          "threshold": 10,
+          "timeAggregation": "Total",
+          "teamName": "Billing"
+        }
       ],
       "AppservicePLan1": [
         {
