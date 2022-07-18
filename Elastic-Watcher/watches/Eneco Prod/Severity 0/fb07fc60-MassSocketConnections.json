@@ -9,7 +9,7 @@
         "request": {
           "search_type": "query_then_fetch",
           "indices": [
-            "gfx-prod-logs*"
+            "ene-prod-logs*"
           ],
           "body": {
             "size": 0,
@@ -19,7 +19,7 @@
                 "must": [
                   {
                     "query_string": {
-                      "query": "indexname:*SocketServer* AND level:warning"
+                      "query": "indexname:*SocketServer* AND \"Connection Opened\"" 
                     }
                   }
                 ],
@@ -42,7 +42,7 @@
     "condition": {
       "compare": {
         "ctx.payload.hits.total": {
-          "gt": 10000
+          "gt": 12000
         }
       }
     },
@@ -53,13 +53,13 @@
           "method": "POST",
           "host": "greenfluxbv.webhook.office.com",
           "port": 443,
-          "path": "$(watcherWebhookTeamChargeStation)",
+          "path": "$(watcherWebhookSeverity0)",
           "headers": {
             "Content-Type": "application/json; charset=UTF-8"
           },
           "body": {
             "source": {
-              "text": "<h1>Watch 78170e73 (Gfx Prod)</h1><br>More than 10000 warnings in socket servers in past 1h"
+              "text": "<h1>Watch fb07fc60 (Ene Prod)</h1><br>Mass socket new connections detected. More than 12k in past 1h"
             }
           }
         }

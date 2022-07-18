@@ -114,6 +114,7 @@
     },
     "teamName": {
       "type": "string",
+      "DefaultValue": "-",
       "metadata": {
         "description": "name of teams"
       }
