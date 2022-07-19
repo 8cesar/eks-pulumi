@@ -126,7 +126,7 @@
     "descriptionAlert": "[if(equals(parameters('teamName'),'Shared'), 'Alert', concat(parameters('teamName'),' team alert'))]",
     "serviceBusID": "[resourceId('Microsoft.ServiceBus/namespaces', parameters('SeviceBusName'))]",
     "actionGroupID": "[resourceId(parameters('alertGroupRegr'),'microsoft.insights/actionGroups', parameters('alertGroupName'))]",
-    "metricAlertName": "[concat(parameters('seviceBusName'), '-azure-service-bus-namespace-alert-', parameters('timeAggregation'), parameters('metricName'), parameters('dimensionsValues'), parameters('operator'), parameters('threshold'))]",
+    "metricAlertName": "[concat(parameters('seviceBusName'), '-azure-service-bus-namespace-alert-', parameters('timeAggregation'), parameters('metricName'), parameters('dimensionsValues'), parameters('operator'), parameters('threshold'), '-', uniqueString(utcNow()))]",
     "metricAlertDescription": "[concat(variables('descriptionAlert'),' for the Azure Service Bus Namespace resource named ', parameters('seviceBusName'), ': ', parameters('monitname'))]"
   },
   "resources": [
