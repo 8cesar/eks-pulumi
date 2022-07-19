@@ -110,16 +110,12 @@
       "metadata": {
         "description": "name of teams"
       }
-    },
-    "utcnow": {
-      "type": "string",
-      "defaultValue": "[utcnow()]"
-    }        
+    }  
   },
   "variables": {
     "GatewayID": "[resourceId('Microsoft.Network/virtualNetworkGateways', parameters('gatewayName'))]",
     "actionGroupID": "[resourceId(parameters('alertGroupRegr'),'microsoft.insights/actionGroups', parameters('alertGroupName'))]",
-    "metricAlertName": "[concat(parameters('gatewayName'), '-virtual-network-gateway-alert-', parameters('timeAggregation'), parameters('metricName'), parameters('operator'), parameters('threshold'), '-', uniqueString(parameters('utcnow')))]",
+    "metricAlertName": "[concat(parameters('gatewayName'), '-virtual-network-gateway-alert-', parameters('timeAggregation'), parameters('metricName'), parameters('operator'), parameters('threshold'), '-', uniqueString(variables('GatewayID')))]",
     "metricAlertDescription": "[concat(parameters('teamName'), ' team alert for the Azure Virtual Network Gateway resource named ', parameters('gatewayName'), ': ', parameters('monitname'))]"
   },
   "resources": [

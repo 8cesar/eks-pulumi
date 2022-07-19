@@ -113,16 +113,12 @@
       "metadata": {
         "description": "name of teams"
       }
-    },
-    "utcnow": {
-      "type": "string",
-      "defaultValue": "[utcnow()]"
-    }        
+    }
   },
   "variables": {
     "eventHubID": "[resourceId('Microsoft.EventHub/namespaces', parameters('eventHubName'))]",
     "actionGroupID": "[resourceId(parameters('alertGroupRegr'),'microsoft.insights/actionGroups', parameters('alertGroupName'))]",
-    "metricAlertName": "[concat(parameters('eventHubName'), '-event-hub-alert-', parameters('timeAggregation'), parameters('metricName'), parameters('operator'), parameters('threshold'), '-', uniqueString(parameters('utcnow')))]",
+    "metricAlertName": "[concat(parameters('eventHubName'), '-event-hub-alert-', parameters('timeAggregation'), parameters('metricName'), parameters('operator'), parameters('threshold'), '-', uniqueString(variables('eventHubID')))]",
     "metricAlertDescription": "[concat(parameters('teamName'), ' team alert for the Azure Event Hub resource named ', parameters('eventHubName'), ': ', parameters('monitname'))]"
   },
   "resources": [

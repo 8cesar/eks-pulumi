@@ -118,16 +118,12 @@
       "metadata": {
         "description": "name of teams"
       }
-    },
-    "utcnow": {
-      "type": "string",
-      "defaultValue": "[utcnow()]"
-    }    
+    }
   },
   "variables": {
     "serverfarmID": "[resourceId('Microsoft.Web/serverfarms', parameters('serverfarmName'))]",
     "actionGroupID": "[resourceId(parameters('alertGroupRegr'),'microsoft.insights/actionGroups', parameters('alertGroupName'))]",
-    "metricAlertName": "[concat(parameters('serverfarmName'), '-azure-app-service-plan-alert-', parameters('timeAggregation'), parameters('metricName'), parameters('operator'), parameters('threshold'), '-', uniqueString(parameters('utcnow')))]",
+    "metricAlertName": "[concat(parameters('serverfarmName'), '-azure-app-service-plan-alert-', parameters('timeAggregation'), parameters('metricName'), parameters('operator'), parameters('threshold'), '-', uniqueString(variables('serverfarmID')))]",
     "metricAlertDescription": "[concat(parameters('teamName'), ' team alert for the Azure App Service Plan resource named ', parameters('serverfarmName'), ': ', parameters('monitname'))]"
   },
   "resources": [

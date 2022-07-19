@@ -113,16 +113,12 @@
       "metadata": {
         "description": "name of teams"
       }
-    },
-    "utcnow": {
-      "type": "string",
-      "defaultValue": "[utcnow()]"
-    }        
+    }
   },
   "variables": {
     "synapseID": "[resourceId('Microsoft.Synapse/workspaces', parameters('SynapseName'))]",
     "actionGroupID": "[resourceId(parameters('alertGroupRegr'),'microsoft.insights/actionGroups', parameters('alertGroupName'))]",
-    "metricAlertName": "[concat(parameters('SynapseName'), '-azure-synapse-workspace-alert-', parameters('timeAggregation'), parameters('metricName'), parameters('operator'), parameters('threshold'), '-', uniqueString(parameters('utcnow')))]",
+    "metricAlertName": "[concat(parameters('SynapseName'), '-azure-synapse-workspace-alert-', parameters('timeAggregation'), parameters('metricName'), parameters('operator'), parameters('threshold'), '-', uniqueString(variables('synapseID')))]",
     "metricAlertDescription": "[concat(parameters('teamName'), ' team alert for the Azure Synapse Workspace resource named ', parameters('SynapseName'), ': ', parameters('monitname'))]"
   },
   "resources": [
