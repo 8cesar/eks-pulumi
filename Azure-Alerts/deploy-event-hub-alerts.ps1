@@ -36,18 +36,23 @@ $threshold=$arraydata.threshold
 $timeAggregation=$arraydata.timeAggregation
 $teamName=$arraydata.teamName
 
+
 for ($i =0; $i -le $arraydata.GetUpperBound(0); $i++){
 
 
+    $deployment = ("$deploymentName" + "$i")
 
-$deployment = ("$deploymentName" + "$i")
+    if ($resourceGroup -is [array]) {
+        New-AzResourceGroupDeployment -name $deployment -ResourceGroupName $resourceGroup[$i] -TemplateFile $tempFilePath -alertGroupName $alertGroupName[$i] -alertGroupRegr $alertGroupRegr -eventHubName $eventHubName[$i] -alertSeverity $alertSeverity[$i] -evaluationFrequency $evaluationFrequency[$i] -windowSize  $windowSize[$i]`
+        -metricName $metricName[$i]`
+        -monitname $monitname[$i]`
+        -operator $operator[$i]`
+        -threshold $threshold[$i]`
+        -timeAggregation $timeAggregation[$i]`
+        -teamName $teamName[$i] -Verbose
+    } else {
+        # in case there is just one record which is not an array
+        New-AzResourceGroupDeployment -name $deployment -ResourceGroupName $resourceGroup -TemplateFile $tempFilePath -alertGroupName $alertGroupName -alertGroupRegr $alertGroupRegr -eventHubName $eventHubName -alertSeverity $alertSeverity -evaluationFrequency $evaluationFrequency -windowSize  $windowSize -metricName $metricName -monitname $monitname -operator $operator -threshold $threshold -timeAggregation $timeAggregation -teamName $teamName -Verbose
 
-
-New-AzResourceGroupDeployment -name $deployment -ResourceGroupName $resourceGroup[$i] -TemplateFile $tempFilePath -alertGroupName $alertGroupName[$i] -alertGroupRegr $alertGroupRegr -eventHubName $eventHubName[$i] -alertSeverity $alertSeverity[$i] -evaluationFrequency $evaluationFrequency[$i] -windowSize  $windowSize[$i]`
--metricName $metricName[$i]`
--monitname $monitname[$i]`
--operator $operator[$i]`
--threshold $threshold[$i]`
--timeAggregation $timeAggregation[$i]`
--teamName $teamName[$i] -Verbose
+    }
 }
