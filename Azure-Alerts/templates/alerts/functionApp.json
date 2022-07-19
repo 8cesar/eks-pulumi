@@ -111,12 +111,16 @@
       "metadata": {
         "description": "name of teams"
       }
-    }
+    },
+    "utcnow": {
+      "type": "string",
+      "defaultValue": "[utcnow()]"
+    }        
   },
   "variables": {
     "webAppID": "[resourceId('Microsoft.Web/sites', parameters('WebAppName'))]",
     "actionGroupID": "[resourceId(parameters('alertGroupRegr'),'microsoft.insights/actionGroups', parameters('alertGroupName'))]",
-    "metricAlertName": "[concat(parameters('WebAppName'), '-azure-function-app-alert-', parameters('timeAggregation'), parameters('metricName'), parameters('operator'), parameters('threshold'))]",
+    "metricAlertName": "[concat(parameters('WebAppName'), '-azure-function-app-alert-', parameters('timeAggregation'), parameters('metricName'), parameters('operator'), parameters('threshold'), '-', uniqueString(parameters('utcnow')))]",
     "metricAlertDescription": "[concat(parameters('teamName'), ' team alert for the Azure Function App resource named ', parameters('WebAppName'), ': ', parameters('monitname'))]"
   },
   "resources": [
