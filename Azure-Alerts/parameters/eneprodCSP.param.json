@@ -158,7 +158,7 @@
           "operator": "GreaterThan",
           "threshold": 10,
           "timeAggregation": "Total",
-          "teamName": "DevOps"
+          "teamName": "Shared"
         },
         {
           "resourceGroup": "gsop-ene-core",
@@ -172,7 +172,7 @@
           "operator": "GreaterThan",
           "threshold": 10,
           "timeAggregation": "Total",
-          "teamName": "DevOps"
+          "teamName": "Shared"
         },
         {
           "resourceGroup": "gsop-ene-core",
@@ -186,7 +186,7 @@
           "operator": "GreaterThan",
           "threshold": 1000000000,
           "timeAggregation": "Average",
-          "teamName": "DevOps"
+          "teamName": "Shared"
         },
         {
           "resourceGroup": "gsop-ene-core",
@@ -200,7 +200,7 @@
           "operator": "GreaterThan",
           "threshold": 500000,
           "timeAggregation": "Average",
-          "teamName": "DevOps"
+          "teamName": "Shared"
         },
         {
           "resourceGroup": "gsop-ene-core",
@@ -269,6 +269,74 @@
           "dimensionsName":"EntityName",
           "dimensionsOperator":"Include",
           "dimensionsValues":"command"
+        },
+        {
+          "resourceGroup": "gsop-ene-core",
+          "seviceBusName": "eneprdgsopservicebus",
+          "alertGroupName": "ene-metrics",
+          "alertSeverity": 0,
+          "evaluationFrequency": "PT5M",
+          "windowSize": "PT5M",
+          "metricName": "ServerSendLatency",
+          "monitname": "Server Send Latency on chargepoints topic is greater than 50 ms",
+          "operator": "GreaterThan",
+          "threshold": 50,
+          "timeAggregation": "Average",
+          "teamName": "Shared",
+          "dimensionsName":"EntityName",
+          "dimensionsOperator":"Include",
+          "dimensionsValues":"chargepoints"
+        },
+        {
+          "resourceGroup": "gsop-ene-core",
+          "seviceBusName": "eneprdgsopservicebus",
+          "alertGroupName": "ene-metrics",
+          "alertSeverity": 0,
+          "evaluationFrequency": "PT5M",
+          "windowSize": "PT5M",
+          "metricName": "ServerSendLatency",
+          "monitname": "Server Send Latency on command topic is greater than 50 ms",
+          "operator": "GreaterThan",
+          "threshold": 50,
+          "timeAggregation": "Average",
+          "teamName": "Shared",
+          "dimensionsName":"EntityName",
+          "dimensionsOperator":"Include",
+          "dimensionsValues":"command"
+        },
+        {
+          "resourceGroup": "gsop-ene-core",
+          "seviceBusName": "eneprdgsopservicebus",
+          "alertGroupName": "ene-metrics",
+          "alertSeverity": 0,
+          "evaluationFrequency": "PT5M",
+          "windowSize": "PT5M",
+          "metricName": "ServerSendLatency",
+          "monitname": "Server Send Latency on cpievent topic is greater than 50 ms",
+          "operator": "GreaterThan",
+          "threshold": 50,
+          "timeAggregation": "Average",
+          "teamName": "Shared",
+          "dimensionsName":"EntityName",
+          "dimensionsOperator":"Include",
+          "dimensionsValues":"cpievent"
+        },
+        {
+          "resourceGroup": "gsop-ene-core",
+          "seviceBusName": "eneprdgsopservicebus",
+          "alertGroupName": "ene-metrics",
+          "alertSeverity": 0,
+          "evaluationFrequency": "PT5M",
+          "windowSize": "PT5M",
+          "metricName": "ServerSendLatency",
+          "monitname": "Server Send Latency on event topic is greater than 50 ms",
+          "operator": "GreaterThan",
+          "threshold": 50,
+          "timeAggregation": "Average",
+          "teamName": "Shared",
+          "dimensionsName":"EntityName",
+          "dimensionsOperator":"Include",
+          "dimensionsValues":"event"
         }
       ],
       "WebServices": [
