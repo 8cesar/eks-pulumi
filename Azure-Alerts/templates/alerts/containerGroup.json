@@ -110,12 +110,16 @@
       "metadata": {
         "description": "name of teams"
       }
-    }
+    },
+    "utcnow": {
+      "type": "string",
+      "defaultValue": "[utcnow()]"
+    }        
   },
   "variables": {
     "ContainerID": "[resourceId('Microsoft.ContainerInstance/containerGroups', parameters('containerName'))]",
     "actionGroupID": "[resourceId(parameters('alertGroupRegr'),'microsoft.insights/actionGroups', parameters('alertGroupName'))]",
-    "metricAlertName": "[concat(parameters('containerName'), '-container-group-alert-', parameters('timeAggregation'), parameters('metricName'), parameters('operator'), parameters('threshold'))]",
+    "metricAlertName": "[concat(parameters('containerName'), '-container-group-alert-', parameters('timeAggregation'), parameters('metricName'), parameters('operator'), parameters('threshold'), '-', uniqueString(variables('ContainerID')))]",
     "metricAlertDescription": "[concat(parameters('teamName'), ' team alert for the Azure Container Group resource named ', parameters('containerName'), ': ', parameters('monitname'))]"
   },
   "resources": [
