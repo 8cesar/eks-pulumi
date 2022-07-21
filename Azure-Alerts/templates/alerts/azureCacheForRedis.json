@@ -113,12 +113,12 @@
       "metadata": {
         "description": "name of teams"
       }
-    }
+    }        
   },
   "variables": {
     "RedisID": "[resourceId('Microsoft.Cache/Redis', parameters('redisName'))]",
     "actionGroupID": "[resourceId(parameters('alertGroupRegr'),'microsoft.insights/actionGroups', parameters('alertGroupName'))]",
-    "metricAlertName": "[concat(parameters('redisName'), '-azure-cache-for-redis-alert-', parameters('timeAggregation'), parameters('metricName'), parameters('operator'), parameters('threshold'))]",
+    "metricAlertName": "[concat(parameters('redisName'), '-azure-cache-for-redis-alert-', parameters('timeAggregation'), parameters('metricName'), parameters('operator'), parameters('threshold'), '-', uniqueString(variables('RedisID')))]",
     "metricAlertDescription": "[concat(parameters('teamName'), ' team alert for the Azure Cache for Redis resource named ', parameters('redisName'), ': ', parameters('monitname'))]"
   },
   "resources": [

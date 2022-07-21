@@ -92,7 +92,7 @@
   "variables": {
     "sqlDatabaseID": "[resourceId('Microsoft.Sql/servers/databases', parameters('sqlServerName'), parameters('sqlDbName'))]",
     "actionGroupID": "[resourceId(parameters('alertGroupRegr'),'microsoft.insights/actionGroups', parameters('alertGroupName'))]",
-    "metricAlertName": "[concat(parameters('sqlDbName'), '-azure-sql-server-alert-', parameters('timeAggregation'), parameters('metricName'), parameters('operator'), parameters('threshold'))]",
+    "metricAlertName": "[concat(parameters('sqlDbName'), '-azure-sql-server-alert-', parameters('timeAggregation'), parameters('metricName'), parameters('operator'), parameters('threshold'), '-', uniqueString(variables('sqlDatabaseID')))]",
     "metricAlertDescription": "[concat(parameters('teamName'), ' team alert for the Azure SQL server resource named ', parameters('sqlDbName'), ': ', parameters('monitname'))]"
   },
   "resources": [
