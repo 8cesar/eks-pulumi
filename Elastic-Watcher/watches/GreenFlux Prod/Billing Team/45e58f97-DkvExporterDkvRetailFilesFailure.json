@@ -18,7 +18,7 @@
               "must": [
                 {
                   "query_string": {
-                    "query": "indexname:\"DkvCdrExporterService\" AND \"BL_DKV_EXPORTER_NONDKV_FILES_SUCCESS\""
+                    "query": "indexname:\"DkvCdrExporterService\" AND \"BL_DKV_EXPORTER_DKV_RETAIL_FILES_SUCCESS\""
                   }
                 }
               ],
@@ -59,7 +59,7 @@
         },
         "body": {
           "source": {
-            "text": "<h1>Watch 4c4a168f (Gfx Prod)</h1><br>There is an error while exporting non-dkv files"
+            "text": "<h1>Watch c9219641 (Gfx Prod)</h1><br>There is an error while exporting dkv files"
           }
         }
       }
