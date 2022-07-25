@@ -551,6 +551,20 @@
           "teamName": "ChargeStation"
         },
         {
+          "resourceGroup": "gfx-socketserver",
+          "WebAppName": "gsop-ene-cpisocketserverprivate",
+          "alertGroupName": "ene-metrics",
+          "alertSeverity": 0,
+          "evaluationFrequency": "PT15M",
+          "windowSize": "PT1H",
+          "metricName": "Http5xx",
+          "monitname": "Http 5xx errors greater than 1000",
+          "operator": "GreaterThan",
+          "threshold": 1000,
+          "timeAggregation": "Total",
+          "teamName": "Shared"
+        },
+        {
           "resourceGroup": "gsop-ene-cpi",
           "WebAppName": "gsop-ene-cpicpcommander",
           "alertGroupName": "ene-metrics",
@@ -610,7 +624,7 @@
           "resourceGroup": "gsop-ene-cpi",
           "WebAppName": "gsop-ene-cpisocketserverpublic",
           "alertGroupName": "ene-metrics",
-          "alertSeverity": 3,
+          "alertSeverity": 0,
           "evaluationFrequency": "PT15M",
           "windowSize": "PT1H",
           "metricName": "Http5xx",
@@ -618,7 +632,7 @@
           "operator": "GreaterThan",
           "threshold": 1000,
           "timeAggregation": "Total",
-          "teamName": "ChargeStation"
+          "teamName": "Shared"
         },
         {
           "resourceGroup": "gsop-ene-cpi",
