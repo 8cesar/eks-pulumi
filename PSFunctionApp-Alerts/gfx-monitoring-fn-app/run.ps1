@@ -26,7 +26,7 @@ $alerts=$data.$processname.$DLQSubscription
 foreach ($alert in $alerts){
     Select-AzSubscription -SubscriptionId $alert.subscription
     $dlq = Get-AzServiceBusSubscription -ResourceGroupName $alert.resourceGroup -Namespace $alert.serviceBusNamespace -Topic $alert.serviceBusTopic -Name $alert.serviceBusSubscrition
-    if ($dql.MessageCount -gt $alert.threshold)
+    if ($dlq.MessageCount -gt $alert.threshold)
     {
       sendAlertTo -Team $alert.teamName -Text $alert.text
   }
