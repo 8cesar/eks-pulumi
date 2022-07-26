@@ -163,7 +163,7 @@
                 "serviceBusNamespace": "gfxprdgsopservicebus",
                 "serviceBusTopic": "event",
                 "serviceBusSubscrition": "OcpiCdrServiceCdrCalculated",
-                "threshold": "0",
+                "threshold": 0,
                 "text": "Message(s) in DLQ for 'OcpiCdrServiceCdrCalculated' subscription in Event topic are > 0",
                 "teamName": "Integration"
             },
@@ -173,7 +173,7 @@
                 "serviceBusNamespace": "eneprdgsopservicebus",
                 "serviceBusTopic": "event",
                 "serviceBusSubscrition": "OcpiCdrServiceCdrCalculated",
-                "threshold": "0",
+                "threshold": 0,
                 "text": "Message(s) in DLQ for 'OcpiCdrServiceCdrCalculated' subscription in Event topic are > 0",
                 "teamName": "Integration"
             }
