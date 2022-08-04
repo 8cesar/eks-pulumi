@@ -42,7 +42,7 @@
     "condition": {
       "compare": {
         "ctx.payload.hits.total": {
-          "gt": 12000
+          "gt": 7000
         }
       }
     },
@@ -59,7 +59,7 @@
           },
           "body": {
             "source": {
-              "text": "<h1>Watch e07e2d4b (Ene Prod)</h1><br>Mass socket disconnections detected. More than 12k in past 1h"
+              "text": "<h1>Watch e07e2d4b (Ene Prod)</h1><br>Mass socket disconnections detected. More than 7k in past 1h"
             }
           }
         }
